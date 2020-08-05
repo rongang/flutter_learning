@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutterdemo/pages/flare/flare_demo.dart';
+import 'package:flutterdemo/pages/flare/flare_uses.dart';
 
 import '../../component/action_item.dart';
 import 'pages/animation_page_1.dart';
@@ -17,6 +19,8 @@ class AnimationPage extends StatelessWidget {
           ActionItem(title: '动画一',page: AnimationPage1(),),
           ActionItem(title: '动画二',page: AnimationPage2(),),
           ActionItem(title: '动画三',page: AnimationPage3(),),
+          ActionItem(title: 'Flare动画',page: FlareDemo(),),
+          ActionItem(title: 'Flare动画应用',page: FlareUsersPage(),),
         ],
       )
     );

@@ -1,8 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutterdemo/pages/UI/ui_page.dart';
 import 'package:flutterdemo/pages/animation/animation_page.dart';
+import 'package:flutterdemo/pages/sliver/sliver_demo1.dart';
+import 'package:flutterdemo/pages/splashPage/splashPageDemo1.dart';
 
 import 'component/action_item.dart';
+import 'pages/UI/ui_1.dart';
 
 void main() {
   runApp(MyApp());
@@ -14,6 +18,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
         // This is the theme of your application.
         //
@@ -30,7 +35,7 @@ class MyApp extends StatelessWidget {
         // closer together (more dense) than on mobile platforms.
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
+      home: SplashPageDemo1(),
     );
   }
 }
@@ -83,7 +88,9 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       body: ListView(
         children: <Widget>[
-          ActionItem(title: '动画',page: AnimationPage(),)
+          ActionItem(title: '动画',page: AnimationPage(),),
+          ActionItem(title: 'UI',page: UiPage(),),
+          ActionItem(title: 'Sliver',page: SliverDemo1(),),
         ],
       ),
       floatingActionButton: FloatingActionButton(
