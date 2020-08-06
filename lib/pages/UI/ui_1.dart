@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutterdemo/pages/UI/ui_2.dart';
 
 class UI1 extends StatefulWidget {
@@ -72,8 +73,8 @@ class _MyPageViewState extends State<MyPageView> {
       itemCount: images.length,
       controller: _controller,
       itemBuilder: (context, index) {
-        double scale = min(0.8, 1 - (pageOffset - index));
-        double angle = pageOffset - index;
+        double scale = max(0.8, 1.8 - (pageOffset - index).abs());
+        double angle = (pageOffset - index).abs();
         if (angle > 0.5) angle = 1 - angle;
         return Transform(
           transform: Matrix4.identity()
@@ -83,10 +84,16 @@ class _MyPageViewState extends State<MyPageView> {
             tag: images[index],
             child: GestureDetector(
               onTap: () {
-                Navigator.push(
-                    context,
-                    CupertinoPageRoute(
-                        builder: (context) => DetailsPage(url: images[index])));
+                Navigator.push(context, PageRouteBuilder(
+                    barrierColor:Colors.white60,
+                    opaque: false,
+                    pageBuilder:
+                    (BuildContext context, Animation<double> animation,
+                        Animation<double> secondaryAnimation) {
+                  return FadeTransition(
+                    opacity: animation,
+                      child: DetailsPage(url: images[index]));
+                }));
               },
               child: AnimatedContainer(
                 duration: Duration(milliseconds: 300),
@@ -119,40 +126,52 @@ class DetailsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: CustomScrollView(
-        slivers: <Widget>[
-          SliverToBoxAdapter(
-            child: Stack(
-              children: <Widget>[
-                Hero(
-                  tag: url,
-                  child: Container(
-                    height: 200,
-                    width: MediaQuery.of(context).size.width,
-                    decoration: BoxDecoration(
-                        image: DecorationImage(
-                      image: NetworkImage(url),
-                      fit: BoxFit.cover,
-                    )),
+      body: AnnotatedRegion<SystemUiOverlayStyle>(
+        value: SystemUiOverlayStyle(
+          statusBarBrightness: Brightness.dark,
+          statusBarColor: Colors.transparent,
+          statusBarIconBrightness: Brightness.dark,
+        ),
+        child: Stack(
+          children: <Widget>[
+            CustomScrollView(
+              slivers: <Widget>[
+                SliverToBoxAdapter(
+                  child: Stack(
+                    children: <Widget>[
+                      Hero(
+                        tag: url,
+                        child: Container(
+                          height: 200,
+                          width: MediaQuery.of(context).size.width,
+                          decoration: BoxDecoration(
+                              image: DecorationImage(
+                            image: NetworkImage(url),
+                            fit: BoxFit.cover,
+                          )),
+                        ),
+                      ),
+                      Positioned(
+                        top: 100,
+                        child: Container(
+                          height: 70,
+                          width: MediaQuery.of(context).size.width,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                        ),
+                      )
+                    ],
                   ),
                 ),
-                Positioned(
-                  top: 100,
-                  child: Container(
-                    height: 70,
-                    width: MediaQuery.of(context).size.width,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                  ),
-                )
               ],
             ),
-          )
-        ],
+            SafeArea(child: BackButton(color: Colors.white,))
+          ],
+        ),
       ),
       floatingActionButton: FloatingActionButton(
-        backgroundColor: Colors.grey,
+        backgroundColor: Colors.white,
         elevation: 0,
         child: Ui2(
           onchange: (status) {

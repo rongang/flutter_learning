@@ -3,12 +3,12 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 
-class AnimationPage3 extends StatefulWidget {
+class AnimationPage4 extends StatefulWidget {
   @override
-  _AnimationPage3State createState() => _AnimationPage3State();
+  _AnimationPage4State createState() => _AnimationPage4State();
 }
 
-class _AnimationPage3State extends State<AnimationPage3>
+class _AnimationPage4State extends State<AnimationPage4>
     with SingleTickerProviderStateMixin {
   Random random = Random();
   double dataSet;
@@ -117,4 +117,7 @@ class BarTween extends Tween<Bar> {
 
 class RandomColor{
   static Color random() => Colors.accents[Random().nextInt(15)];
+}
+class BarChart{
+  List<Bar> bars = [];
 }

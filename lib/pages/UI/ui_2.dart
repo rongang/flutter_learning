@@ -12,7 +12,7 @@ class Ui2 extends StatefulWidget {
 }
 
 class _Ui2State extends State<Ui2> {
-  String animationName = 'Unfavorited';
+  String animationName = 'unfavorite';
   FlareControls _controls = FlareControls();
 
   @override
@@ -22,21 +22,21 @@ class _Ui2State extends State<Ui2> {
         width: 40,
         height: 40,
         child: FlareActor(
-          'assets/images/favorite_border_animated.flr',
+          'assets/images/Favorite.flr',
           alignment: Alignment.center,
             animation: animationName,
-          controller: _controls,
+//          controller: _controls,
         ),
       ),
       onTap: () {
-        if (animationName == 'Favorite') {
+        if (animationName == 'favorite') {
           setState(() {
-            animationName = 'Unfavorited';
+            animationName = 'unfavorite';
           });
-//          _controls.play('Unfavorited');
+//          _controls.play('unfavorite');
         } else {
           setState(() {
-            animationName = 'Favorite';
+            animationName = 'favorite';
           });
 //          _controls.play('Favorite');
         }

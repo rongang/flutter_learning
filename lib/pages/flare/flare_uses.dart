@@ -12,9 +12,7 @@ class _FlareUsersPageState extends State<FlareUsersPage> {
     return Scaffold(
       body: Stack(
         children: <Widget>[
-          Positioned(
-//            top: 0,
-            child: Container(
+          Container(
               height: MediaQuery.of(context).size.height,
               child: CustomScrollView(
                 slivers: <Widget>[
@@ -37,17 +35,22 @@ class _FlareUsersPageState extends State<FlareUsersPage> {
                           height: 200,
                           color: Colors.blue[700],
                         ),
+                        Container(
+                          height: 200,
+                          color: Colors.blue[700],
+                        ),
                       ],
                     ),
                   )
                 ],
-              )
-            ),
-          ),
+              )),
           Positioned(
             bottom: 0,
+//            left: 0,
+//            right: 0,
+            width: MediaQuery.of(context).size.width,
             child: Container(
-              height: 100,
+              height: 110,
               width: MediaQuery.of(context).size.width,
               child: FlareDemo(),
             ),
