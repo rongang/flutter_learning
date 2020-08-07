@@ -3,6 +3,8 @@ import 'package:flutterdemo/component/action_item.dart';
 import 'package:flutterdemo/pages/UI/ui_1.dart';
 import 'package:flutterdemo/pages/UI/ui_2.dart';
 
+import 'ui_3.dart';
+
 class UiPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -14,6 +16,7 @@ class UiPage extends StatelessWidget {
         children: <Widget>[
           ActionItem(title: '展览页', page: UI1()),
           ActionItem(title: '点赞', page: Ui2()),
+          ActionItem(title: '侧滑个人面板', page: Ui3()),
         ],
       ),
     );

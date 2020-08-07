@@ -12,6 +12,7 @@ import 'package:provider/single_child_widget.dart';
 
 import 'component/action_item.dart';
 import 'pages/UI/ui_1.dart';
+import 'pages/calender/calender_demo.dart';
 import 'pages/i18n/i18n_page.dart';
 import 'pages/theme/theme_provider.dart';
 
@@ -39,68 +40,68 @@ class _MyAppState extends State<MyApp> {
             create: (_) => LanguageProvider()),
         ChangeNotifierProvider<ThemeProvider>(create: (_) => ThemeProvider()),
       ],
-      child: Builder(
-        builder: (context) {
-          LanguageProvider languageProvider =
-              Provider.of<LanguageProvider>(context);
-          ThemeProvider themeProvider = Provider.of<ThemeProvider>(context);
-          return MaterialApp(
-            themeMode: ThemeMode.dark,
-            // themeProvider.nowThemeMode,
-            locale: languageProvider.nowLocale,
-            supportedLocales: I18nDemo.supportLanguageIterable,
-            localizationsDelegates: [
-              GlobalWidgetsLocalizations.delegate,
-              GlobalMaterialLocalizations.delegate,
-              I18nDemo.delegate
-            ],
-            localeListResolutionCallback:
-                (List<Locale> locales, Iterable<Locale> supportedLocales) {
-              print('locale:${locales.toString()}');
-              print('support:${supportedLocales.toString()}');
-              bool hasZH = false;
-              locales.forEach((e) {
-                if (e.languageCode == 'zh') hasZH = true;
-              });
-              if (hasZH) {
-                languageProvider.nowLocale = Locale('zh', 'CN');
-                return Locale('zh', 'CN');
-              }
-              languageProvider.nowLocale = locales[0];
-              return locales[0];
-            },
+      builder: (context,child){
+        LanguageProvider languageProvider = context.watch<LanguageProvider>();
+//              Provider.of<LanguageProvider>(context);
+        ThemeProvider themeProvider = Provider.of<ThemeProvider>(context);
+        Brightness _brightness = context.select((ThemeProvider provider) => provider.nowBrightness);
+        return MaterialApp(
+          themeMode: themeProvider.nowThemeMode,
+          // themeProvider.nowThemeMode,
+          locale: languageProvider.nowLocale,
+          supportedLocales: I18nDemo.supportLanguageIterable,
+          localizationsDelegates: [
+            GlobalWidgetsLocalizations.delegate,
+            GlobalMaterialLocalizations.delegate,
+            I18nDemo.delegate
+          ],
+//          localeListResolutionCallback:
+//              (List<Locale> locales, Iterable<Locale> supportedLocales) {
+//            print('locale:${locales.toString()}');
+//            print('support:${supportedLocales.toString()}');
+//            bool hasZH = false;
+//            locales.forEach((e) {
+//              if (e.languageCode == 'zh') hasZH = true;
+//            });
+//            if (hasZH) {
+//              languageProvider.nowLocale = Locale('zh', 'CN');
+//              return Locale('zh', 'CN');
+//            }
+//            languageProvider.nowLocale = locales[0];
+//            return locales[0];
+//          },
 //      localeResolutionCallback: (locale,support){
 //        print('locale:$locale');
 //        print('support:${support.toString()}');
 //        return locale;
 //      },
-            title: 'Flutter Demo',
-            debugShowCheckedModeBanner: false,
-            theme: ThemeData(
-                brightness: themeProvider.nowBrightness,
-                // This is the theme of your application.
-                //
-                // Try running your application with "flutter run". You'll see the
-                // application has a blue toolbar. Then, without quitting the app, try
-                // changing the primarySwatch below to Colors.green and then invoke
-                // "hot reload" (press "r" in the console where you ran "flutter run",
-                // or simply save your changes to "hot reload" in a Flutter IDE).
-                // Notice that the counter didn't reset back to zero; the application
-                // is not restarted.
-                primarySwatch: Colors.blue,
-                // This makes the visual density adapt to the platform that you run
-                // the app on. For desktop platforms, the controls will be smaller and
-                // closer together (more dense) than on mobile platforms.
-                visualDensity: VisualDensity.adaptivePlatformDensity,
-                floatingActionButtonTheme: FloatingActionButtonThemeData(
-                    foregroundColor:
-                        themeProvider.nowBrightness == Brightness.light
-                            ? Colors.blue[300]
-                            : Colors.black)),
-            home: SplashPageDemo1(),
-          );
-        },
-      ),
+          title: 'Flutter Demo',
+          debugShowCheckedModeBanner: false,
+          theme: ThemeData(
+              brightness: _brightness,
+              // This is the theme of your application.
+              //
+              // Try running your application with "flutter run". You'll see the
+              // application has a blue toolbar. Then, without quitting the app, try
+              // changing the primarySwatch below to Colors.green and then invoke
+              // "hot reload" (press "r" in the console where you ran "flutter run",
+              // or simply save your changes to "hot reload" in a Flutter IDE).
+              // Notice that the counter didn't reset back to zero; the application
+              // is not restarted.
+              primarySwatch: Colors.blue,
+              // This makes the visual density adapt to the platform that you run
+              // the app on. For desktop platforms, the controls will be smaller and
+              // closer together (more dense) than on mobile platforms.
+              visualDensity: VisualDensity.adaptivePlatformDensity,
+              floatingActionButtonTheme: FloatingActionButtonThemeData(
+                  foregroundColor:
+                  themeProvider.nowBrightness == Brightness.light
+                      ? Colors.blue[300]
+                      : Colors.black)),
+          home: SplashPageDemo1(),
+        );
+      },
+
     );
   }
 }
@@ -146,6 +147,7 @@ class _MyHomePageState extends State<MyHomePage> {
           ActionItem(title: 'UI', page: UiPage()),
           ActionItem(title: 'Sliver', page: SliverDemo1()),
           ActionItem(title: 'I18nPage', page: I18nPage()),
+          ActionItem(title: '日历', page: CalenderDemo()),
         ],
       ),
       floatingActionButton: FloatingActionButton(
@@ -186,6 +188,18 @@ class _MyHomePageState extends State<MyHomePage> {
                       themeProvider.loadBrightness(Brightness.dark);
                     else
                       themeProvider.loadBrightness(Brightness.light);
+                  },
+                ),
+              ),
+            ),
+            Positioned(
+              bottom: 0,
+              right: 0,
+              child: SafeArea(
+                child: IconButton(
+                  icon: Icon(CupertinoIcons.shuffle),
+                  onPressed: () {
+                    themeProvider.loadThemeMode(ThemeMode.dark);
                   },
                 ),
               ),

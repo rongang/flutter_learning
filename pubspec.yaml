@@ -23,10 +23,19 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  #flutter国际化
   flutter_localizations:
     sdk: flutter
+  #flare_rive动画
   flare_flutter: ^2.0.5
+  #状态管理
   provider: ^4.3.1
+  #农历日历
+#  chinese_calendar: ^0.0.2
+  my_chinese_calendar:
+    path: plugins/my_chinese_calendar
+  #日历插件
+  flutter_calendar: ^0.0.9
 
 
   # The following adds the Cupertino Icons font to your application.
