@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutterdemo/component/action_item.dart';
 import 'package:flutterdemo/pages/UI/ui_1.dart';
 import 'package:flutterdemo/pages/UI/ui_2.dart';
+import 'package:flutterdemo/pages/UI/ui_4.dart';
+import 'package:flutterdemo/pages/UI/ui_5.dart';
 
 import 'ui_3.dart';
 
@@ -17,6 +19,8 @@ class UiPage extends StatelessWidget {
           ActionItem(title: '展览页', page: UI1()),
           ActionItem(title: '点赞', page: Ui2()),
           ActionItem(title: '侧滑个人面板', page: Ui3()),
+          ActionItem(title: '自定义tabBar', page: UI4()),
+          ActionItem(title: '自定义tabBar', page: Ui5()),
         ],
       ),
     );

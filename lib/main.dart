@@ -1,5 +1,7 @@
+import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutterdemo/pages/UI/ui_page.dart';
 import 'package:flutterdemo/pages/animation/animation_page.dart';
@@ -14,14 +16,26 @@ import 'component/action_item.dart';
 import 'pages/UI/ui_1.dart';
 import 'pages/calender/calender_demo.dart';
 import 'pages/i18n/i18n_page.dart';
+import 'pages/medirec/medirec.dart';
 import 'pages/theme/theme_provider.dart';
 
 void main() {
+//  androidHeadInit();
   runApp(MyApp());
+}
+
+androidHeadInit() {
+  if (Platform.isAndroid) {
+    // 设置 Android 头部导航栏透明
+    SystemUiOverlayStyle systemUiOverlayStyle =
+        SystemUiOverlayStyle(statusBarColor: Colors.transparent);
+    SystemChrome.setSystemUIOverlayStyle(systemUiOverlayStyle);
+  }
 }
 
 class MyApp extends StatefulWidget {
   // This widget is the root of your application.
+
   @override
   _MyAppState createState() => _MyAppState();
 }
@@ -40,11 +54,12 @@ class _MyAppState extends State<MyApp> {
             create: (_) => LanguageProvider()),
         ChangeNotifierProvider<ThemeProvider>(create: (_) => ThemeProvider()),
       ],
-      builder: (context,child){
+      builder: (context, child) {
         LanguageProvider languageProvider = context.watch<LanguageProvider>();
 //              Provider.of<LanguageProvider>(context);
         ThemeProvider themeProvider = Provider.of<ThemeProvider>(context);
-        Brightness _brightness = context.select((ThemeProvider provider) => provider.nowBrightness);
+        Brightness _brightness =
+            context.select((ThemeProvider provider) => provider.nowBrightness);
         return MaterialApp(
           themeMode: themeProvider.nowThemeMode,
           // themeProvider.nowThemeMode,
@@ -95,13 +110,12 @@ class _MyAppState extends State<MyApp> {
               visualDensity: VisualDensity.adaptivePlatformDensity,
               floatingActionButtonTheme: FloatingActionButtonThemeData(
                   foregroundColor:
-                  themeProvider.nowBrightness == Brightness.light
-                      ? Colors.blue[300]
-                      : Colors.black)),
+                      themeProvider.nowBrightness == Brightness.light
+                          ? Colors.blue[300]
+                          : Colors.black)),
           home: SplashPageDemo1(),
         );
       },
-
     );
   }
 }
@@ -148,6 +162,7 @@ class _MyHomePageState extends State<MyHomePage> {
           ActionItem(title: 'Sliver', page: SliverDemo1()),
           ActionItem(title: 'I18nPage', page: I18nPage()),
           ActionItem(title: '日历', page: CalenderDemo()),
+          ActionItem(title: '吃药啦', page: Medirec()),
         ],
       ),
       floatingActionButton: FloatingActionButton(
@@ -159,24 +174,29 @@ class _MyHomePageState extends State<MyHomePage> {
       drawer: Drawer(
         child: Stack(
           children: <Widget>[
-           SafeArea(
-             child: Row(
-               crossAxisAlignment: CrossAxisAlignment.end,
-               children: <Widget>[
-                 Container(
-                   height: 70,
-                   width: 70,
-                   child: CircleAvatar(
-                     backgroundImage: NetworkImage('http://img.netbian.com/file/2020/0524/b1bb0802801c2d1ae6448609ce8d5ea4.jpg'),
-                   ),
-                 ),
-                 Padding(
-                   padding: const EdgeInsets.all(8.0),
-                   child: Text('hello',style: TextStyle(fontSize: 19,fontWeight: FontWeight.bold),),
-                 )
-               ],
-             ),
-           ),
+            SafeArea(
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: <Widget>[
+                  Container(
+                    height: 70,
+                    width: 70,
+                    child: CircleAvatar(
+                      backgroundImage: NetworkImage(
+                          'http://img.netbian.com/file/2020/0524/b1bb0802801c2d1ae6448609ce8d5ea4.jpg'),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(
+                      'hello',
+                      style:
+                          TextStyle(fontSize: 19, fontWeight: FontWeight.bold),
+                    ),
+                  )
+                ],
+              ),
+            ),
             Positioned(
               bottom: 0,
               left: 0,
