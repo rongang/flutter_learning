@@ -50,7 +50,7 @@ class _MyHomePageState extends State<MyHomePage> {
           ListTile(
             title: Text("选择日期对话框"),
             onTap: () {
-              showDateRangePicker(context: context, initDateTime: DateTime.now());
+              myShowDateRangePicker(context: context, initDateTime: DateTime.now());
             },
           ),
         ],

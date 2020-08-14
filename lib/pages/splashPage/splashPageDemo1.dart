@@ -32,8 +32,8 @@ class _SplashPageDemo1State extends State<SplashPageDemo1> {
                   decoration: BoxDecoration(
                       color: Colors.blue[200],
                       gradient: LinearGradient(
-                          begin: Alignment.topCenter,
-                          end: Alignment.bottomCenter,
+                          begin: Alignment.centerLeft,
+                          end: Alignment.centerRight,
                           colors: [
                             Colors.blue[900],
                             Colors.blue[700],

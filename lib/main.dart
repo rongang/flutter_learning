@@ -7,6 +7,8 @@ import 'package:flutterdemo/pages/UI/ui_page.dart';
 import 'package:flutterdemo/pages/animation/animation_page.dart';
 import 'package:flutterdemo/pages/i18n/i18n_demo.dart';
 import 'package:flutterdemo/pages/i18n/language_provider.dart';
+import 'package:flutterdemo/pages/map/map_demo.dart';
+import 'package:flutterdemo/pages/scannerBarCode/scanner_bar_code_demo.dart';
 import 'package:flutterdemo/pages/sliver/sliver_demo1.dart';
 import 'package:flutterdemo/pages/splashPage/splashPageDemo1.dart';
 import 'package:provider/provider.dart';
@@ -17,6 +19,7 @@ import 'pages/UI/ui_1.dart';
 import 'pages/calender/calender_demo.dart';
 import 'pages/i18n/i18n_page.dart';
 import 'pages/medirec/medirec.dart';
+import 'pages/sensor/sensor_demo.dart';
 import 'pages/theme/theme_provider.dart';
 
 void main() {
@@ -66,10 +69,8 @@ class _MyAppState extends State<MyApp> {
           locale: languageProvider.nowLocale,
           supportedLocales: I18nDemo.supportLanguageIterable,
           localizationsDelegates: [
-            GlobalWidgetsLocalizations.delegate,
-            GlobalMaterialLocalizations.delegate,
             I18nDemo.delegate
-          ],
+          ]..addAll(GlobalMaterialLocalizations.delegates),
 //          localeListResolutionCallback:
 //              (List<Locale> locales, Iterable<Locale> supportedLocales) {
 //            print('locale:${locales.toString()}');
@@ -163,6 +164,9 @@ class _MyHomePageState extends State<MyHomePage> {
           ActionItem(title: 'I18nPage', page: I18nPage()),
           ActionItem(title: '日历', page: CalenderDemo()),
           ActionItem(title: '吃药啦', page: Medirec()),
+          ActionItem(title: '扫码', page: ScannerBarCodeDemo()),
+          ActionItem(title: '地图', page: MapDemo()),
+          ActionItem(title: 'SensorDemo', page: SensorDemo()),
         ],
       ),
       floatingActionButton: FloatingActionButton(
@@ -170,7 +174,15 @@ class _MyHomePageState extends State<MyHomePage> {
         tooltip: 'Increment',
         child: Icon(Icons.add),
       ),
-      persistentFooterButtons: <Widget>[Icon(Icons.text_fields)],
+      persistentFooterButtons: <Widget>[Icon(Icons.home),Icon(Icons.favorite),],
+//      bottomNavigationBar: BottomAppBar(
+//        child: Container(
+//          alignment: Alignment.center,
+//          width: MediaQuery.of(context).size.width,
+//          height: 50,
+//          child: Icon(Icons.home),
+//        ),
+//      ),
       drawer: Drawer(
         child: Stack(
           children: <Widget>[
