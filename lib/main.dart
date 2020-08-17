@@ -5,6 +5,9 @@ import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutterdemo/pages/UI/ui_page.dart';
 import 'package:flutterdemo/pages/animation/animation_page.dart';
+import 'package:flutterdemo/pages/clipboard/clipboard_page.dart';
+import 'package:flutterdemo/pages/customclip/custom_clip_demo.dart';
+import 'package:flutterdemo/pages/form/form_demo.dart';
 import 'package:flutterdemo/pages/i18n/i18n_demo.dart';
 import 'package:flutterdemo/pages/i18n/language_provider.dart';
 import 'package:flutterdemo/pages/map/map_demo.dart';
@@ -167,6 +170,9 @@ class _MyHomePageState extends State<MyHomePage> {
           ActionItem(title: '扫码', page: ScannerBarCodeDemo()),
           ActionItem(title: '地图', page: MapDemo()),
           ActionItem(title: 'SensorDemo', page: SensorDemo()),
+          ActionItem(title: '监控粘贴板', page: ClipBoardPage()),
+          ActionItem(title: '自定义裁剪', page: CustomClipDemo()),
+          ActionItem(title: '表单验证', page: FormDemo()),
         ],
       ),
       floatingActionButton: FloatingActionButton(
