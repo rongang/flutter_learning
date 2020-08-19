@@ -3,21 +3,30 @@ import 'dart:math';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutterdemo/pages/UI/ui_2.dart';
+import 'package:flutter_learning/pages/UI/ui_2.dart';
+import 'package:flutter_learning/pages/UI/ui_3.dart';
 
 class UI1 extends StatefulWidget {
+
   @override
   _UI1State createState() => _UI1State();
 }
 
 class _UI1State extends State<UI1> {
+  var _class = Ui3();
   @override
   Widget build(BuildContext context) {
+    a(){
+      print('a');
+    }
     return Scaffold(
       body: MyPageView(),
       floatingActionButton: FloatingActionButton.extended(
-        onPressed: () {},
-        label: Icon(Icons.camera),
+        onPressed: () {
+          a();
+        },
+        label: Text('click me'),
+        icon: Icon(Icons.whatshot),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
       bottomNavigationBar: BottomNavigationBar(
@@ -47,7 +56,7 @@ class MyPageView extends StatefulWidget {
   _MyPageViewState createState() => _MyPageViewState();
 }
 
-class _MyPageViewState extends State<MyPageView> {
+class _MyPageViewState extends State<MyPageView> with WidgetsBindingObserver{
   PageController _controller;
   double pageOffset = 0;
   final images = [
@@ -65,8 +74,22 @@ class _MyPageViewState extends State<MyPageView> {
         });
       });
     super.initState();
+    WidgetsBinding.instance.addObserver(this);
   }
 
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    super.didChangeAppLifecycleState(state);
+
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    images.forEach((element) {
+      precacheImage(NetworkImage(element),context);
+    });
+  }
   @override
   Widget build(BuildContext context) {
     return PageView.builder(
@@ -90,8 +113,8 @@ class _MyPageViewState extends State<MyPageView> {
                     pageBuilder:
                     (BuildContext context, Animation<double> animation,
                         Animation<double> secondaryAnimation) {
-                  return FadeTransition(
-                    opacity: animation,
+                  return SlideTransition(
+                    position: Tween(begin: Offset(0,0),end: Offset(0,0)).animate(animation),
                       child: DetailsPage(url: images[index]));
                 }));
               },
@@ -126,11 +149,13 @@ class DetailsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       body: AnnotatedRegion<SystemUiOverlayStyle>(
         value: SystemUiOverlayStyle(
-          statusBarBrightness: Brightness.dark,
+          statusBarBrightness: Brightness.light,
           statusBarColor: Colors.transparent,
-          statusBarIconBrightness: Brightness.dark,
+          statusBarIconBrightness: Brightness.light,
+          systemNavigationBarColor: Colors.pink
         ),
         child: Stack(
           children: <Widget>[

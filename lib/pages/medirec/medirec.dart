@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutterdemo/pages/medirec/pages/alarm_index_page.dart';
+import 'package:flutter_learning/pages/medirec/pages/alarm_index_page.dart';
 
 class Medirec extends StatelessWidget {
   @override

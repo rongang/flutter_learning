@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutterdemo/pages/animation/pages/animation_page_4.dart';
-import 'package:flutterdemo/pages/animation/pages/animation_page_5.dart';
-import 'package:flutterdemo/pages/animation/pages/animation_page_6.dart';
-import 'package:flutterdemo/pages/animation/pages/animation_page_7.dart';
-import 'package:flutterdemo/pages/flare/flare_demo.dart';
-import 'package:flutterdemo/pages/flare/flare_uses.dart';
+import 'package:flutter_learning/pages/animation/pages/animation_page_4.dart';
+import 'package:flutter_learning/pages/animation/pages/animation_page_5.dart';
+import 'package:flutter_learning/pages/animation/pages/animation_page_6.dart';
+import 'package:flutter_learning/pages/animation/pages/animation_page_7.dart';
+import 'package:flutter_learning/pages/flare/flare_demo.dart';
+import 'package:flutter_learning/pages/flare/flare_uses.dart';
 
 import '../../component/action_item.dart';
 import 'pages/animation_page_1.dart';

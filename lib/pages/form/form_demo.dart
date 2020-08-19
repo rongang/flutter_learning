@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutterdemo/component/action_item.dart';
-import 'package:flutterdemo/pages/form/profile_edit_demo.dart';
+import 'package:flutter_learning/component/action_item.dart';
+import 'package:flutter_learning/pages/form/profile_edit_demo.dart';
 
 class FormDemo extends StatelessWidget {
   @override

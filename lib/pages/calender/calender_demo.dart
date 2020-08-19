@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutterdemo/component/action_item.dart';
-import 'package:flutterdemo/pages/calender/calender_page1.dart';
+import 'package:flutter_learning/component/action_item.dart';
+import 'package:flutter_learning/pages/calender/calender_page1.dart';
 
 import 'calcelar_page5.dart';
 import 'calendar_page3.dart';

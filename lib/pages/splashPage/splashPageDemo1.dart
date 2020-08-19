@@ -35,11 +35,11 @@ class _SplashPageDemo1State extends State<SplashPageDemo1> {
                           begin: Alignment.centerLeft,
                           end: Alignment.centerRight,
                           colors: [
-                            Colors.blue[900],
-                            Colors.blue[700],
-                            Colors.blue[500],
-                            Colors.blue[300],
-                            Colors.blue[100],
+                            Colors.pink[900],
+                            Colors.pink[700],
+                            Colors.pink[500],
+                            Colors.pink[300],
+                            Colors.pink[100],
                           ],
                           stops: [
                             0.0,
@@ -58,6 +58,7 @@ class _SplashPageDemo1State extends State<SplashPageDemo1> {
                       children: <Widget>[
                         CircularProgressIndicator(
                           value: value,
+                          valueColor: AlwaysStoppedAnimation<Color>(Colors.pinkAccent),
                         ),
                         Text(
                           '跳过',

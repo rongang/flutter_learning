@@ -1,24 +1,27 @@
 import 'dart:io';
+import 'dart:ui';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_learning/pages/isolate/isolate_demo.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:flutterdemo/pages/UI/ui_page.dart';
-import 'package:flutterdemo/pages/animation/animation_page.dart';
-import 'package:flutterdemo/pages/clipboard/clipboard_page.dart';
-import 'package:flutterdemo/pages/customclip/custom_clip_demo.dart';
-import 'package:flutterdemo/pages/form/form_demo.dart';
-import 'package:flutterdemo/pages/i18n/i18n_demo.dart';
-import 'package:flutterdemo/pages/i18n/language_provider.dart';
-import 'package:flutterdemo/pages/map/map_demo.dart';
-import 'package:flutterdemo/pages/scannerBarCode/scanner_bar_code_demo.dart';
-import 'package:flutterdemo/pages/sliver/sliver_demo1.dart';
-import 'package:flutterdemo/pages/splashPage/splashPageDemo1.dart';
+import 'package:flutter_learning/pages/UI/ui_page.dart';
+import 'package:flutter_learning/pages/animation/animation_page.dart';
+import 'package:flutter_learning/pages/clipboard/clipboard_page.dart';
+import 'package:flutter_learning/pages/customclip/custom_clip_demo.dart';
+import 'package:flutter_learning/pages/form/form_demo.dart';
+import 'package:flutter_learning/pages/i18n/i18n_demo.dart';
+import 'package:flutter_learning/pages/i18n/language_provider.dart';
+import 'package:flutter_learning/pages/map/map_demo.dart';
+import 'package:flutter_learning/pages/scannerBarCode/scanner_bar_code_demo.dart';
+import 'package:flutter_learning/pages/sliver/sliver_demo1.dart';
+import 'package:flutter_learning/pages/splashPage/splashPageDemo1.dart';
+import 'package:flutter_learning/utils/utils.dart';
 import 'package:provider/provider.dart';
 import 'package:provider/single_child_widget.dart';
 
 import 'component/action_item.dart';
-import 'pages/UI/ui_1.dart';
 import 'pages/calender/calender_demo.dart';
 import 'pages/i18n/i18n_page.dart';
 import 'pages/medirec/medirec.dart';
@@ -34,14 +37,14 @@ androidHeadInit() {
   if (Platform.isAndroid) {
     // 设置 Android 头部导航栏透明
     SystemUiOverlayStyle systemUiOverlayStyle =
-        SystemUiOverlayStyle(statusBarColor: Colors.transparent);
+    SystemUiOverlayStyle(statusBarColor: Colors.transparent);
     SystemChrome.setSystemUIOverlayStyle(systemUiOverlayStyle);
   }
 }
 
-class MyApp extends StatefulWidget {
-  // This widget is the root of your application.
+final navigatorKey = GlobalKey<NavigatorState>();
 
+class MyApp extends StatefulWidget {
   @override
   _MyAppState createState() => _MyAppState();
 }
@@ -65,15 +68,14 @@ class _MyAppState extends State<MyApp> {
 //              Provider.of<LanguageProvider>(context);
         ThemeProvider themeProvider = Provider.of<ThemeProvider>(context);
         Brightness _brightness =
-            context.select((ThemeProvider provider) => provider.nowBrightness);
+        context.select((ThemeProvider provider) => provider.nowBrightness);
         return MaterialApp(
           themeMode: themeProvider.nowThemeMode,
           // themeProvider.nowThemeMode,
           locale: languageProvider.nowLocale,
           supportedLocales: I18nDemo.supportLanguageIterable,
-          localizationsDelegates: [
-            I18nDemo.delegate
-          ]..addAll(GlobalMaterialLocalizations.delegates),
+          localizationsDelegates: [I18nDemo.delegate]
+            ..addAll(GlobalMaterialLocalizations.delegates),
 //          localeListResolutionCallback:
 //              (List<Locale> locales, Iterable<Locale> supportedLocales) {
 //            print('locale:${locales.toString()}');
@@ -96,7 +98,25 @@ class _MyAppState extends State<MyApp> {
 //      },
           title: 'Flutter Demo',
           debugShowCheckedModeBanner: false,
+          navigatorKey: navigatorKey,
+          darkTheme: ThemeData(
+              colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.pink)
+          ),
           theme: ThemeData(
+            inputDecorationTheme: InputDecorationTheme(
+              border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(20)
+              ),
+              floatingLabelBehavior: FloatingLabelBehavior.always,
+              contentPadding: const EdgeInsets.symmetric(horizontal: 20),
+            ),
+              appBarTheme: AppBarTheme.of(context).copyWith(
+                centerTitle: true,
+                elevation: 0,
+//                color: Colors.blue[300],
+//                iconTheme: IconThemeData(color: Colors.black),
+//                textTheme: Theme.of(context).textTheme
+              ),
               brightness: _brightness,
               // This is the theme of your application.
               //
@@ -114,9 +134,9 @@ class _MyAppState extends State<MyApp> {
               visualDensity: VisualDensity.adaptivePlatformDensity,
               floatingActionButtonTheme: FloatingActionButtonThemeData(
                   foregroundColor:
-                      themeProvider.nowBrightness == Brightness.light
-                          ? Colors.blue[300]
-                          : Colors.black)),
+                  themeProvider.nowBrightness == Brightness.light
+                      ? Colors.blue[300]
+                      : Colors.black)),
           home: SplashPageDemo1(),
         );
       },
@@ -146,7 +166,7 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     ThemeProvider themeProvider =
-        Provider.of<ThemeProvider>(context, listen: false);
+    Provider.of<ThemeProvider>(context, listen: false);
     // This method is rerun every time setState is called, for instance as done
     // by the _incrementCounter method above.
     //
@@ -173,6 +193,7 @@ class _MyHomePageState extends State<MyHomePage> {
           ActionItem(title: '监控粘贴板', page: ClipBoardPage()),
           ActionItem(title: '自定义裁剪', page: CustomClipDemo()),
           ActionItem(title: '表单验证', page: FormDemo()),
+          ActionItem(title: '线程', page: IsolateDemo()),
         ],
       ),
       floatingActionButton: FloatingActionButton(
@@ -180,7 +201,10 @@ class _MyHomePageState extends State<MyHomePage> {
         tooltip: 'Increment',
         child: Icon(Icons.add),
       ),
-      persistentFooterButtons: <Widget>[Icon(Icons.home),Icon(Icons.favorite),],
+      persistentFooterButtons: <Widget>[
+        Icon(Icons.home),
+        Icon(Icons.favorite),
+      ],
 //      bottomNavigationBar: BottomAppBar(
 //        child: Container(
 //          alignment: Alignment.center,
@@ -190,59 +214,68 @@ class _MyHomePageState extends State<MyHomePage> {
 //        ),
 //      ),
       drawer: Drawer(
-        child: Stack(
-          children: <Widget>[
-            SafeArea(
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: <Widget>[
-                  Container(
-                    height: 70,
-                    width: 70,
-                    child: CircleAvatar(
-                      backgroundImage: NetworkImage(
-                          'http://img.netbian.com/file/2020/0524/b1bb0802801c2d1ae6448609ce8d5ea4.jpg'),
+        child: SafeArea(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: <Widget>[
+                    Container(
+                      height: 70,
+                      width: 70,
+                      child: CircleAvatar(
+                        backgroundImage: NetworkImage(
+                            'http://img.netbian.com/file/2020/0524/b1bb0802801c2d1ae6448609ce8d5ea4.jpg'),
+                      ),
                     ),
+                    Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: Text(
+                        'hello',
+                        style:
+                        TextStyle(fontSize: 19, fontWeight: FontWeight.bold),
+                      ),
+                    )
+                  ],
+                ),
+              ),
+              FlatButton(
+                padding: EdgeInsets.all(10),
+                child: Text('主题模式'),
+                onPressed: () {
+                  Utils
+                      .showDiglogg(content: MediaQuery.of(context)
+                      .platformBrightness
+                      .toString());
+                },
+              ),
+              Spacer(),
+              Row(
+                children: [
+                  IconButton(
+                    icon: Icon(Icons.wb_sunny),
+                    onPressed: () {
+                      if (themeProvider.nowBrightness == Brightness.light)
+                        themeProvider.loadBrightness(Brightness.dark);
+                      else
+                        themeProvider.loadBrightness(Brightness.light);
+                    },
                   ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Text(
-                      'hello',
-                      style:
-                          TextStyle(fontSize: 19, fontWeight: FontWeight.bold),
-                    ),
+                  Spacer(),
+                  IconButton(
+                    icon: Icon(CupertinoIcons.shuffle),
+                    onPressed: () {
+                      themeProvider.loadThemeMode(ThemeMode.dark);
+                    },
                   )
                 ],
               ),
-            ),
-            Positioned(
-              bottom: 0,
-              left: 0,
-              child: SafeArea(
-                child: IconButton(
-                  icon: Icon(Icons.wb_sunny),
-                  onPressed: () {
-                    if (themeProvider.nowBrightness == Brightness.light)
-                      themeProvider.loadBrightness(Brightness.dark);
-                    else
-                      themeProvider.loadBrightness(Brightness.light);
-                  },
-                ),
-              ),
-            ),
-            Positioned(
-              bottom: 0,
-              right: 0,
-              child: SafeArea(
-                child: IconButton(
-                  icon: Icon(CupertinoIcons.shuffle),
-                  onPressed: () {
-                    themeProvider.loadThemeMode(ThemeMode.dark);
-                  },
-                ),
-              ),
-            )
-          ],
+            ],
+          ),
         ),
       ), // This trailing comma makes auto-formatting nicer for build methods.
     );

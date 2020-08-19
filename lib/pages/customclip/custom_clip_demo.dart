@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutterdemo/component/action_item.dart';
-import 'package:flutterdemo/pages/customclip/custom_clip_2.dart';
+import 'package:flutter_learning/component/action_item.dart';
+import 'package:flutter_learning/pages/customclip/custom_clip_2.dart';
 import 'custom_clip_1.dart';
 
 class CustomClipDemo extends StatelessWidget {

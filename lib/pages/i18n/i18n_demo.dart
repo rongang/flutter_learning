@@ -2,7 +2,7 @@ import 'dart:ui';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flutterdemo/pages/i18n/language_provider.dart';
+import 'package:flutter_learning/pages/i18n/language_provider.dart';
 import 'package:provider/provider.dart';
 
 class I18nDemo {

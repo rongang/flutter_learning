@@ -2,8 +2,8 @@ import 'dart:ui' as ui show Image, ImageFilter, TextHeightBehavior;
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutterdemo/pages/i18n/i18n_demo.dart';
-import 'package:flutterdemo/pages/i18n/language_provider.dart';
+import 'package:flutter_learning/pages/i18n/i18n_demo.dart';
+import 'package:flutter_learning/pages/i18n/language_provider.dart';
 import 'package:provider/provider.dart';
 
 class I18nPage extends StatefulWidget {
@@ -14,6 +14,12 @@ class I18nPage extends StatefulWidget {
 class _I18nPageState extends State<I18nPage> {
   String nowLanguage = '';
   LanguageProvider languageProvider;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    precacheImage(NetworkImage('http://img.netbian.com/file/2018/0622/da3df84fa3f34c50010b42f105bf35fb.jpg'), context);
+  }
 
   @override
   Widget build(BuildContext context) {

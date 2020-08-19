@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutterdemo/pages/flare/flare_demo.dart';
+import 'package:flutter_learning/pages/flare/flare_demo.dart';
 
 class FlareUsersPage extends StatefulWidget {
   @override

@@ -2,7 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:flutterdemo/pages/flare/flare_demo.dart';
+import 'package:flutter_learning/pages/flare/flare_demo.dart';
 
 class SliverDemo1 extends StatefulWidget {
   @override

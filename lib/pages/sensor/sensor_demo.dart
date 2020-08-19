@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutterdemo/component/action_item.dart';
-import 'package:flutterdemo/pages/sensor/sensor_0.dart';
-import 'package:flutterdemo/pages/sensor/sensor_1.dart';
+import 'package:flutter_learning/component/action_item.dart';
+import 'package:flutter_learning/pages/sensor/sensor_0.dart';
+import 'package:flutter_learning/pages/sensor/sensor_1.dart';
 
 class SensorDemo extends StatelessWidget {
   @override

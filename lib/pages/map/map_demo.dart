@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutterdemo/component/action_item.dart';
-import 'package:flutterdemo/pages/map/map_1.dart';
-import 'package:flutterdemo/pages/map/map_2.dart';
+import 'package:flutter_learning/component/action_item.dart';
+import 'package:flutter_learning/pages/map/map_1.dart';
+import 'package:flutter_learning/pages/map/map_2.dart';
 
 class MapDemo extends StatelessWidget {
   @override

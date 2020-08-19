@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutterdemo/pages/animation/animation_page.dart';
+import 'package:flutter_learning/pages/animation/animation_page.dart';
 
 class ActionItem extends StatelessWidget {
   final String title;
