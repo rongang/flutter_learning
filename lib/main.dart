@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_learning/pages/isolate/isolate_demo.dart';
+import 'package:flutter_learning/pages/rxdart/rxdart.dart';
+import 'package:flutter_learning/pages/stream/stream.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_learning/pages/UI/ui_page.dart';
 import 'package:flutter_learning/pages/animation/animation_page.dart';
@@ -194,6 +196,8 @@ class _MyHomePageState extends State<MyHomePage> {
           ActionItem(title: '自定义裁剪', page: CustomClipDemo()),
           ActionItem(title: '表单验证', page: FormDemo()),
           ActionItem(title: '线程', page: IsolateDemo()),
+          ActionItem(title: 'Stream', page: StreamDemo()),
+          ActionItem(title: 'RxDart', page: RxDartDemo()),
         ],
       ),
       floatingActionButton: FloatingActionButton(

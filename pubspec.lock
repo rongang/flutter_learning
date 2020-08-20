@@ -28,7 +28,7 @@ packages:
       name: cached_network_image
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "2.2.0+1"
+    version: "2.0.0"
   characters:
     dependency: transitive
     description:
@@ -145,7 +145,7 @@ packages:
       name: flutter_cache_manager
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "1.4.1"
+    version: "1.1.3"
   flutter_calendar:
     dependency: "direct main"
     description:
@@ -395,12 +395,12 @@ packages:
     source: hosted
     version: "0.3.8"
   rxdart:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: rxdart
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "0.24.1"
+    version: "0.25.0-beta"
   sensors:
     dependency: "direct main"
     description:
