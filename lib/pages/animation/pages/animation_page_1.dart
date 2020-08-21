@@ -19,7 +19,7 @@ class _AnimationPage1State extends State<AnimationPage1>
   @override
   void initState() {
     _controller =
-        AnimationController(vsync: this, duration: Duration(seconds: 5))
+        AnimationController(duration: Duration(seconds: 5), vsync: this)
           ..addListener(() {
 //        changeDate();
             setState(() {

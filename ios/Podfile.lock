@@ -14,6 +14,8 @@ PODS:
   - sqflite (0.0.1):
     - Flutter
     - FMDB (~> 2.7.2)
+  - wifi_info_plugin (0.0.1):
+    - Flutter
 
 DEPENDENCIES:
   - Flutter (from `Flutter`)
@@ -22,6 +24,7 @@ DEPENDENCIES:
   - qrscan (from `.symlinks/plugins/qrscan/ios`)
   - sensors (from `.symlinks/plugins/sensors/ios`)
   - sqflite (from `.symlinks/plugins/sqflite/ios`)
+  - wifi_info_plugin (from `.symlinks/plugins/wifi_info_plugin/ios`)
 
 SPEC REPOS:
   trunk:
@@ -40,6 +43,8 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/sensors/ios"
   sqflite:
     :path: ".symlinks/plugins/sqflite/ios"
+  wifi_info_plugin:
+    :path: ".symlinks/plugins/wifi_info_plugin/ios"
 
 SPEC CHECKSUMS:
   Flutter: 0e3d915762c693b495b44d77113d4970485de6ec
@@ -49,6 +54,7 @@ SPEC CHECKSUMS:
   qrscan: 42f49ba37d3c423a3b140434003e821135cfc4c3
   sensors: 84eb7a30e47a649e4172b71d6e81be614c280336
   sqflite: 4001a31ff81d210346b500c55b17f4d6c7589dd0
+  wifi_info_plugin: ff6048382842ec5c7594460750ae96ad54bd3044
 
 PODFILE CHECKSUM: aafe91acc616949ddb318b77800a7f51bffa2a4c
 
