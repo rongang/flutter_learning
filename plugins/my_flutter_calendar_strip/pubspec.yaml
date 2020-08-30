@@ -6,7 +6,7 @@ version: 1.0.6
 homepage: https://github.com/IronLad85/bubble_animated_tabbar
 
 environment:
-  sdk: ">=2.1.0 <3.0.0"
+  sdk: ">=2.8.0 <3.0.0"
 
 dependencies:
   flutter:

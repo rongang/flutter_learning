@@ -79,6 +79,7 @@ class _SliverDemo1State extends State<SliverDemo1> {
                       color: Colors.blue[100],
                     ),
                   ),
+                  // Sliver
                   SliverList(
                     delegate: SliverChildBuilderDelegate((context, index) {
                       return Container(

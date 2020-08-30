@@ -7,6 +7,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_learning/pages/isolate/isolate_demo.dart';
 import 'package:flutter_learning/pages/rxdart/rxdart.dart';
 import 'package:flutter_learning/pages/stream/stream.dart';
+import 'package:flutter_learning/pages/url_launcher/url_launching_demo.dart';
 import 'package:flutter_learning/pages/wifi/wifi_demo.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_learning/pages/UI/ui_page.dart';
@@ -200,6 +201,7 @@ class _MyHomePageState extends State<MyHomePage> {
           ActionItem(title: 'Stream', page: StreamDemo()),
           ActionItem(title: 'RxDart', page: RxDartDemo()),
           ActionItem(title: 'wifi信息', page: WifiInfoDemo()),
+          ActionItem(title: 'UrlLauncher', page: UrlLauncherDemo()),
         ],
       ),
       floatingActionButton: FloatingActionButton(
