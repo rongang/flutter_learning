@@ -4,7 +4,14 @@ import 'dart:isolate';
 
 ///单向通信
 void main() async {
-  await start();
+//  await start();
+}
+
+
+
+
+int getInt(int a){
+  return a;
 }
 Isolate isolate;
 

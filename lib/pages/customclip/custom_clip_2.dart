@@ -65,13 +65,17 @@ class _CustomClip2State extends State<CustomClip2> with SingleTickerProviderStat
                     Stack(
                       alignment: Alignment.center,
                       children: [
-                        SizedBox(
-                          height: 40,
-                          width: 40,
-                          child: Container(
-                            child: CircularProgressIndicator(
-                              value: value,
-                              valueColor: AlwaysStoppedAnimation<Color>(animation.value),
+                        RotatedBox(
+                          quarterTurns:3,
+                          child: SizedBox(
+                            height: 100,
+                            width: 100,
+                            child: Container(
+                              child: CircularProgressIndicator(
+                                strokeWidth: 20,
+                                value: value,
+                                valueColor: AlwaysStoppedAnimation<Color>(animation.value),
+                              ),
                             ),
                           ),
                         ),
