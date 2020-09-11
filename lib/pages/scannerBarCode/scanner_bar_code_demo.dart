@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:qrscan/qrscan.dart' as Scanner;
@@ -15,6 +17,7 @@ class _ScannerBarCodeDemoState extends State<ScannerBarCodeDemo> {
         child: RaisedButton(
           child: Text('扫码'),
           onPressed: () async {
+            if(Platform.isAndroid){
             String barCode;
             try{
               barCode = await Scanner.scan();
@@ -25,6 +28,8 @@ class _ScannerBarCodeDemoState extends State<ScannerBarCodeDemo> {
             if (barCode == null || barCode.length <= 0) {
               print('未能识别二维码');
               return;
+            }}else if(Platform.isIOS){
+
             }
           },
         ),

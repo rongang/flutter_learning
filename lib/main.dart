@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_learning/pages/canvas/canvas_demo.dart';
 import 'package:flutter_learning/pages/isolate/isolate_demo.dart';
 import 'package:flutter_learning/pages/rxdart/rxdart.dart';
 import 'package:flutter_learning/pages/stream/stream.dart';
@@ -202,6 +203,7 @@ class _MyHomePageState extends State<MyHomePage> {
           ActionItem(title: 'RxDart', page: RxDartDemo()),
           ActionItem(title: 'wifi信息', page: WifiInfoDemo()),
           ActionItem(title: 'UrlLauncher', page: UrlLauncherDemo()),
+          ActionItem(title: 'Canvas', page: CanvasDemo()),
         ],
       ),
       floatingActionButton: FloatingActionButton(
