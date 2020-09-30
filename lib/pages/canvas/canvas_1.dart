@@ -121,16 +121,6 @@ class _Canvas1State extends State<Canvas1> with WidgetsBindingObserver {
                 painter: imageClip,
               ),
             ),
-            Transform.rotate(
-              angle: math.pi*-0.5,
-              child: Container(
-                height: 400,
-                width: MediaQuery.of(context).size.width,
-                child: CustomPaint(
-                  painter: ClockPainter(),
-                ),
-              ),
-            )
           ],
         ),
       ),
@@ -234,46 +224,3 @@ class ClipArea extends CustomPainter {
   bool shouldRepaint(CustomPainter oldDelegate) => false;
 }
 
-class ClockPainter extends CustomPainter {
-
-  DateTime dateTime = DateTime.now();
-
-  @override
-  void paint(Canvas canvas, Size size) {
-    Offset offset = Offset(size.width / 2, size.height / 2);
-    double outRadius = size.width / 2 - 30;
-    double innerRadius = outRadius - 30;
-    canvas.drawCircle(offset, outRadius - 50, Paint()..color = Colors.black45);
-
-
-    for (int i = 0; i < 360; i += 6) {
-      double x1 = offset.dx + math.cos(i * math.pi / 180) * outRadius;
-      double y1 = offset.dx + math.sin(i * math.pi / 180) * outRadius;
-      double x2 = offset.dx + math.cos(i * math.pi / 180) * innerRadius;
-      double y2 = offset.dx + math.sin(i * math.pi / 180) * innerRadius;
-      canvas.drawLine(
-          Offset(x1, y1),
-          Offset(x2, y2),
-          Paint()
-            ..color = Colors.black45
-            ..strokeWidth = 5
-            ..strokeCap = StrokeCap.round);
-    }
-    for (int i = 0; i < dateTime.second*6; i += 6) {
-      double x1 = offset.dx + math.cos(i * math.pi / 180) * outRadius;
-      double y1 = offset.dx + math.sin(i * math.pi / 180) * outRadius;
-      double x2 = offset.dx + math.cos(i * math.pi / 180) * innerRadius;
-      double y2 = offset.dx + math.sin(i * math.pi / 180) * innerRadius;
-      canvas.drawLine(
-          Offset(x1, y1),
-          Offset(x2, y2),
-          Paint()
-            ..color = Colors.red
-            ..strokeWidth = 5
-            ..strokeCap = StrokeCap.round);
-    }
-  }
-
-  @override
-  bool shouldRepaint(CustomPainter oldDelegate) => true;
-}

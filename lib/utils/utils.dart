@@ -6,7 +6,7 @@ class Utils {
   static Widget showDiglogg({String content,Function press}) {
     showCupertinoDialog(
       barrierDismissible: true,
-      context: navigatorKey.currentState.overlay.context,
+      context: MyApp.navigatorKey.currentState.overlay.context,
       builder: (context) {
         return Center(
           child: Container(

@@ -10,6 +10,7 @@ import 'package:flutter_learning/pages/rxdart/rxdart.dart';
 import 'package:flutter_learning/pages/stream/stream.dart';
 import 'package:flutter_learning/pages/url_launcher/url_launching_demo.dart';
 import 'package:flutter_learning/pages/wifi/wifi_demo.dart';
+import 'package:flutter_learning/servuce/page_observer.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_learning/pages/UI/ui_page.dart';
 import 'package:flutter_learning/pages/animation/animation_page.dart';
@@ -33,6 +34,16 @@ import 'pages/medirec/medirec.dart';
 import 'pages/sensor/sensor_demo.dart';
 import 'pages/theme/theme_provider.dart';
 
+
+
+const routes = {
+
+
+
+
+
+};
+
 void main() {
 //  androidHeadInit();
   runApp(MyApp());
@@ -42,19 +53,21 @@ androidHeadInit() {
   if (Platform.isAndroid) {
     // 设置 Android 头部导航栏透明
     SystemUiOverlayStyle systemUiOverlayStyle =
-    SystemUiOverlayStyle(statusBarColor: Colors.transparent);
+        SystemUiOverlayStyle(statusBarColor: Colors.transparent);
     SystemChrome.setSystemUIOverlayStyle(systemUiOverlayStyle);
   }
 }
 
-final navigatorKey = GlobalKey<NavigatorState>();
+
 
 class MyApp extends StatefulWidget {
+  static final navigatorKey = GlobalKey<NavigatorState>();
   @override
   _MyAppState createState() => _MyAppState();
 }
 
 class _MyAppState extends State<MyApp> {
+
   @override
   void initState() {
     super.initState();
@@ -73,11 +86,14 @@ class _MyAppState extends State<MyApp> {
 //              Provider.of<LanguageProvider>(context);
         ThemeProvider themeProvider = Provider.of<ThemeProvider>(context);
         Brightness _brightness =
-        context.select((ThemeProvider provider) => provider.nowBrightness);
+            context.select((ThemeProvider provider) => provider.nowBrightness);
         return MaterialApp(
+          // routes: routes,
+          navigatorObservers: [PageObserver()],
           themeMode: themeProvider.nowThemeMode,
           // themeProvider.nowThemeMode,
           locale: languageProvider.nowLocale,
+
           supportedLocales: I18nDemo.supportLanguageIterable,
           localizationsDelegates: [I18nDemo.delegate]
             ..addAll(GlobalMaterialLocalizations.delegates),
@@ -103,18 +119,16 @@ class _MyAppState extends State<MyApp> {
 //      },
           title: 'Flutter Demo',
           debugShowCheckedModeBanner: false,
-          navigatorKey: navigatorKey,
+          navigatorKey: MyApp.navigatorKey,
           darkTheme: ThemeData(
-              colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.pink)
-          ),
+              colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.pink)),
           theme: ThemeData(
-            inputDecorationTheme: InputDecorationTheme(
-              border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(20)
+              inputDecorationTheme: InputDecorationTheme(
+                border:
+                    OutlineInputBorder(borderRadius: BorderRadius.circular(20)),
+                floatingLabelBehavior: FloatingLabelBehavior.always,
+                contentPadding: const EdgeInsets.symmetric(horizontal: 20),
               ),
-              floatingLabelBehavior: FloatingLabelBehavior.always,
-              contentPadding: const EdgeInsets.symmetric(horizontal: 20),
-            ),
               appBarTheme: AppBarTheme.of(context).copyWith(
                 centerTitle: true,
                 elevation: 0,
@@ -139,9 +153,9 @@ class _MyAppState extends State<MyApp> {
               visualDensity: VisualDensity.adaptivePlatformDensity,
               floatingActionButtonTheme: FloatingActionButtonThemeData(
                   foregroundColor:
-                  themeProvider.nowBrightness == Brightness.light
-                      ? Colors.blue[300]
-                      : Colors.black)),
+                      themeProvider.nowBrightness == Brightness.light
+                          ? Colors.blue[300]
+                          : Colors.black)),
           home: SplashPageDemo1(),
         );
       },
@@ -171,7 +185,7 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     ThemeProvider themeProvider =
-    Provider.of<ThemeProvider>(context, listen: false);
+        Provider.of<ThemeProvider>(context, listen: false);
     // This method is rerun every time setState is called, for instance as done
     // by the _incrementCounter method above.
     //
@@ -246,8 +260,8 @@ class _MyHomePageState extends State<MyHomePage> {
                       padding: const EdgeInsets.all(10.0),
                       child: Text(
                         'hello',
-                        style:
-                        TextStyle(fontSize: 19, fontWeight: FontWeight.bold),
+                        style: TextStyle(
+                            fontSize: 19, fontWeight: FontWeight.bold),
                       ),
                     )
                   ],
@@ -257,10 +271,9 @@ class _MyHomePageState extends State<MyHomePage> {
                 padding: EdgeInsets.all(10),
                 child: Text('主题模式'),
                 onPressed: () {
-                  Utils
-                      .showDiglogg(content: MediaQuery.of(context)
-                      .platformBrightness
-                      .toString());
+                  Utils.showDiglogg(
+                      content:
+                          MediaQuery.of(context).platformBrightness.toString());
                 },
               ),
               Spacer(),
