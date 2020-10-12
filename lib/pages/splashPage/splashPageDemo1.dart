@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 import '../../main.dart';
 
@@ -11,13 +12,91 @@ class SplashPageDemo1 extends StatefulWidget {
 }
 
 class _SplashPageDemo1State extends State<SplashPageDemo1> {
-
   Timer timer;
+
   @override
   void initState() {
-    timer = Timer(Duration(seconds: 3),(){route();});
+    timer = Timer(Duration(seconds: 3), () {
+      route();
+    });
     super.initState();
+    navigatorTest();
   }
+
+  OverlayState overlayState;
+
+  navigatorTest() {
+    print('${MyApp.navigatorKey.currentState?.overlay?.context}');
+    print('${MyApp.navigatorKey.currentContext}');
+    print(MyApp.navigatorKey.currentState?.overlay?.context ==
+        MyApp.navigatorKey.currentContext);
+    overlayState = MyApp.navigatorKey.currentState?.overlay;
+    print(overlayState);
+    OverlayEntry overlayEntry = OverlayEntry(builder: (BuildContext context) {
+      return Stack(
+        children: [
+          Container(
+            height: 200,
+            width: 200,
+            color: Colors.redAccent,
+            child: Center(
+              child: Container(
+                width: 100,
+                height: 100,
+                color: Colors.blueAccent,
+              ),
+            ),
+          ),
+        ],
+      );
+    });
+
+
+    Future(() async {
+      // overlayState.insert(overlayEntry);
+      // await Future.delayed(Duration(milliseconds: 1000));
+      showDialog(
+          context: overlayState.context,
+          child: AlertDialog(
+            title: Text('tip'),
+          ));
+      // showToast();
+    });
+  }
+
+  Widget get toast =>
+      Container(
+        padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 12.0),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(25.0),
+          color: Colors.greenAccent,
+        ),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Icon(Icons.check),
+            SizedBox(
+              width: 12.0,
+            ),
+            Text("This is a Custom Toast"),
+          ],
+        ),
+      );
+
+
+  // @override
+  // void didChangeDependencies() {
+  //   super.didChangeDependencies();
+  //   showToast();
+  // }
+
+
+  showToast() {
+    FToast fToast = FToast();
+    fToast.init(overlayState.context,overlayState: overlayState);
+    fToast.showToast(child: toast);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -53,34 +132,35 @@ class _SplashPageDemo1State extends State<SplashPageDemo1> {
                   right: 50,
                   top: 50,
                   child: InkWell(
-                    child: Stack(
-                      alignment: Alignment.center,
-                      children: <Widget>[
-                        CircularProgressIndicator(
-                          value: value,
-                          valueColor: AlwaysStoppedAnimation<Color>(Colors.pinkAccent),
-                        ),
-                        Text(
-                          '跳过',
-                          style: TextStyle(color: Colors.white),
-                        ),
-                      ],
-                    ),
-                    onTap: (){
-                      timer.cancel();
-                      route();
-                    }
-                  ),
+                      child: Stack(
+                        alignment: Alignment.center,
+                        children: <Widget>[
+                          CircularProgressIndicator(
+                            value: value,
+                            valueColor: AlwaysStoppedAnimation<Color>(
+                                Colors.pinkAccent),
+                          ),
+                          Text(
+                            '跳过',
+                            style: TextStyle(color: Colors.white),
+                          ),
+                        ],
+                      ),
+                      onTap: () {
+                        timer.cancel();
+                        route();
+                      }),
                 )
               ],
             );
           }),
     );
   }
-  route() => Navigator.of(context).pushAndRemoveUntil(
-    CupertinoPageRoute(
-        builder: (context) =>
-            MyHomePage(title: 'Flutter Demo Home Page')),
-        (route) => false,
-  );
+
+  route() =>
+      Navigator.of(context).pushAndRemoveUntil(
+        CupertinoPageRoute(
+            builder: (context) => MyHomePage(title: 'Flutter Demo Home Page')),
+            (route) => false,
+      );
 }

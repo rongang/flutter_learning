@@ -190,7 +190,7 @@ class _CalenderSelectState extends State<CalenderSelect> {
   }
 }
 
-Future<List<DateTime>> myShowDateRangePicker({
+Future<List<DateTime>> showDateRangePicker({
   BuildContext context,
 
   ///是否选择范围

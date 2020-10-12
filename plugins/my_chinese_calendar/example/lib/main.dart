@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-
 import 'package:my_chinese_calendar/chinese_calendar.dart';
-
 
 void main() => runApp(MyApp());
 
@@ -50,7 +48,7 @@ class _MyHomePageState extends State<MyHomePage> {
           ListTile(
             title: Text("选择日期对话框"),
             onTap: () {
-              myShowDateRangePicker(context: context, initDateTime: DateTime.now());
+              showDateRangePicker(context: context, initDateTime: DateTime.now());
             },
           ),
         ],

@@ -8,9 +8,10 @@ import 'package:flutter_learning/pages/canvas/canvas_demo.dart';
 import 'package:flutter_learning/pages/isolate/isolate_demo.dart';
 import 'package:flutter_learning/pages/rxdart/rxdart.dart';
 import 'package:flutter_learning/pages/stream/stream.dart';
+import 'package:flutter_learning/pages/toast/toast_demo.dart';
 import 'package:flutter_learning/pages/url_launcher/url_launching_demo.dart';
 import 'package:flutter_learning/pages/wifi/wifi_demo.dart';
-import 'package:flutter_learning/servuce/page_observer.dart';
+import 'package:flutter_learning/service/page_observer.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_learning/pages/UI/ui_page.dart';
 import 'package:flutter_learning/pages/animation/animation_page.dart';
@@ -89,7 +90,7 @@ class _MyAppState extends State<MyApp> {
             context.select((ThemeProvider provider) => provider.nowBrightness);
         return MaterialApp(
           // routes: routes,
-          navigatorObservers: [PageObserver()],
+          // navigatorObservers: [PageObserver()],
           themeMode: themeProvider.nowThemeMode,
           // themeProvider.nowThemeMode,
           locale: languageProvider.nowLocale,
@@ -218,6 +219,7 @@ class _MyHomePageState extends State<MyHomePage> {
           ActionItem(title: 'wifi信息', page: WifiInfoDemo()),
           ActionItem(title: 'UrlLauncher', page: UrlLauncherDemo()),
           ActionItem(title: 'Canvas', page: CanvasDemo()),
+          ActionItem(title: 'Toast', page: ToastDemo()),
         ],
       ),
       floatingActionButton: FloatingActionButton(
