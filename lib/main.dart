@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_learning/pages/canvas/canvas_demo.dart';
+import 'package:flutter_learning/pages/guide/guide_demo.dart';
 import 'package:flutter_learning/pages/isolate/isolate_demo.dart';
 import 'package:flutter_learning/pages/rxdart/rxdart.dart';
 import 'package:flutter_learning/pages/stream/stream.dart';
@@ -220,6 +221,7 @@ class _MyHomePageState extends State<MyHomePage> {
           ActionItem(title: 'UrlLauncher', page: UrlLauncherDemo()),
           ActionItem(title: 'Canvas', page: CanvasDemo()),
           ActionItem(title: 'Toast', page: ToastDemo()),
+          ActionItem(title: '引导', page: GuideDemo()),
         ],
       ),
       floatingActionButton: FloatingActionButton(

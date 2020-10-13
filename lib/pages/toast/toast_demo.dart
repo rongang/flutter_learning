@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_learning/utils/overlay.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 import '../../main.dart';
@@ -11,15 +12,19 @@ OverlayEntry overlayEntry;
 class ToastDemo extends StatelessWidget {
   ToastDemo() {
     overlayState = MyApp.navigatorKey.currentState?.overlay;
+    print(MyApp.navigatorKey.currentContext);
+    print(overlayState.context);
+    overTipTest();
   }
-
+  int a=0;
   overTipTest() {
     // print('${MyApp.navigatorKey.currentState?.overlay?.context}');
     // print('${MyApp.navigatorKey.currentContext}');
     // print(MyApp.navigatorKey.currentState?.overlay?.context ==
     //     MyApp.navigatorKey.currentContext);
     // print(overlayState);
-    overlayEntry = OverlayEntry(builder: (BuildContext context) {
+    MyOverlay.init(widgetBuilder: (BuildContext context) {
+      a++;
       return Stack(
         children: [
           Container(
@@ -31,12 +36,33 @@ class ToastDemo extends StatelessWidget {
                 width: 100,
                 height: 100,
                 color: Colors.blueAccent,
+                child: Text('$a',style: Theme.of(context).textTheme.headline2,),
               ),
             ),
           ),
         ],
       );
     });
+
+    // overlayEntry?.remove();
+    // overlayEntry = OverlayEntry(builder: (BuildContext context) {
+    //   return Stack(
+    //     children: [
+    //       Container(
+    //         height: 200,
+    //         width: 200,
+    //         color: Colors.redAccent,
+    //         child: Center(
+    //           child: Container(
+    //             width: 100,
+    //             height: 100,
+    //             color: Colors.blueAccent,
+    //           ),
+    //         ),
+    //       ),
+    //     ],
+    //   );
+    // });
 
     Future(() async {
       overlayState.insert(overlayEntry);
@@ -66,6 +92,13 @@ class ToastDemo extends StatelessWidget {
   //   super.didChangeDependencies();
   //   showToast();
   // }
+  _showDialog(){
+    showDialog(
+        context: overlayState.context,
+        child: AlertDialog(
+          title: Text('tip'),
+        ));
+  }
 
   showToast() {
     FToast fToast = FToast();
@@ -87,14 +120,16 @@ class ToastDemo extends StatelessWidget {
           ElevatedButton(
             child: Text('隐藏tip'),
             onPressed: () {
-              overlayEntry?.remove();
-              overlayEntry=null;
+              // overlayEntry?.remove();
+              // overlayEntry=null;
+              MyOverlay.cancel();
+
             },
           ),
           OutlinedButton(
             child: Text('显示tip'),
             onPressed: () {
-              overTipTest();
+              MyOverlay.show();
             },
           ),
           TextButton(

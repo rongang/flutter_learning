@@ -14,6 +14,7 @@ class _ClipBoardPageState extends State<ClipBoardPage>
   void initState() {
     WidgetsBinding.instance.addObserver(this);
     super.initState();
+    // WidgetsBinding.instance.addPersistentFrameCallback((timeStamp) { })
   }
 
   @override

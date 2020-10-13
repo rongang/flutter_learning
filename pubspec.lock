@@ -231,13 +231,6 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "0.16.1"
-  js:
-    dependency: transitive
-    description:
-      name: js
-      url: "https://pub.flutter-io.cn"
-    source: hosted
-    version: "0.6.3-nullsafety.1"
   latlng:
     dependency: transitive
     description:
@@ -494,7 +487,7 @@ packages:
       name: stack_trace
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "1.10.0-nullsafety.2"
+    version: "1.10.0-nullsafety.1"
   stream_channel:
     dependency: transitive
     description:
@@ -650,5 +643,5 @@ packages:
     source: hosted
     version: "0.1.0"
 sdks:
-  dart: ">=2.10.0-110 <=2.11.0-186.0.dev"
+  dart: ">=2.10.0-110 <2.11.0"
   flutter: ">=1.16.0 <2.0.0"
