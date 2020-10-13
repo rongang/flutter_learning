@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_learning/component/action_item.dart';
 import 'package:flutter_learning/pages/UI/cupertino_menu_pop.dart';
 import 'package:flutter_learning/pages/UI/interactive_demo.dart';
+import 'package:flutter_learning/pages/UI/place_holder.dart';
 import 'package:flutter_learning/pages/UI/slider_demo.dart';
 import 'package:flutter_learning/pages/UI/ui_1.dart';
 import 'package:flutter_learning/pages/UI/ui_2.dart';
@@ -31,6 +32,7 @@ class UiPage extends StatelessWidget {
           ActionItem(title: 'cupertino弹出菜单', page: CupertinoMenuPopDemo()),
           ActionItem(title: 'app启动页', page: UI6()),
           ActionItem(title: '列表下拉延展', page: SliverGlowingDemo()),
+          ActionItem(title: '骨架屏', page: PlaceHolder()),
         ],
       ),
     );
