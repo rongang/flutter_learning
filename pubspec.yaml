@@ -61,6 +61,27 @@ dependencies:
   permission_handler: ^5.0.1+1
   url_launcher: ^5.5.1
   fluttertoast: ^7.1.1
+  #浮动提示
+  ffloat: ^1.0.1
+  #刷新组件
+  frefresh: ^1.1.0
+  #轻量文件读写
+  shared_preferences: ^0.5.7+2
+  #步骤引导
+  flutter_guidance_plugin: ^0.0.3
+  #静态html 不能插入视频
+  flutter_html: ^1.0.0
+  #不能嵌入widget中，但性能较好
+  flutter_webview_plugin: ^0.3.11
+  #添加了视频插入 兼容性不行
+  markdown_widget: ^1.1.9
+  #最好用的markdown
+  flutter_markdown: ^0.3.5
+  #富文本编辑器
+  zefyr_plus: ^0.10.5
+  notus: ^0.1.5
+  #生成二维码
+  qr_flutter: ^3.2.0
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.

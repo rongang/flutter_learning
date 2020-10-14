@@ -7,12 +7,12 @@ import 'package:flutter/services.dart';
 import 'package:flutter_learning/pages/canvas/canvas_demo.dart';
 import 'package:flutter_learning/pages/guide/guide_demo.dart';
 import 'package:flutter_learning/pages/isolate/isolate_demo.dart';
+import 'package:flutter_learning/pages/oldapp/lib/main.dart';
 import 'package:flutter_learning/pages/rxdart/rxdart.dart';
 import 'package:flutter_learning/pages/stream/stream.dart';
 import 'package:flutter_learning/pages/toast/toast_demo.dart';
 import 'package:flutter_learning/pages/url_launcher/url_launching_demo.dart';
 import 'package:flutter_learning/pages/wifi/wifi_demo.dart';
-import 'package:flutter_learning/service/page_observer.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_learning/pages/UI/ui_page.dart';
 import 'package:flutter_learning/pages/animation/animation_page.dart';
@@ -201,28 +201,7 @@ class _MyHomePageState extends State<MyHomePage> {
         title: Text(widget.title),
       ),
       body: ListView(
-        children: <Widget>[
-          ActionItem(title: '动画', page: AnimationPage()),
-          ActionItem(title: 'UI', page: UiPage()),
-          ActionItem(title: 'Sliver', page: SliverDemo1()),
-          ActionItem(title: 'I18nPage', page: I18nPage()),
-          ActionItem(title: '日历', page: CalenderDemo()),
-          ActionItem(title: '吃药啦', page: Medirec()),
-          ActionItem(title: '扫码', page: ScannerBarCodeDemo()),
-          ActionItem(title: '地图', page: MapDemo()),
-          ActionItem(title: 'SensorDemo', page: SensorDemo()),
-          ActionItem(title: '监控粘贴板', page: ClipBoardPage()),
-          ActionItem(title: '自定义裁剪', page: CustomClipDemo()),
-          ActionItem(title: '表单验证', page: FormDemo()),
-          ActionItem(title: '线程', page: IsolateDemo()),
-          ActionItem(title: 'Stream', page: StreamDemo()),
-          ActionItem(title: 'RxDart', page: RxDartDemo()),
-          ActionItem(title: 'wifi信息', page: WifiInfoDemo()),
-          ActionItem(title: 'UrlLauncher', page: UrlLauncherDemo()),
-          ActionItem(title: 'Canvas', page: CanvasDemo()),
-          ActionItem(title: 'Toast', page: ToastDemo()),
-          ActionItem(title: '引导', page: GuideDemo()),
-        ],
+        children: actionItem(),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {},
@@ -306,5 +285,31 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
       ), // This trailing comma makes auto-formatting nicer for build methods.
     );
+  }
+
+  List<Widget> actionItem() {
+    return <Widget>[
+        ActionItem(title: '旧的App', page: MyOldApp()),
+        ActionItem(title: '动画', page: AnimationPage()),
+        ActionItem(title: 'UI', page: UiPage()),
+        ActionItem(title: 'Sliver', page: SliverDemo1()),
+        ActionItem(title: 'I18nPage', page: I18nPage()),
+        ActionItem(title: '日历', page: CalenderDemo()),
+        ActionItem(title: '吃药啦', page: Medirec()),
+        ActionItem(title: '扫码', page: ScannerBarCodeDemo()),
+        ActionItem(title: '地图', page: MapDemo()),
+        ActionItem(title: 'SensorDemo', page: SensorDemo()),
+        ActionItem(title: '监控粘贴板', page: ClipBoardPage()),
+        ActionItem(title: '自定义裁剪', page: CustomClipDemo()),
+        ActionItem(title: '表单验证', page: FormDemo()),
+        ActionItem(title: '线程', page: IsolateDemo()),
+        ActionItem(title: 'Stream', page: StreamDemo()),
+        ActionItem(title: 'RxDart', page: RxDartDemo()),
+        ActionItem(title: 'wifi信息', page: WifiInfoDemo()),
+        ActionItem(title: 'UrlLauncher', page: UrlLauncherDemo()),
+        ActionItem(title: 'Canvas', page: CanvasDemo()),
+        ActionItem(title: 'Toast', page: ToastDemo()),
+        ActionItem(title: '引导', page: GuideDemo()),
+      ];
   }
 }
