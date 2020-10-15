@@ -9,14 +9,21 @@ import '../../main.dart';
 OverlayState overlayState;
 OverlayEntry overlayEntry;
 
-class ToastDemo extends StatelessWidget {
+class ToastDemo extends StatefulWidget {
   ToastDemo() {
     overlayState = MyApp.navigatorKey.currentState?.overlay;
     print(MyApp.navigatorKey.currentContext);
     print(overlayState.context);
-    overTipTest();
+    // overTipTest();
   }
+
+  @override
+  _ToastDemoState createState() => _ToastDemoState();
+}
+
+class _ToastDemoState extends State<ToastDemo> {
   int a=0;
+
   overTipTest() {
     // print('${MyApp.navigatorKey.currentState?.overlay?.context}');
     // print('${MyApp.navigatorKey.currentContext}');
@@ -64,9 +71,9 @@ class ToastDemo extends StatelessWidget {
     //   );
     // });
 
-    Future(() async {
-      overlayState.insert(overlayEntry);
-    });
+    // Future(() async {
+    //   overlayState.insert(overlayEntry);
+    // });
   }
 
   Widget get toast => Container(
@@ -87,11 +94,6 @@ class ToastDemo extends StatelessWidget {
         ),
       );
 
-  // @override
-  // void didChangeDependencies() {
-  //   super.didChangeDependencies();
-  //   showToast();
-  // }
   _showDialog(){
     showDialog(
         context: overlayState.context,
@@ -107,6 +109,16 @@ class ToastDemo extends StatelessWidget {
     fToast.showToast(child: toast);
   }
 
+  @override
+  void initState() {
+    super.initState();
+    overTipTest();
+  }
+  @override
+  void dispose() {
+    MyOverlay.cancel();
+    super.dispose();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(

@@ -17,6 +17,12 @@ class _GuideDemoState extends State<GuideDemo> {
   }
 
   @override
+  void dispose() {
+    MyOverlay.cancel();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(

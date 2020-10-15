@@ -18,6 +18,8 @@ PODS:
     - Flutter
   - "permission_handler (5.0.1+1)":
     - Flutter
+  - photo_album_manager (0.0.1):
+    - Flutter
   - qrscan (0.0.1):
     - Flutter
   - screen (0.0.1):
@@ -52,6 +54,7 @@ DEPENDENCIES:
   - image_picker (from `.symlinks/plugins/image_picker/ios`)
   - path_provider (from `.symlinks/plugins/path_provider/ios`)
   - permission_handler (from `.symlinks/plugins/permission_handler/ios`)
+  - photo_album_manager (from `.symlinks/plugins/photo_album_manager/ios`)
   - qrscan (from `.symlinks/plugins/qrscan/ios`)
   - screen (from `.symlinks/plugins/screen/ios`)
   - sensors (from `.symlinks/plugins/sensors/ios`)
@@ -86,6 +89,8 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/path_provider/ios"
   permission_handler:
     :path: ".symlinks/plugins/permission_handler/ios"
+  photo_album_manager:
+    :path: ".symlinks/plugins/photo_album_manager/ios"
   qrscan:
     :path: ".symlinks/plugins/qrscan/ios"
   screen:
@@ -119,6 +124,7 @@ SPEC CHECKSUMS:
   image_picker: 9c3312491f862b28d21ecd8fdf0ee14e601b3f09
   path_provider: abfe2b5c733d04e238b0d8691db0cfd63a27a93c
   permission_handler: eac8e15b4a1a3fba55b761d19f3f4e6b005d15b6
+  photo_album_manager: c25d95cb4528e98cbd0c7300efa2f910d2fa27b2
   qrscan: 42f49ba37d3c423a3b140434003e821135cfc4c3
   screen: abd91ca7bf3426e1cc3646d27e9b2358d6bf07b0
   sensors: 84eb7a30e47a649e4172b71d6e81be614c280336

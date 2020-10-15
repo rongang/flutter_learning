@@ -11,11 +11,17 @@ class MyOverlay {
     overlayState = MyApp.navigatorKey.currentState.overlay;
   }
 
-  static init({WidgetBuilder widgetBuilder, bool isShowMul,OverlayEntry overlayEntry}) {
-    MyOverlay.isShowMul = isShowMul??false;
+  static init({
+    WidgetBuilder widgetBuilder,
+    bool isShowMul = false,
+    OverlayEntry overlayEntry,
+  }) {
+    MyOverlay.isShowMul = isShowMul;
     // overlayEntry?.remove();
-    if(MyOverlay.isShowMul) MyOverlay.overlayEntry = overlayEntry;
-    else overlayEntry = OverlayEntry(builder: widgetBuilder);
+    if (isShowMul)
+      MyOverlay.overlayEntry = overlayEntry;
+    else
+      MyOverlay.overlayEntry = OverlayEntry(builder: widgetBuilder);
   }
 
   static show() {
@@ -32,7 +38,10 @@ class MyOverlay {
   }
 
   static cancel() {
-    if (!isShow) return;
+    if (MyOverlay.isShowMul) isShow = false;
+    if (!isShow) {
+      return;
+    }
     overlayEntry?.remove();
     // overlayEntry = null;
     isShow = false;

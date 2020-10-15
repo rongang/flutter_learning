@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_learning/pages/canvas/canvas_demo.dart';
+import 'package:flutter_learning/pages/channel/channel.dart';
+import 'package:flutter_learning/pages/deviceResource/device_resouce.dart';
 import 'package:flutter_learning/pages/guide/guide_demo.dart';
 import 'package:flutter_learning/pages/isolate/isolate_demo.dart';
 import 'package:flutter_learning/pages/oldapp/lib/main.dart';
@@ -35,6 +37,7 @@ import 'pages/i18n/i18n_page.dart';
 import 'pages/medirec/medirec.dart';
 import 'pages/sensor/sensor_demo.dart';
 import 'pages/theme/theme_provider.dart';
+import 'package:fvm/fvm.dart';
 
 
 
@@ -310,6 +313,8 @@ class _MyHomePageState extends State<MyHomePage> {
         ActionItem(title: 'Canvas', page: CanvasDemo()),
         ActionItem(title: 'Toast', page: ToastDemo()),
         ActionItem(title: '引导', page: GuideDemo()),
+        ActionItem(title: '设备资源', page: DeviceResource()),
+        ActionItem(title: '原生通信', page: ChannelDemo()),
       ];
   }
 }
