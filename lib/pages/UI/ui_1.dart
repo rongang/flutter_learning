@@ -7,18 +7,19 @@ import 'package:flutter_learning/pages/UI/ui_2.dart';
 import 'package:flutter_learning/pages/UI/ui_3.dart';
 
 class UI1 extends StatefulWidget {
-
   @override
   _UI1State createState() => _UI1State();
 }
 
 class _UI1State extends State<UI1> {
   var _class = Ui3();
+
   @override
   Widget build(BuildContext context) {
-    a(){
+    a() {
       print('a');
     }
+
     return Scaffold(
       body: MyPageView(),
       floatingActionButton: FloatingActionButton.extended(
@@ -56,7 +57,7 @@ class MyPageView extends StatefulWidget {
   _MyPageViewState createState() => _MyPageViewState();
 }
 
-class _MyPageViewState extends State<MyPageView> with WidgetsBindingObserver{
+class _MyPageViewState extends State<MyPageView> with WidgetsBindingObserver {
   PageController _controller;
   double pageOffset = 0;
   final images = [
@@ -67,6 +68,7 @@ class _MyPageViewState extends State<MyPageView> with WidgetsBindingObserver{
 
   @override
   void initState() {
+    Future((){loadImage();});
     _controller = PageController(viewportFraction: 0.8)
       ..addListener(() {
         setState(() {
@@ -80,16 +82,19 @@ class _MyPageViewState extends State<MyPageView> with WidgetsBindingObserver{
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
     super.didChangeAppLifecycleState(state);
-
   }
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
+  }
+
+  loadImage() {
     images.forEach((element) {
-      precacheImage(NetworkImage(element),context);
+      precacheImage(NetworkImage(element), context);
     });
   }
+
   @override
   Widget build(BuildContext context) {
     return PageView.builder(
@@ -107,16 +112,20 @@ class _MyPageViewState extends State<MyPageView> with WidgetsBindingObserver{
             tag: images[index],
             child: GestureDetector(
               onTap: () {
-                Navigator.push(context, PageRouteBuilder(
-                    barrierColor:Colors.white60,
-                    opaque: false,
-                    pageBuilder:
-                    (BuildContext context, Animation<double> animation,
-                        Animation<double> secondaryAnimation) {
-                  return SlideTransition(
-                    position: Tween(begin: Offset(0,0),end: Offset(0,0)).animate(animation),
-                      child: DetailsPage(url: images[index]));
-                }));
+                Navigator.push(
+                    context,
+                    PageRouteBuilder(
+                        barrierColor: Colors.white60,
+                        opaque: false,
+                        pageBuilder: (BuildContext context,
+                            Animation<double> animation,
+                            Animation<double> secondaryAnimation) {
+                          return SlideTransition(
+                              position:
+                                  Tween(begin: Offset(0, 0), end: Offset(0, 0))
+                                      .animate(animation),
+                              child: DetailsPage(url: images[index]));
+                        }));
               },
               child: AnimatedContainer(
                 duration: Duration(milliseconds: 300),
@@ -152,11 +161,10 @@ class DetailsPage extends StatelessWidget {
       backgroundColor: Colors.white,
       body: AnnotatedRegion<SystemUiOverlayStyle>(
         value: SystemUiOverlayStyle(
-          statusBarBrightness: Brightness.light,
-          statusBarColor: Colors.transparent,
-          statusBarIconBrightness: Brightness.light,
-          systemNavigationBarColor: Colors.pink
-        ),
+            statusBarBrightness: Brightness.light,
+            statusBarColor: Colors.transparent,
+            statusBarIconBrightness: Brightness.light,
+            systemNavigationBarColor: Colors.pink),
         child: Stack(
           children: <Widget>[
             CustomScrollView(
@@ -191,7 +199,10 @@ class DetailsPage extends StatelessWidget {
                 ),
               ],
             ),
-            SafeArea(child: BackButton(color: Colors.white,))
+            SafeArea(
+                child: BackButton(
+              color: Colors.white,
+            ))
           ],
         ),
       ),

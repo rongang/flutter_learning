@@ -1,7 +1,8 @@
 import 'dart:math';
+import 'dart:ui' as ui;
 
 import 'package:flutter/material.dart';
-import 'package:flutter_html/style.dart';
+import 'package:flutter_learning/utils/ScreenUtil.dart';
 
 class AnimationPage3 extends StatefulWidget {
   @override
@@ -18,6 +19,11 @@ class _AnimationPage3State extends State<AnimationPage3>
         AnimationController(vsync: this, duration: Duration(seconds: 1));
     _controller.repeat();
     super.initState();
+  }
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
   }
   var list = List.generate(100, (index) => Snow());
   @override
@@ -97,7 +103,7 @@ class MyCustomPainter extends CustomPainter {
 
 class Snow {
   double radius = Random().nextDouble()*2+2;
-  double dx = Random().nextDouble()*400;
+  double dx = Random().nextDouble()*ScreenUtil.screenWidth;
   double dy = Random().nextDouble()*800;
   double speed = Random().nextDouble()*3+2;
   fall(){
@@ -105,7 +111,7 @@ class Snow {
     if(dy>700) {
       dy = 0;
       radius = Random().nextDouble()*2+2;
-      dx = Random().nextDouble()*400;
+      dx = Random().nextDouble()*ScreenUtil.screenWidth;
     }
   }
 }

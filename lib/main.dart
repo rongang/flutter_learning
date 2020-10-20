@@ -1,5 +1,5 @@
 import 'dart:io';
-import 'dart:ui';
+import 'dart:ui' as ui;
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -11,6 +11,7 @@ import 'package:flutter_learning/pages/guide/guide_demo.dart';
 import 'package:flutter_learning/pages/isolate/isolate_demo.dart';
 import 'package:flutter_learning/pages/oldapp/lib/main.dart';
 import 'package:flutter_learning/pages/rxdart/rxdart.dart';
+import 'package:flutter_learning/pages/screenUtis/screen_utils.dart';
 import 'package:flutter_learning/pages/stream/stream.dart';
 import 'package:flutter_learning/pages/toast/toast_demo.dart';
 import 'package:flutter_learning/pages/url_launcher/url_launching_demo.dart';
@@ -315,6 +316,7 @@ class _MyHomePageState extends State<MyHomePage> {
         ActionItem(title: '引导', page: GuideDemo()),
         ActionItem(title: '设备资源', page: DeviceResource()),
         ActionItem(title: '原生通信', page: ChannelDemo()),
+        ActionItem(title: '屏幕适配', page: ScreenUtilDemo()),
       ];
   }
 }

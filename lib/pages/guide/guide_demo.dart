@@ -1,7 +1,9 @@
 import 'dart:math';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_learning/utils/overlay.dart';
+import 'package:flutter_learning/utils/utils.dart';
 
 class GuideDemo extends StatefulWidget {
   @override
@@ -34,6 +36,12 @@ class _GuideDemoState extends State<GuideDemo> {
           key: buttonGlobalKey,
           child: Text('显示引导'),
           onPressed: () {
+            print(kIsWeb);
+            // if(Platform.isFuchsia)
+            if(kIsWeb){
+              Utils.showDiglogg(content: '暂不支持web平台');
+              return;
+            }
             buildGuide();
             MyOverlay.show();
           },
@@ -59,7 +67,23 @@ class _GuideDemoState extends State<GuideDemo> {
     MyOverlay.init(widgetBuilder: (context) {
       return Scaffold(
         backgroundColor: Colors.transparent,
-        body: Stack(
+        body:
+        // Container(
+        //   alignment: Alignment.center,
+        //   constraints: BoxConstraints.expand(),
+        //   decoration: BoxDecoration(
+        //       color: Colors.black.withOpacity(0.4),
+        //       backgroundBlendMode: BlendMode.src),
+        //   child: Container(
+        //     height: 200,
+        //     width: 200,
+        //     decoration: BoxDecoration(
+        //       color: Colors.redAccent,
+        //       backgroundBlendMode: BlendMode.clear
+        //     ),
+        //   ),
+        // ),
+        Stack(
           children: [
             ColorFiltered(
               colorFilter: ColorFilter.mode(
@@ -70,7 +94,9 @@ class _GuideDemoState extends State<GuideDemo> {
                 // color: Colors.lightBlue,
                 constraints: BoxConstraints.expand(),
                 decoration: BoxDecoration(
-                    color: Colors.white, backgroundBlendMode: BlendMode.dst),
+                  color: Colors.white,
+                  backgroundBlendMode: BlendMode.dst,
+                ),
                 child: Stack(
                   children: [
                     GuideItem(
@@ -136,7 +162,7 @@ class GuideItem extends StatelessWidget {
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(25.0),
             color: Colors.white,
-            backgroundBlendMode: BlendMode.dstOver),
+            backgroundBlendMode: BlendMode.srcOut),
       ),
       duration: time,
     );
