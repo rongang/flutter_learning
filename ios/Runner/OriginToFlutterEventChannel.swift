@@ -39,12 +39,12 @@ public class EventChannelDemo:NSObject, FlutterStreamHandler{
         self.events = events
         return nil;
     }
-    
+
     public func onCancel(withArguments arguments: Any?) -> FlutterError? {
         self.events = nil
         return nil;
     }
-    
+
 }
 
 

@@ -63,6 +63,8 @@ class _RxDartDemoState extends State<RxDartDemo> {
                   _publishSubject.add('submit $value');
                 },
               ),
+              SizedBox(height: 300,),
+              TextButton(onPressed: (){}, child: Icon(Icons.fingerprint))
             ],
           ),
         ),

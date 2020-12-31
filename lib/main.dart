@@ -9,6 +9,7 @@ import 'package:flutter_learning/pages/channel/channel.dart';
 import 'package:flutter_learning/pages/deviceResource/device_resouce.dart';
 import 'package:flutter_learning/pages/guide/guide_demo.dart';
 import 'package:flutter_learning/pages/isolate/isolate_demo.dart';
+import 'package:flutter_learning/pages/navigator2.0/NavigatorTwoDemo.dart';
 import 'package:flutter_learning/pages/oldapp/lib/main.dart';
 import 'package:flutter_learning/pages/rxdart/rxdart.dart';
 import 'package:flutter_learning/pages/screenUtis/screen_utils.dart';
@@ -40,15 +41,7 @@ import 'pages/sensor/sensor_demo.dart';
 import 'pages/theme/theme_provider.dart';
 import 'package:fvm/fvm.dart';
 
-
-
-const routes = {
-
-
-
-
-
-};
+const routes = {};
 
 void main() {
 //  androidHeadInit();
@@ -64,16 +57,14 @@ androidHeadInit() {
   }
 }
 
-
-
 class MyApp extends StatefulWidget {
   static final navigatorKey = GlobalKey<NavigatorState>();
+
   @override
   _MyAppState createState() => _MyAppState();
 }
 
 class _MyAppState extends State<MyApp> {
-
   @override
   void initState() {
     super.initState();
@@ -143,6 +134,7 @@ class _MyAppState extends State<MyApp> {
 //                textTheme: Theme.of(context).textTheme
               ),
               brightness: _brightness,
+              splashColor: Colors.transparent,
               // This is the theme of your application.
               //
               // Try running your application with "flutter run". You'll see the
@@ -293,30 +285,31 @@ class _MyHomePageState extends State<MyHomePage> {
 
   List<Widget> actionItem() {
     return <Widget>[
-        ActionItem(title: '旧的App', page: MyOldApp()),
-        ActionItem(title: '动画', page: AnimationPage()),
-        ActionItem(title: 'UI', page: UiPage()),
-        ActionItem(title: 'Sliver', page: SliverDemo1()),
-        ActionItem(title: 'I18nPage', page: I18nPage()),
-        ActionItem(title: '日历', page: CalenderDemo()),
-        ActionItem(title: '吃药啦', page: Medirec()),
-        ActionItem(title: '扫码', page: ScannerBarCodeDemo()),
-        ActionItem(title: '地图', page: MapDemo()),
-        ActionItem(title: 'SensorDemo', page: SensorDemo()),
-        ActionItem(title: '监控粘贴板', page: ClipBoardPage()),
-        ActionItem(title: '自定义裁剪', page: CustomClipDemo()),
-        ActionItem(title: '表单验证', page: FormDemo()),
-        ActionItem(title: '线程', page: IsolateDemo()),
-        ActionItem(title: 'Stream', page: StreamDemo()),
-        ActionItem(title: 'RxDart', page: RxDartDemo()),
-        ActionItem(title: 'wifi信息', page: WifiInfoDemo()),
-        ActionItem(title: 'UrlLauncher', page: UrlLauncherDemo()),
-        ActionItem(title: 'Canvas', page: CanvasDemo()),
-        ActionItem(title: 'Toast', page: ToastDemo()),
-        ActionItem(title: '引导', page: GuideDemo()),
-        ActionItem(title: '设备资源', page: DeviceResource()),
-        ActionItem(title: '原生通信', page: ChannelDemo()),
-        ActionItem(title: '屏幕适配', page: ScreenUtilDemo()),
-      ];
+      ActionItem(title: '旧的App', page: MyOldApp()),
+      ActionItem(title: '路由处理2.0', page: NavigatorTwoDemo()),
+      ActionItem(title: '动画', page: AnimationPage()),
+      ActionItem(title: 'UI', page: UiPage()),
+      ActionItem(title: 'Sliver', page: SliverDemo1()),
+      ActionItem(title: 'I18nPage', page: I18nPage()),
+      ActionItem(title: '日历', page: CalenderDemo()),
+      ActionItem(title: '吃药啦', page: Medirec()),
+      ActionItem(title: '扫码', page: ScannerBarCodeDemo()),
+      ActionItem(title: '地图', page: MapDemo()),
+      ActionItem(title: 'SensorDemo', page: SensorDemo()),
+      ActionItem(title: '监控粘贴板', page: ClipBoardPage()),
+      ActionItem(title: '自定义裁剪', page: CustomClipDemo()),
+      ActionItem(title: '表单验证', page: FormDemo()),
+      ActionItem(title: '线程', page: IsolateDemo()),
+      ActionItem(title: 'Stream', page: StreamDemo()),
+      ActionItem(title: 'RxDart', page: RxDartDemo()),
+      ActionItem(title: 'wifi信息', page: WifiInfoDemo()),
+      ActionItem(title: 'UrlLauncher', page: UrlLauncherDemo()),
+      ActionItem(title: 'Canvas', page: CanvasDemo()),
+      ActionItem(title: 'Toast', page: ToastDemo()),
+      ActionItem(title: '引导', page: GuideDemo()),
+      ActionItem(title: '设备资源', page: DeviceResource()),
+      ActionItem(title: '原生通信', page: ChannelDemo()),
+      ActionItem(title: '屏幕适配', page: ScreenUtilDemo()),
+    ];
   }
 }

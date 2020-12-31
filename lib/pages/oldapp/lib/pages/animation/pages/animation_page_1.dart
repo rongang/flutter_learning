@@ -9,6 +9,7 @@ class AnimationPage1 extends StatefulWidget {
 
 class _AnimationPage1State extends State<AnimationPage1> {
   int num = 100;
+
   @override
   Widget build(BuildContext context) {
     List value = num.toString().split('');
@@ -23,19 +24,31 @@ class _AnimationPage1State extends State<AnimationPage1> {
           color: Colors.blue[400],
           child: Row(
             children: <Widget>[
-              Counter(num: double.tryParse(value[0]),),
-              Counter(num: double.tryParse(value[1]),),
-              Counter(num: double.tryParse(value[2]),),
-              Counter(num: double.tryParse(value[0]),),
-              Counter(num: double.tryParse(value[1]),),
-              Counter(num: double.tryParse(value[2]),),
+              Counter(
+                num: double.tryParse(value[0]),
+              ),
+              Counter(
+                num: double.tryParse(value[1]),
+              ),
+              Counter(
+                num: double.tryParse(value[2]),
+              ),
+              Counter(
+                num: double.tryParse(value[0]),
+              ),
+              Counter(
+                num: double.tryParse(value[1]),
+              ),
+              Counter(
+                num: double.tryParse(value[2]),
+              ),
             ],
           ),
         ),
       ),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.shuffle),
-        onPressed: (){
+        onPressed: () {
           setState(() {
             num = Random().nextInt(999).clamp(100, 999);
           });
@@ -47,10 +60,8 @@ class _AnimationPage1State extends State<AnimationPage1> {
 
 class Counter extends StatelessWidget {
   final double num;
-  const Counter({
-    Key key,
-    this.num
-  }) : super(key: key);
+
+  const Counter({Key key, this.num}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -66,14 +77,14 @@ class Counter extends StatelessWidget {
             alignment: Alignment.center,
             children: <Widget>[
               Positioned(
-                top: -100*decimal,
-                child:
-                    Text('$whole', style: Theme.of(context).textTheme.headline3),
+                top: -100 * decimal,
+                child: Text('$whole',
+                    style: Theme.of(context).textTheme.headline3),
               ),
               Positioned(
-                top: 100 - 100*decimal,
-                child:
-                    Text('$whole', style: Theme.of(context).textTheme.headline3),
+                top: 100 - 100 * decimal,
+                child: Text('$whole',
+                    style: Theme.of(context).textTheme.headline3),
               ),
             ],
           );
