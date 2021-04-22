@@ -38,8 +38,8 @@ class _GuideDemoState extends State<GuideDemo> {
           onPressed: () {
             print(kIsWeb);
             // if(Platform.isFuchsia)
-            if(kIsWeb){
-              Utils.showDiglogg(content: '暂不支持web平台');
+            if (kIsWeb) {
+              Utils.showDialog(content: '暂不支持web平台');
               return;
             }
             buildGuide();
@@ -57,33 +57,33 @@ class _GuideDemoState extends State<GuideDemo> {
     Size(30.0, 30.0),
     Size(40.0, 40.0),
   ];
-  Size size;
-  Offset offset;
+  late Size size;
+  late Offset offset;
 
   void buildGuide() {
-    RenderBox renderBox = buttonGlobalKey.currentContext.findRenderObject();
+    RenderBox renderBox = buttonGlobalKey.currentContext!.findRenderObject() as RenderBox;
     offset = renderBox.localToGlobal(Offset.zero);
     size = renderBox.size; //itemInfo[Random().nextInt(5)];
     MyOverlay.init(widgetBuilder: (context) {
       return Scaffold(
         backgroundColor: Colors.transparent,
         body:
-        // Container(
-        //   alignment: Alignment.center,
-        //   constraints: BoxConstraints.expand(),
-        //   decoration: BoxDecoration(
-        //       color: Colors.black.withOpacity(0.4),
-        //       backgroundBlendMode: BlendMode.src),
-        //   child: Container(
-        //     height: 200,
-        //     width: 200,
-        //     decoration: BoxDecoration(
-        //       color: Colors.redAccent,
-        //       backgroundBlendMode: BlendMode.clear
-        //     ),
-        //   ),
-        // ),
-        Stack(
+            // Container(
+            //   alignment: Alignment.center,
+            //   constraints: BoxConstraints.expand(),
+            //   decoration: BoxDecoration(
+            //       color: Colors.black.withOpacity(0.4),
+            //       backgroundBlendMode: BlendMode.src),
+            //   child: Container(
+            //     height: 200,
+            //     width: 200,
+            //     decoration: BoxDecoration(
+            //       color: Colors.redAccent,
+            //       backgroundBlendMode: BlendMode.clear
+            //     ),
+            //   ),
+            // ),
+            Stack(
           children: [
             ColorFiltered(
               colorFilter: ColorFilter.mode(
@@ -107,13 +107,11 @@ class _GuideDemoState extends State<GuideDemo> {
                     Center(
                       child: OutlinedButton(
                           style: OutlinedButton.styleFrom(
-                              backgroundColor: Colors.white.withOpacity(0.1),
-                              side: BorderSide(color: Colors.white)),
+                              backgroundColor: Colors.white.withOpacity(0.1), side: BorderSide(color: Colors.white)),
                           onPressed: () {
                             setState(() {
                               size = itemInfo[Random().nextInt(5)];
-                              offset = Offset(Random().nextDouble() * 200,
-                                  Random().nextDouble() * 400);
+                              offset = Offset(Random().nextDouble() * 200, Random().nextDouble() * 400);
                             });
                             MyOverlay.show();
                           },
@@ -145,9 +143,9 @@ class GuideItem extends StatelessWidget {
   final Size size;
 
   const GuideItem({
-    Key key,
-    this.offset,
-    this.size,
+    Key? key,
+    required this.offset,
+    required this.size,
   }) : super(key: key);
 
   @override
@@ -159,10 +157,8 @@ class GuideItem extends StatelessWidget {
         width: size.width + 10.0,
         height: size.height,
         duration: time,
-        decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(25.0),
-            color: Colors.white,
-            backgroundBlendMode: BlendMode.srcOut),
+        decoration:
+            BoxDecoration(borderRadius: BorderRadius.circular(25.0), color: Colors.white, backgroundBlendMode: BlendMode.srcOut),
       ),
       duration: time,
     );

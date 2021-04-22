@@ -1,4 +1,3 @@
-import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -11,12 +10,13 @@ class _SliderDemoState extends State<SliderDemo> {
   double sliderValue = 0.0;
   double rangeSliderValueBegin = 0.0;
   double rangeSliderValueEnd = 0.5;
-  RangeValues rangeValues;
+  late RangeValues rangeValues;
   @override
   void initState() {
-    rangeValues = RangeValues(rangeSliderValueBegin,rangeSliderValueEnd);
+    rangeValues = RangeValues(rangeSliderValueBegin, rangeSliderValueEnd);
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -54,14 +54,14 @@ class _SliderDemoState extends State<SliderDemo> {
               },
               values: rangeValues,
               divisions: 10,
-              labels: RangeLabels(rangeSliderValueBegin.toString(),rangeSliderValueEnd.toString()),
+              labels: RangeLabels(rangeSliderValueBegin.toString(), rangeSliderValueEnd.toString()),
             ),
           ),
           Container(
             height: 100,
             child: FlatButton(
               child: Text('显示键盘'),
-              onPressed: (){
+              onPressed: () {
                 SystemChannels.textInput.invokeMethod("TextInput.show");
               },
             ),

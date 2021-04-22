@@ -1,7 +1,6 @@
 import 'dart:ui' as ui show Image, ImageFilter, TextHeightBehavior;
 
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_learning/pages/i18n/i18n_demo.dart';
 import 'package:flutter_learning/pages/i18n/language_provider.dart';
 import 'package:provider/provider.dart';
@@ -13,12 +12,11 @@ class I18nPage extends StatefulWidget {
 
 class _I18nPageState extends State<I18nPage> {
   String nowLanguage = '';
-  LanguageProvider languageProvider;
+  late LanguageProvider languageProvider;
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    precacheImage(NetworkImage('http://img.netbian.com/file/2018/0622/da3df84fa3f34c50010b42f105bf35fb.jpg'), context);
   }
 
   @override
@@ -32,11 +30,7 @@ class _I18nPageState extends State<I18nPage> {
     languageProvider = Provider.of<LanguageProvider>(context);
     return Container(
       constraints: BoxConstraints.expand(),
-      decoration: BoxDecoration(
-          image: DecorationImage(
-              image: NetworkImage(
-                  'http://img.netbian.com/file/2018/0622/da3df84fa3f34c50010b42f105bf35fb.jpg'),
-              fit: BoxFit.cover)),
+      decoration: BoxDecoration(image: DecorationImage(image: AssetImage('assets/images/grid.jpg'), fit: BoxFit.cover)),
       child: Scaffold(
         backgroundColor: Colors.transparent,
 //        appBar: AppBar(
@@ -54,11 +48,16 @@ class _I18nPageState extends State<I18nPage> {
                 child: Container(
                   alignment: Alignment.center,
                   width: size.width,
-                  height: kToolbarHeight+edgeInsets.bottom,
+                  height: kToolbarHeight + edgeInsets.bottom,
                   color: Colors.transparent,
                   child: SafeArea(
                     bottom: false,
-                    child: Text(title,style: TextStyle(fontSize: 20,),),
+                    child: Text(
+                      title,
+                      style: TextStyle(
+                        fontSize: 20,
+                      ),
+                    ),
                   ),
                 ),
               ),
@@ -99,8 +98,7 @@ class _I18nPageState extends State<I18nPage> {
                         }
                       },
                       offset: Offset(-30, 60),
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20)),
+                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
                       itemBuilder: (context) {
                         return [
                           PopupMenuItem(
@@ -161,8 +159,8 @@ class _I18nPageState extends State<I18nPage> {
               left: 0,
               child: SafeArea(
                   child: BackButton(
-                    color: Colors.white,
-                  )),
+                color: Colors.white,
+              )),
             ),
           ],
         ),
@@ -182,8 +180,8 @@ class SigmaWidget extends StatelessWidget {
   final Widget child;
 
   const SigmaWidget({
-    Key key,
-    this.child,
+    Key? key,
+    required this.child,
   }) : super(key: key);
 
   @override

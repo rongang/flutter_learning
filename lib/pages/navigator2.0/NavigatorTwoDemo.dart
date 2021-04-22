@@ -3,8 +3,7 @@ import 'package:flutter/material.dart';
 
 class NavigatorTwoDemo extends StatelessWidget {
   final _navigatorTwoRouterDelegate = NavigatorTwoRouterDelegate();
-  final _navigatorTwoRouteInformationParser =
-      NavigatorTwoRouteInformationParser();
+  final _navigatorTwoRouteInformationParser = NavigatorTwoRouteInformationParser();
 
   @override
   Widget build(BuildContext context) {
@@ -22,11 +21,10 @@ class NavigatorTwoDemo extends StatelessWidget {
   }
 }
 
-class NavigatorTwoRouterDelegate extends RouterDelegate<String>
-    with ChangeNotifier, PopNavigatorRouterDelegateMixin<String> {
+class NavigatorTwoRouterDelegate extends RouterDelegate<String> with ChangeNotifier, PopNavigatorRouterDelegateMixin<String> {
   final GlobalKey<NavigatorState> navigatorKey;
 
-  static NavigatorTwoRouterDelegate of(BuildContext context){
+  static NavigatorTwoRouterDelegate of(BuildContext context) {
     return Router.of(context).routerDelegate as NavigatorTwoRouterDelegate;
   }
 
@@ -86,9 +84,10 @@ class NavigatorTwoRouterDelegate extends RouterDelegate<String>
               ),
               body: Center(
                 child: ElevatedButton(
-                  onPressed: (){
+                  onPressed: () {
                     NavigatorTwoRouterDelegate.of(context);
                   },
+                  child: Container(),
                 ),
               ),
             ),
@@ -103,12 +102,9 @@ class NavigatorTwoRouterDelegate extends RouterDelegate<String>
   }
 }
 
-
-class NavigatorTwoRouteInformationParser
-    extends RouteInformationParser<String> {
+class NavigatorTwoRouteInformationParser extends RouteInformationParser<String> {
   @override
-  Future<String> parseRouteInformation(
-      RouteInformation routeInformation) async {
+  Future<String> parseRouteInformation(RouteInformation routeInformation) async {
     // var result = Uri.parse('https://www.ctrlhealth.com?id=111&userId=3443sd');
     // print('${result.data}');
     // print('${result.queryParameters}');
@@ -140,8 +136,7 @@ class BooksApp extends StatefulWidget {
 
 class _BooksAppState extends State<BooksApp> {
   BookRouterDelegate _routerDelegate = BookRouterDelegate();
-  BookRouteInformationParser _routeInformationParser =
-      BookRouteInformationParser();
+  BookRouteInformationParser _routeInformationParser = BookRouteInformationParser();
 
   @override
   Widget build(BuildContext context) {
@@ -155,12 +150,11 @@ class _BooksAppState extends State<BooksApp> {
 
 class BookRouteInformationParser extends RouteInformationParser<BookRoutePath> {
   @override
-  Future<BookRoutePath> parseRouteInformation(
-      RouteInformation routeInformation) async {
-    final uri = Uri.parse(routeInformation.location);
+  Future<BookRoutePath> parseRouteInformation(RouteInformation routeInformation) async {
+    final uri = Uri.parse(routeInformation.location!);
     // Handle '/'
     // if (uri.pathSegments.length == 0) {
-      return BookRoutePath.home();
+    return BookRoutePath.home();
     // }
     //
     // // Handle '/book/:id'
@@ -195,7 +189,7 @@ class BookRouterDelegate extends RouterDelegate<BookRoutePath>
     with ChangeNotifier, PopNavigatorRouterDelegateMixin<BookRoutePath> {
   final GlobalKey<NavigatorState> navigatorKey;
 
-  Book _selectedBook;
+  Book? _selectedBook;
   bool show404 = false;
 
   List<Book> books = [
@@ -230,7 +224,7 @@ class BookRouterDelegate extends RouterDelegate<BookRoutePath>
         if (show404)
           MaterialPage(key: ValueKey('UnknownPage'), child: UnknownScreen())
         else if (_selectedBook != null)
-          BookDetailsPage(book: _selectedBook)
+          BookDetailsPage(book: _selectedBook!)
       ],
       onPopPage: (route, result) {
         if (!route.didPop(result)) {
@@ -279,7 +273,7 @@ class BookDetailsPage extends Page {
   final Book book;
 
   BookDetailsPage({
-    this.book,
+    required this.book,
   }) : super(key: ValueKey(book));
 
   Route createRoute(BuildContext context) {
@@ -293,7 +287,7 @@ class BookDetailsPage extends Page {
 }
 
 class BookRoutePath {
-  final int id;
+  final int? id;
   final bool isUnknown;
 
   BookRoutePath.home()
@@ -316,8 +310,8 @@ class BooksListScreen extends StatelessWidget {
   final ValueChanged<Book> onTapped;
 
   BooksListScreen({
-    @required this.books,
-    @required this.onTapped,
+    required this.books,
+    required this.onTapped,
   });
 
   @override
@@ -342,7 +336,7 @@ class BookDetailsScreen extends StatelessWidget {
   final Book book;
 
   BookDetailsScreen({
-    @required this.book,
+    required this.book,
   });
 
   @override

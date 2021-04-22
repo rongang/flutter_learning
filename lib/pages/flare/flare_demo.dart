@@ -1,7 +1,4 @@
-import 'dart:math';
-
 import 'package:flare_flutter/flare_actor.dart';
-import 'package:flare_flutter/flare_controller.dart';
 import 'package:flare_flutter/flare_controls.dart';
 import 'package:flutter/material.dart';
 
@@ -127,7 +124,7 @@ class _FlareDemoState extends State<FlareDemo> {
 ////      }
 //    animationName = statusMap[pre]+"_"+statusMap[now];
 //    });
-    _controller.play(statusMap[pre] + "_" + statusMap[now]);
+    _controller.play(statusMap[pre]! + "_" + statusMap[now]!);
   }
 
   _changeStatus(status) {
@@ -138,4 +135,3 @@ class _FlareDemoState extends State<FlareDemo> {
     });
   }
 }
-

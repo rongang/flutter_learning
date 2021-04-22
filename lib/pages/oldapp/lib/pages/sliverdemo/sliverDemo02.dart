@@ -14,10 +14,7 @@ class _SliverDemo02State extends State<SliverDemo02> {
         slivers: <Widget>[
           SliverPersistentHeader(
             pinned: true,
-            delegate: FloatHeader(
-              expandHeight: 300,
-              paddingTop: MediaQuery.of(context).padding.top
-            ),
+            delegate: FloatHeader(expandHeight: 300, paddingTop: MediaQuery.of(context).padding.top),
           ),
           SliverToBoxAdapter(
             child: Container(
@@ -28,10 +25,7 @@ class _SliverDemo02State extends State<SliverDemo02> {
           SliverPersistentHeader(
             pinned: true,
 //            floating: true,
-            delegate: FloatHeader(
-                expandHeight: 100,
-                paddingTop: MediaQuery.of(context).padding.top
-            ),
+            delegate: FloatHeader(expandHeight: 100, paddingTop: MediaQuery.of(context).padding.top),
           ),
           SliverToBoxAdapter(
             child: Container(
@@ -45,27 +39,25 @@ class _SliverDemo02State extends State<SliverDemo02> {
   }
 }
 
-
-
-
-class FloatHeader extends SliverPersistentHeaderDelegate{
+class FloatHeader extends SliverPersistentHeaderDelegate {
   final double expandHeight;
   final double paddingTop;
-  FloatHeader({this.expandHeight,this.paddingTop});
+  FloatHeader({required this.expandHeight, required this.paddingTop});
 
   Color makeStickyHeaderBgColor(shrinkOffset) {
-    final int alpha = (shrinkOffset / (this.maxExtent - this.minExtent) * 255).clamp(0,255).toInt();
+    final int alpha = (shrinkOffset / (this.maxExtent - this.minExtent) * 255).clamp(0, 255).toInt();
     return Color.fromARGB(alpha, 255, 255, 255);
   }
 
   Color makeStickyHeaderTextColor(shrinkOffset, isIcon) {
-    if(shrinkOffset <= 50) {
+    if (shrinkOffset <= 50) {
       return isIcon ? Colors.white : Colors.transparent;
     } else {
       final int alpha = (shrinkOffset / (this.maxExtent - this.minExtent) * 255).clamp(0, 255).toInt();
       return Color.fromARGB(alpha, 0, 0, 0);
     }
   }
+
   @override
   Widget build(BuildContext context, double shrinkOffset, bool overlapsContent) {
     // TODO: implement build
@@ -76,11 +68,9 @@ class FloatHeader extends SliverPersistentHeaderDelegate{
         Container(
           height: maxExtent,
           decoration: BoxDecoration(
-            image: DecorationImage(
-              image: NetworkImage('http://img.netbian.com/file/2020/0712/ccd6fce7874f4f9351ddf67c71ed4536.jpg'),
-              fit: BoxFit.cover
-            )
-          ),
+              image: DecorationImage(
+                  image: NetworkImage('http://img.netbian.com/file/2020/0712/ccd6fce7874f4f9351ddf67c71ed4536.jpg'),
+                  fit: BoxFit.cover)),
           width: size.width,
         ),
         Positioned(
@@ -124,14 +114,13 @@ class FloatHeader extends SliverPersistentHeaderDelegate{
             ),
           ),
         ),
-
       ],
     );
   }
 
   @override
   // TODO: implement maxExtent
-  double get maxExtent => expandHeight+paddingTop;
+  double get maxExtent => expandHeight + paddingTop;
 
   @override
   // TODO: implement minExtent
@@ -142,5 +131,4 @@ class FloatHeader extends SliverPersistentHeaderDelegate{
     // TODO: implement shouldRebuild
     throw true;
   }
-
 }

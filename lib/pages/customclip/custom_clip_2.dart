@@ -7,18 +7,19 @@ class CustomClip2 extends StatefulWidget {
   _CustomClip2State createState() => _CustomClip2State();
 }
 
-class _CustomClip2State extends State<CustomClip2> with SingleTickerProviderStateMixin{
-  AnimationController controller;
-  Animation<Color> animation;
-  double indicatorState;
+class _CustomClip2State extends State<CustomClip2> with SingleTickerProviderStateMixin {
+  late AnimationController controller;
+  late Animation<Color?> animation;
+  late double indicatorState;
   @override
   void initState() {
     indicatorState = 0.5;
-    controller = AnimationController(vsync: this,duration: Duration(seconds: 2));
-    animation = ColorTween(begin: Color(0xFFFF1744),end: Color(0xFF00BFA5)).animate(controller);
+    controller = AnimationController(vsync: this, duration: Duration(seconds: 2));
+    animation = ColorTween(begin: Color(0xFFFF1744), end: Color(0xFF00BFA5)).animate(controller);
     controller.forward();
     super.initState();
   }
+
   @override
   void dispose() {
     controller.dispose();
@@ -32,11 +33,14 @@ class _CustomClip2State extends State<CustomClip2> with SingleTickerProviderStat
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text((indicatorState*100).floor().toString(),style: Theme.of(context).textTheme.headline3,),
+            Text(
+              (indicatorState * 100).floor().toString(),
+              style: Theme.of(context).textTheme.headline3,
+            ),
             TweenAnimationBuilder<double>(
               duration: Duration(seconds: 2),
-              tween: Tween(begin:0.0,end: indicatorState),
-              builder: (context,value,child){
+              tween: Tween(begin: 0.0, end: indicatorState),
+              builder: (context, value, child) {
                 return Column(
                   children: [
                     Stack(
@@ -57,16 +61,18 @@ class _CustomClip2State extends State<CustomClip2> with SingleTickerProviderStat
                           alignment: Alignment.center,
                           height: 30,
                           width: double.infinity,
-                          child: Text('${value*100~/1}%'),
+                          child: Text('${value * 100 ~/ 1}%'),
                         ),
                       ],
                     ),
-                    SizedBox(height: 40,),
+                    SizedBox(
+                      height: 40,
+                    ),
                     Stack(
                       alignment: Alignment.center,
                       children: [
                         RotatedBox(
-                          quarterTurns:3,
+                          quarterTurns: 3,
                           child: SizedBox(
                             height: 100,
                             width: 100,
@@ -74,7 +80,7 @@ class _CustomClip2State extends State<CustomClip2> with SingleTickerProviderStat
                               child: CircularProgressIndicator(
                                 strokeWidth: 20,
                                 value: value,
-                                valueColor: AlwaysStoppedAnimation<Color>(animation.value),
+                                valueColor: AlwaysStoppedAnimation<Color>(animation.value!),
                               ),
                             ),
                           ),
@@ -83,7 +89,7 @@ class _CustomClip2State extends State<CustomClip2> with SingleTickerProviderStat
                           alignment: Alignment.center,
                           height: 30,
                           width: double.infinity,
-                          child: Text('${value*100~/1}%'),
+                          child: Text('${value * 100 ~/ 1}%'),
                         ),
                       ],
                     ),
@@ -96,7 +102,7 @@ class _CustomClip2State extends State<CustomClip2> with SingleTickerProviderStat
       ),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.shuffle),
-        onPressed: (){
+        onPressed: () {
           setState(() {
             indicatorState = Random().nextDouble();
           });

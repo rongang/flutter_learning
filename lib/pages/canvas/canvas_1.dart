@@ -1,14 +1,11 @@
 import 'dart:async';
-import 'dart:io';
 import 'dart:ui' as ui;
-import 'dart:math' as math;
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
-final imageUrl =
-    'http://img.netbian.com/file/2020/0615/ccec25d9e8fc3ceb4f80c5579447af59.jpg';
+final imageUrl = 'http://img.netbian.com/file/2020/0615/ccec25d9e8fc3ceb4f80c5579447af59.jpg';
 
 class Canvas1 extends StatefulWidget {
   @override
@@ -16,12 +13,12 @@ class Canvas1 extends StatefulWidget {
 }
 
 class _Canvas1State extends State<Canvas1> with WidgetsBindingObserver {
-  ImageClip imageClip;
+  late ImageClip imageClip;
   double scale = 1.0;
   double preScale = 0.0;
-  double startScale;
+  late double startScale;
 
-  Future _future;
+  late Future _future;
 
   GlobalKey clipAreaKey = GlobalKey();
 
@@ -35,7 +32,7 @@ class _Canvas1State extends State<Canvas1> with WidgetsBindingObserver {
   void initState() {
     super.initState();
     _future = loadImage();
-    WidgetsBinding.instance.addObserver(this);
+    WidgetsBinding.instance!.addObserver(this);
     Timer.periodic(Duration(seconds: 1), (timer) {
       setState(() {});
     });
@@ -135,24 +132,21 @@ class _Canvas1State extends State<Canvas1> with WidgetsBindingObserver {
         onPressed: () {
           double width = _image.width * 0.23;
           double height = _image.height * 0.23;
-          RenderBox renderBox = clipAreaKey.currentContext.findRenderObject();
+          RenderBox renderBox = clipAreaKey.currentContext!.findRenderObject()! as RenderBox;
           var size = renderBox.size;
-          var begin = renderBox.localToGlobal(Offset.zero) -
-              Offset(0, kToolbarHeight + 20);
+          var begin = renderBox.localToGlobal(Offset.zero) - Offset(0, kToolbarHeight + 20);
           print('size--$size--begin--$begin');
-          clip(begin.dx / width, begin.dy / height, size.width / 0.23,
-              size.height / 0.23);
+          clip(begin.dx / width, begin.dy / height, size.width / 0.23, size.height / 0.23);
         },
       ),
     );
   }
 
-  ui.Image _image;
+  late ui.Image _image;
 
   Future<ui.Image> loadImage() {
     Completer<ui.Image> completer = Completer<ui.Image>();
-    ImageStream imageStream =
-        NetworkImage(imageUrl).resolve(ImageConfiguration.empty);
+    ImageStream imageStream = NetworkImage(imageUrl).resolve(ImageConfiguration.empty);
     void listener(ImageInfo image, bool synchronousCall) {
       _image = image.image;
       completer.complete(_image);
@@ -165,8 +159,7 @@ class _Canvas1State extends State<Canvas1> with WidgetsBindingObserver {
 
   clip(left, top, width, height) {
     loadImage().then((ui.Image image) {
-      imageClip =
-          ImageClip(image, left: left, top: top, width: width, height: height);
+      imageClip = ImageClip(image, left: left, top: top, width: width, height: height);
       setState(() {});
     });
   }
@@ -176,11 +169,7 @@ class ImageClip extends CustomPainter {
   final ui.Image image;
   final double left, width, height, top;
 
-  ImageClip(this.image,
-      {this.left = 0.3,
-      this.width = 100.0,
-      this.height = 100.0,
-      this.top = 0.3});
+  ImageClip(this.image, {this.left = 0.3, this.width = 100.0, this.height = 100.0, this.top = 0.3});
 
   @override
   void paint(Canvas canvas, Size size) {
@@ -191,11 +180,8 @@ class ImageClip extends CustomPainter {
     double scaleDouble = ((image.width) / (image.height)) * 1.0;
     double widthDouble = size.width * scaleDouble;
     double scaleWidth = size.width / widthDouble;
-    canvas.drawImageRect(
-        image,
-        Rect.fromLTWH(image.width * left, image.height * top, width, height),
-        Rect.fromLTWH(0.0, 0.0, size.width, size.height),
-        paint);
+    canvas.drawImageRect(image, Rect.fromLTWH(image.width * left, image.height * top, width, height),
+        Rect.fromLTWH(0.0, 0.0, size.width, size.height), paint);
   }
 
   @override
@@ -223,4 +209,3 @@ class ClipArea extends CustomPainter {
   @override
   bool shouldRepaint(CustomPainter oldDelegate) => false;
 }
-

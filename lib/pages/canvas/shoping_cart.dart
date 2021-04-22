@@ -12,39 +12,36 @@ class ShoppingCart extends StatefulWidget {
 
 class _ShoppingCartState extends State<ShoppingCart> {
   final cartGlobalKey = GlobalKey();
-  Offset cartOffset;
-  Offset productOffset;
+  late Offset cartOffset;
+  late Offset productOffset;
   List<OverlayEntry> overlayEntries = [];
   int goodsCount = 0;
 
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      cartOffset =
-          (cartGlobalKey.currentContext.findRenderObject() as RenderBox)
-                  .localToGlobal(Offset.zero) +
-              Offset(20, 20);
+    WidgetsBinding.instance!.addPostFrameCallback((timeStamp) {
+      cartOffset = (cartGlobalKey.currentContext!.findRenderObject() as RenderBox).localToGlobal(Offset.zero) + Offset(20, 20);
     });
   }
 
-  showAnimation({Offset start, Offset end}) {
-    Offset _offSet =
-        Offset(Random().nextDouble() * 100, Random().nextDouble() * 100);
+  showAnimation({required Offset start, required Offset end}) {
+    Offset _offSet = Offset(Random().nextDouble() * 100, Random().nextDouble() * 100);
     OverlayEntry overlayEntry = OverlayEntry(builder: (context) {
       // return AddToCartAnimation(startOffset: start,endOffset: end,);
       return AddToCartPathAnimation(
         offSet: _offSet,
         startOffset: start,
         endOffset: end,
+        key: UniqueKey(),
       );
     });
     overlayEntries.add(overlayEntry);
     MyOverlay.init(overlayEntry: overlayEntry, isShowMul: true);
     Future.delayed(Duration(milliseconds: 500), () {
       if (overlayEntries.isNotEmpty && overlayEntries.length > 0) {
-        var entry = overlayEntries.removeAt(0);
-        entry?.remove();
+        OverlayEntry? entry = overlayEntries.removeAt(0);
+        entry.remove();
         entry = null;
       }
     });
@@ -73,9 +70,7 @@ class _ShoppingCartState extends State<ShoppingCart> {
                     setState(() {
                       goodsCount++;
                     });
-                    productOffset = (context.findRenderObject() as RenderBox)
-                            .localToGlobal(Offset.zero) +
-                        Offset(20, 20);
+                    productOffset = (context.findRenderObject() as RenderBox).localToGlobal(Offset.zero) + Offset(20, 20);
                     print(productOffset);
                     showAnimation(start: productOffset, end: cartOffset);
                     MyOverlay.show();
@@ -110,9 +105,7 @@ class _ShoppingCartState extends State<ShoppingCart> {
                         '$goodsCount',
                         style: TextStyle(fontSize: 10, color: Colors.white),
                       ),
-                      decoration: BoxDecoration(
-                          color: Colors.lightBlue,
-                          borderRadius: BorderRadius.circular(8)),
+                      decoration: BoxDecoration(color: Colors.lightBlue, borderRadius: BorderRadius.circular(8)),
                     ),
                   ),
                 )
@@ -129,11 +122,11 @@ class _ShoppingCartState extends State<ShoppingCart> {
 
 class AddToCartPathAnimation extends StatefulWidget {
   const AddToCartPathAnimation({
-    Key key,
-    @required Offset offSet,
-    this.startOffset,
-    this.endOffset,
-  })  : _offSet = offSet,
+    required Key key,
+    required Offset offSet,
+    required this.startOffset,
+    required this.endOffset,
+  })   : _offSet = offSet,
         super(key: key);
   final Offset startOffset;
   final Offset endOffset;
@@ -143,13 +136,12 @@ class AddToCartPathAnimation extends StatefulWidget {
   _AddToCartPathAnimationState createState() => _AddToCartPathAnimationState();
 }
 
-class _AddToCartPathAnimationState extends State<AddToCartPathAnimation>
-    with SingleTickerProviderStateMixin {
-  AnimationController controller;
-  Animation animation;
-  double left;
-  double top;
-  double x0, y0, x1, y1, x2, y2;
+class _AddToCartPathAnimationState extends State<AddToCartPathAnimation> with SingleTickerProviderStateMixin {
+  late AnimationController controller;
+  late Animation animation;
+  late double left;
+  late double top;
+  late double x0, y0, x1, y1, x2, y2;
 
   @override
   void initState() {
@@ -157,12 +149,10 @@ class _AddToCartPathAnimationState extends State<AddToCartPathAnimation>
     left = x0 = widget.startOffset.dx;
     top = y0 = widget.startOffset.dy;
     x1 = widget.endOffset.dx;
-    y1 = widget.startOffset.dy +
-        (widget.endOffset.dy - widget.startOffset.dy) / 2;
+    y1 = widget.startOffset.dy + (widget.endOffset.dy - widget.startOffset.dy) / 2;
     x2 = widget.endOffset.dx;
     y2 = widget.endOffset.dy;
-    controller =
-        AnimationController(vsync: this, duration: Duration(milliseconds: 500));
+    controller = AnimationController(vsync: this, duration: Duration(milliseconds: 500));
     animation = CurvedAnimation(parent: controller, curve: Curves.bounceInOut);
     controller.addListener(() {
       setState(() {
@@ -208,7 +198,7 @@ class AddToCartAnimation extends StatefulWidget {
   final endOffset;
 
   const AddToCartAnimation({
-    Key key,
+    required Key key,
     this.startOffset,
     this.endOffset,
   }) : super(key: key);
@@ -218,7 +208,7 @@ class AddToCartAnimation extends StatefulWidget {
 }
 
 class _AddToCartAnimationState extends State<AddToCartAnimation> {
-  Offset nowOffset;
+  late Offset nowOffset;
 
   @override
   Widget build(BuildContext context) {
@@ -232,8 +222,8 @@ class _AddToCartAnimationState extends State<AddToCartAnimation> {
 }
 
 class AddToCartPainter extends CustomPainter {
-  Offset startOffset;
-  Offset endOffset;
+  late Offset startOffset;
+  late Offset endOffset;
 
   AddToCartPainter(Offset startOffset, Offset endOffset) {
     this.startOffset = startOffset + Offset(20, 20);
@@ -246,11 +236,7 @@ class AddToCartPainter extends CustomPainter {
     canvas.drawCircle(startOffset, 10, Paint()..color = Colors.redAccent);
     Path p = Path();
     p.moveTo(startOffset.dx, startOffset.dy);
-    p.quadraticBezierTo(
-        endOffset.dx,
-        startOffset.dy + (endOffset.dy - startOffset.dy) / 2,
-        endOffset.dx,
-        endOffset.dy);
+    p.quadraticBezierTo(endOffset.dx, startOffset.dy + (endOffset.dy - startOffset.dy) / 2, endOffset.dx, endOffset.dy);
     canvas.drawPath(
         p,
         Paint()

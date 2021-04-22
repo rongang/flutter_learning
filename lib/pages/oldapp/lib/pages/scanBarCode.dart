@@ -1,5 +1,3 @@
-import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 /*
  * QR.Flutter
  * Copyright (c) 2019 the QR.Flutter authors.
@@ -7,7 +5,6 @@ import 'package:flutter/services.dart';
  */
 
 import 'dart:async';
-import 'dart:typed_data';
 import 'dart:ui' as ui;
 
 import 'package:flutter/material.dart';
@@ -24,7 +21,7 @@ class _MainScreenState extends State<MainScreen> {
   @override
   Widget build(BuildContext context) {
     final message =
-    // ignore: lines_longer_than_80_chars
+        // ignore: lines_longer_than_80_chars
         'Hey this is a QR code. Change this value in the main_screen.dart file.';
 
     final qrFutureBuilder = FutureBuilder(
@@ -48,7 +45,7 @@ class _MainScreenState extends State<MainScreen> {
 //              color: Color(0xff1a5441),
 //            ),
             // size: 320.0,
-            embeddedImage: snapshot.data,
+            embeddedImage: snapshot.requireData as ui.Image,
             embeddedImageStyle: QrEmbeddedImageStyle(
               size: Size.square(60),
             ),
@@ -74,8 +71,7 @@ class _MainScreenState extends State<MainScreen> {
                 ),
               ),
               Padding(
-                padding: EdgeInsets.symmetric(vertical: 20, horizontal: 40)
-                    .copyWith(bottom: 40),
+                padding: EdgeInsets.symmetric(vertical: 20, horizontal: 40).copyWith(bottom: 40),
                 child: Text(message),
               ),
             ],
@@ -92,7 +88,6 @@ class _MainScreenState extends State<MainScreen> {
     return completer.future;
   }
 }
-
 
 class ExampleApp extends StatelessWidget {
   // This widget is the root of your application.

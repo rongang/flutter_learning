@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:io';
 import 'dart:isolate';
 
 import 'package:flutter/foundation.dart';
@@ -18,12 +17,12 @@ int syncFibonacci(int n) {
 
 double syncFibonacci2(int n) {
   if (n < 3) return 1;
-  Map<int,double> result = Map.fromIterables(Iterable<int>.generate(n,(index)=>index),
-      List<double>.generate(n, (index) => 1));
+  Map<int, double> result =
+      Map.fromIterables(Iterable<int>.generate(n, (index) => index), List<double>.generate(n, (index) => 1));
   for (int i = 2; i < n; i++) {
-    result[i] = result[i - 1] + result[i - 2];
+    result[i] = result[i - 1]! + result[i - 2]!;
   }
-  return result[n-1];
+  return result[n - 1]!;
 }
 
 class IsolateDemo extends StatefulWidget {
@@ -36,7 +35,7 @@ class _IsolateDemoState extends State<IsolateDemo> {
   double result = 0;
   int timeUse = 0;
 
-  Timer count;
+  late Timer count;
 
   @override
   void initState() {
@@ -59,7 +58,6 @@ class _IsolateDemoState extends State<IsolateDemo> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -69,7 +67,7 @@ class _IsolateDemoState extends State<IsolateDemo> {
                       style: Theme.of(context).textTheme.headline4,
                     ),
                   ),
-                  Visibility(visible: result==0,child: CircularProgressIndicator()),
+                  Visibility(visible: result == 0, child: CircularProgressIndicator()),
                 ],
               ),
               Text(
@@ -79,9 +77,7 @@ class _IsolateDemoState extends State<IsolateDemo> {
               TextField(
                 controller: _controller,
                 keyboardType: TextInputType.number,
-                inputFormatters: [
-                  FilteringTextInputFormatter.allow(RegExp(r'[0-9]'))
-                ],
+                inputFormatters: [FilteringTextInputFormatter.allow(RegExp(r'[0-9]'))],
               ),
               DefaultButton(
                 title: '开始计算',
@@ -95,12 +91,11 @@ class _IsolateDemoState extends State<IsolateDemo> {
                   });
 //                Isolate.spawn((message) { }, 'message');
                   var dateBegin = DateTime.now().millisecondsSinceEpoch;
-                  double _result = await compute(
-                      syncFibonacci2, int.tryParse(_controller.text));
+                  double _result = (await compute<int, double>(syncFibonacci2, int.tryParse(_controller.text)!));
                   count.cancel();
                   timeUse = DateTime.now().millisecondsSinceEpoch - dateBegin;
                   setState(() {
-                    result = _result<double.infinity?_result:-1;
+                    result = _result < double.infinity ? _result : -1;
                   });
                 },
               )

@@ -1,12 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_learning/pages/oldapp/lib/Utils/customrouteImage.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
-
-import '../Utils/customrotute.dart';
-import '../Utils/customrouteImage.dart';
-
 import 'package:url_launcher/url_launcher.dart';
-
-import 'officialwebview.dart';
 
 const String _markdownData = '''# Markdown Example
 
@@ -109,14 +104,12 @@ Enjoy!
 ''';
 const String _html = '''<h1>hello world</h1>''';
 
-
 class MarkDownDemo extends StatefulWidget {
   @override
   _MarkDownDemoState createState() => _MarkDownDemoState();
 }
 
 class _MarkDownDemoState extends State<MarkDownDemo> {
-
   final ScrollController controller = ScrollController();
 
   @override
@@ -124,6 +117,7 @@ class _MarkDownDemoState extends State<MarkDownDemo> {
     controller.dispose();
     super.dispose();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -136,30 +130,33 @@ class _MarkDownDemoState extends State<MarkDownDemo> {
 //          selectable: true,
           data: _markdownData,
           imageDirectory: 'https://raw.githubusercontent.com',
-          onTapLink: (url) async  {
-            print(url);
+          onTapLink: (String text, String? href, String title) async {
+            print(text);
 //            Navigator.push(context, CustomRoute(widget: WebViewExample(url:'https://www.baidu.com')));
-          await launch('http://www.baidu.com',forceSafariVC: false,forceWebView: false,statusBarBrightness: Brightness.light);
+            await launch('http://www.baidu.com',
+                forceSafariVC: false, forceWebView: false, statusBarBrightness: Brightness.light);
           },
-          styleSheet: MarkdownStyleSheet(a: TextStyle(color: Colors.pinkAccent),p: TextStyle(color: Colors.blueAccent)),
-          imageBuilder: (url) => GestureDetector(
+          styleSheet: MarkdownStyleSheet(a: TextStyle(color: Colors.pinkAccent), p: TextStyle(color: Colors.blueAccent)),
+          imageBuilder: (Uri uri, String? title, String? alt) => GestureDetector(
             child: Image.network(
-              url.toString(),
+              uri.toString(),
               fit: BoxFit.cover,
             ),
-            onTap: (){
-              Navigator.push(context, CustomRouteImage(Scaffold(
-              backgroundColor: Colors.black,
-                  body: Center(
-                  child: GestureDetector(
-                  child: Image.network(
-                  url.toString(),
-              fit: BoxFit.cover,
-              ),
-              onTap: () {
-              Navigator.pop(context);
-              },
-              )))));
+            onTap: () {
+              Navigator.push(
+                  context,
+                  CustomRouteImage(Scaffold(
+                      backgroundColor: Colors.black,
+                      body: Center(
+                          child: GestureDetector(
+                        child: Image.network(
+                          uri.toString(),
+                          fit: BoxFit.cover,
+                        ),
+                        onTap: () {
+                          Navigator.pop(context);
+                        },
+                      )))));
             },
           ),
           /*imageBuilder: (uri) => Scaffold(
@@ -179,8 +176,7 @@ class _MarkDownDemoState extends State<MarkDownDemo> {
       ),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.arrow_upward),
-        onPressed: () => controller.animateTo(0,
-            duration: Duration(seconds: 1), curve: Curves.easeOut),
+        onPressed: () => controller.animateTo(0, duration: Duration(seconds: 1), curve: Curves.easeOut),
       ),
     );
   }

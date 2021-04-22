@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_learning/component/action_item.dart';
 import 'package:flutter_learning/pages/map/map_1.dart';
-import 'package:flutter_learning/pages/map/map_2.dart';
 
 class MapDemo extends StatelessWidget {
   @override
@@ -12,10 +11,12 @@ class MapDemo extends StatelessWidget {
         ),
         body: ListView(
           children: <Widget>[
-            ActionItem(title: '地图一',page: Map1(),),
-            ActionItem(title: '地图二',page: Map2(),),
+            ActionItem(
+              title: '地图一',
+              page: Map1(),
+            ),
+            // ActionItem(title: '地图二',page: Map2(),),
           ],
-        )
-    );
+        ));
   }
 }

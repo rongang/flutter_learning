@@ -8,7 +8,7 @@ class RxDartDemo extends StatefulWidget {
 }
 
 class _RxDartDemoState extends State<RxDartDemo> {
-  PublishSubject<String> _publishSubject;
+  late PublishSubject<String> _publishSubject;
 
   @override
   void initState() {
@@ -28,10 +28,10 @@ class _RxDartDemoState extends State<RxDartDemo> {
     _subject.close();
     _publishSubject = PublishSubject<String>();
     _publishSubject
-      .debounceTime(Duration(milliseconds: 500))
-      .where((item) => item.length>9)
-      .map((item) => 'item: $item')
-      .listen(print);
+        .debounceTime(Duration(milliseconds: 500))
+        .where((item) => item.length > 9)
+        .map((item) => 'item: $item')
+        .listen(print);
   }
 
   @override
@@ -63,8 +63,10 @@ class _RxDartDemoState extends State<RxDartDemo> {
                   _publishSubject.add('submit $value');
                 },
               ),
-              SizedBox(height: 300,),
-              TextButton(onPressed: (){}, child: Icon(Icons.fingerprint))
+              SizedBox(
+                height: 300,
+              ),
+              TextButton(onPressed: () {}, child: Icon(Icons.fingerprint))
             ],
           ),
         ),

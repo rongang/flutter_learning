@@ -3,9 +3,9 @@ import 'package:flare_flutter/flare_controls.dart';
 import 'package:flutter/material.dart';
 
 class Ui2 extends StatefulWidget {
-  final Function(String) onchange;
+  final Function(String)? onchange;
 
-  const Ui2({Key key, this.onchange}) : super(key: key);
+  const Ui2({Key? key, this.onchange}) : super(key: key);
 
   @override
   _Ui2State createState() => _Ui2State();
@@ -24,7 +24,7 @@ class _Ui2State extends State<Ui2> {
         child: FlareActor(
           'assets/images/Favorite.flr',
           alignment: Alignment.center,
-            animation: animationName,
+          animation: animationName,
 //          controller: _controls,
         ),
       ),
@@ -40,7 +40,9 @@ class _Ui2State extends State<Ui2> {
           });
 //          _controls.play('Favorite');
         }
-        widget.onchange(animationName);
+        if (widget.onchange != null) {
+          widget.onchange!(animationName);
+        }
       },
     );
   }

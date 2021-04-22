@@ -12,7 +12,7 @@ class SplashPageDemo1 extends StatefulWidget {
 }
 
 class _SplashPageDemo1State extends State<SplashPageDemo1> {
-  Timer timer;
+  late Timer timer;
 
   @override
   void initState() {
@@ -23,14 +23,13 @@ class _SplashPageDemo1State extends State<SplashPageDemo1> {
     navigatorTest();
   }
 
-  OverlayState overlayState;
+  late OverlayState overlayState;
 
   navigatorTest() {
     print('${MyApp.navigatorKey.currentState?.overlay?.context}');
     print('${MyApp.navigatorKey.currentContext}');
-    print(MyApp.navigatorKey.currentState?.overlay?.context ==
-        MyApp.navigatorKey.currentContext);
-    overlayState = MyApp.navigatorKey.currentState?.overlay;
+    print(MyApp.navigatorKey.currentState?.overlay?.context == MyApp.navigatorKey.currentContext);
+    overlayState = MyApp.navigatorKey.currentState!.overlay!;
     print(overlayState);
     OverlayEntry overlayEntry = OverlayEntry(builder: (BuildContext context) {
       return Stack(
@@ -51,21 +50,21 @@ class _SplashPageDemo1State extends State<SplashPageDemo1> {
       );
     });
 
-
     Future(() async {
       // overlayState.insert(overlayEntry);
       // await Future.delayed(Duration(milliseconds: 1000));
       showDialog(
           context: overlayState.context,
-          child: AlertDialog(
-            title: Text('tip'),
-          ));
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: Text('tip'),
+            );
+          });
       // showToast();
     });
   }
 
-  Widget get toast =>
-      Container(
+  Widget get toast => Container(
         padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 12.0),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(25.0),
@@ -83,17 +82,15 @@ class _SplashPageDemo1State extends State<SplashPageDemo1> {
         ),
       );
 
-
   // @override
   // void didChangeDependencies() {
   //   super.didChangeDependencies();
   //   showToast();
   // }
 
-
   showToast() {
     FToast fToast = FToast();
-    fToast.init(overlayState.context,overlayState: overlayState);
+    fToast.init(overlayState.context);
     fToast.showToast(child: toast);
   }
 
@@ -103,30 +100,26 @@ class _SplashPageDemo1State extends State<SplashPageDemo1> {
       body: TweenAnimationBuilder(
           duration: Duration(seconds: 3),
           tween: Tween(begin: 0.0, end: 1.0),
-          builder: (BuildContext context, double value, Widget child) {
+          builder: (BuildContext context, double value, Widget? child) {
             return Stack(
               children: <Widget>[
                 Container(
                   constraints: BoxConstraints.expand(),
                   decoration: BoxDecoration(
                       color: Colors.blue[200],
-                      gradient: LinearGradient(
-                          begin: Alignment.centerLeft,
-                          end: Alignment.centerRight,
-                          colors: [
-                            Colors.pink[900],
-                            Colors.pink[700],
-                            Colors.pink[500],
-                            Colors.pink[300],
-                            Colors.pink[100],
-                          ],
-                          stops: [
-                            0.0,
-                            0.3 * value,
-                            0.5 * value,
-                            0.7 * value,
-                            1 * value
-                          ])),
+                      gradient: LinearGradient(begin: Alignment.centerLeft, end: Alignment.centerRight, colors: [
+                        Colors.pink[900]!,
+                        Colors.pink[700]!,
+                        Colors.pink[500]!,
+                        Colors.pink[300]!,
+                        Colors.pink[100]!,
+                      ], stops: [
+                        0.0,
+                        0.3 * value,
+                        0.5 * value,
+                        0.7 * value,
+                        1 * value
+                      ])),
                 ),
                 Positioned(
                   right: 50,
@@ -137,8 +130,7 @@ class _SplashPageDemo1State extends State<SplashPageDemo1> {
                         children: <Widget>[
                           CircularProgressIndicator(
                             value: value,
-                            valueColor: AlwaysStoppedAnimation<Color>(
-                                Colors.pinkAccent),
+                            valueColor: AlwaysStoppedAnimation<Color>(Colors.pinkAccent),
                           ),
                           Text(
                             '跳过',
@@ -157,10 +149,8 @@ class _SplashPageDemo1State extends State<SplashPageDemo1> {
     );
   }
 
-  route() =>
-      Navigator.of(context).pushAndRemoveUntil(
-        CupertinoPageRoute(
-            builder: (context) => MyHomePage(title: 'Flutter Demo Home Page')),
-            (route) => false,
+  route() => Navigator.of(context).pushAndRemoveUntil(
+        CupertinoPageRoute(builder: (context) => MyHomePage(title: 'Flutter Demo Home Page')),
+        (route) => false,
       );
 }

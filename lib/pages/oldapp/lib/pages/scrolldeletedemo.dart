@@ -7,20 +7,20 @@ class SlideButton extends StatefulWidget {
   GlobalKey<SlideButtonState> key;
   double singleButtonWidth;
 
-  VoidCallback onSlideStarted;
+  VoidCallback? onSlideStarted;
 
-  VoidCallback onSlideCompleted;
+  VoidCallback? onSlideCompleted;
 
-  VoidCallback onSlideCanceled;
+  VoidCallback? onSlideCanceled;
 
   SlideButton(
-      {this.key,
-        @required this.child,
-        @required this.singleButtonWidth,
-        @required this.buttons,
-        this.onSlideStarted,
-        this.onSlideCompleted,
-        this.onSlideCanceled})
+      {required this.key,
+      required this.child,
+      required this.singleButtonWidth,
+      required this.buttons,
+      this.onSlideStarted,
+      this.onSlideCompleted,
+      this.onSlideCanceled})
       : super(key: key);
 
   @override
@@ -29,75 +29,71 @@ class SlideButton extends StatefulWidget {
   }
 }
 
-class SlideButtonState extends State<SlideButton>
-    with TickerProviderStateMixin {
+class SlideButtonState extends State<SlideButton> with TickerProviderStateMixin {
   double translateX = 0;
-  double maxDragDistance;
-  final Map<Type, GestureRecognizerFactory> gestures =
-  <Type, GestureRecognizerFactory>{};
+  late double maxDragDistance;
+  final Map<Type, GestureRecognizerFactory> gestures = <Type, GestureRecognizerFactory>{};
 
-  AnimationController animationController;
+  late AnimationController animationController;
 
   @override
   void initState() {
     super.initState();
     maxDragDistance = widget.singleButtonWidth * widget.buttons.length;
-    gestures[HorizontalDragGestureRecognizer] =
-        GestureRecognizerFactoryWithHandlers<HorizontalDragGestureRecognizer>(
-              () => HorizontalDragGestureRecognizer(debugOwner: this),
-              (HorizontalDragGestureRecognizer instance) {
-            instance
-              ..onDown = onHorizontalDragDown
-              ..onUpdate = onHorizontalDragUpdate
-              ..onEnd = onHorizontalDragEnd;
-          },
-        );
-    animationController = AnimationController(
-        lowerBound: -maxDragDistance,
-        upperBound: 0,
-        vsync: this,
-        duration: Duration(milliseconds: 300))
-      ..addListener(() {
-        translateX = animationController.value;
-        setState(() {});
-      });
+    gestures[HorizontalDragGestureRecognizer] = GestureRecognizerFactoryWithHandlers<HorizontalDragGestureRecognizer>(
+      () => HorizontalDragGestureRecognizer(debugOwner: this),
+      (HorizontalDragGestureRecognizer instance) {
+        instance
+          ..onDown = onHorizontalDragDown
+          ..onUpdate = onHorizontalDragUpdate
+          ..onEnd = onHorizontalDragEnd;
+      },
+    );
+    animationController =
+        AnimationController(lowerBound: -maxDragDistance, upperBound: 0, vsync: this, duration: Duration(milliseconds: 300))
+          ..addListener(() {
+            translateX = animationController.value;
+            setState(() {});
+          });
   }
 
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(child: Stack(
-      children: <Widget>[
-        Positioned.fill(
-            child: Row(
+    return WillPopScope(
+        child: Stack(
+          children: <Widget>[
+            Positioned.fill(
+                child: Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: widget.buttons,
             )),
-        RawGestureDetector(
-          gestures: gestures,
-          child: Transform.translate(
-            offset: Offset(translateX, 0),
-            child: Row(
-              children: <Widget>[
-                Expanded(
-                  flex: 1,
-                  child: widget.child,
-                )
-              ],
-            ),
-          ),
-        )
-      ],
-    ), onWillPop: ()async{
-      if (translateX != 0){
-        close();
-        return false;
-      }
-      return true;
-    });
+            RawGestureDetector(
+              gestures: gestures,
+              child: Transform.translate(
+                offset: Offset(translateX, 0),
+                child: Row(
+                  children: <Widget>[
+                    Expanded(
+                      flex: 1,
+                      child: widget.child,
+                    )
+                  ],
+                ),
+              ),
+            )
+          ],
+        ),
+        onWillPop: () async {
+          if (translateX != 0) {
+            close();
+            return false;
+          }
+          return true;
+        });
   }
 
   void onHorizontalDragDown(DragDownDetails details) {
-    if (widget.onSlideStarted != null) widget.onSlideStarted.call();
+    widget.onSlideStarted?.call();
   }
 
   void onHorizontalDragUpdate(DragUpdateDetails details) {
@@ -123,14 +119,14 @@ class SlideButtonState extends State<SlideButton>
   void open() {
     if (translateX != -maxDragDistance)
       animationController.animateTo(-maxDragDistance).then((_) {
-        if (widget.onSlideCompleted != null) widget.onSlideCompleted.call();
+        widget.onSlideCompleted?.call();
       });
   }
 
   void close() {
     if (translateX != 0)
       animationController.animateTo(0).then((_) {
-        if (widget.onSlideCanceled != null) widget.onSlideCanceled.call();
+        widget.onSlideCanceled?.call();
       });
   }
 
@@ -155,28 +151,32 @@ class _ScrollDeleteDemoState extends State<ScrollDeleteDemo> {
         centerTitle: true,
       ),
       body: ListView.builder(
-          itemBuilder: (context,index){
-            return SlideButton(
-              singleButtonWidth: 100,
-              buttons: <Widget>[
-                FlatButton(
-                  child: Text('删除'),
-                  onPressed: (){
-                    print('删除');
+        itemBuilder: (context, index) {
+          return SlideButton(
+            singleButtonWidth: 100,
+            buttons: <Widget>[
+              FlatButton(
+                child: Text('删除'),
+                onPressed: () {
+                  print('删除');
                 },
-                )
-              ],
-              child: Container(
-                color: Colors.green,
-                width: double.infinity,
-                height: 100,
-                child: ListTile(
-                  leading: Icon(Icons.info),
-                  title: Text('$index撒地方山东房贷首付',style: TextStyle(color: Colors.red),),
+              )
+            ],
+            key: GlobalKey(),
+            child: Container(
+              color: Colors.green,
+              width: double.infinity,
+              height: 100,
+              child: ListTile(
+                leading: Icon(Icons.info),
+                title: Text(
+                  '$index操作',
+                  style: TextStyle(color: Colors.red),
                 ),
               ),
-            );
-          },
+            ),
+          );
+        },
         itemCount: 3,
       ),
     );

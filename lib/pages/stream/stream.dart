@@ -8,10 +8,9 @@ class StreamDemo extends StatefulWidget {
 }
 
 class _StreamDemoState extends State<StreamDemo> {
-
-  StreamSubscription _streamSubscription;
-  StreamController<String> _streamDemo;
-  StreamSink _sinkDemo;
+  late StreamSubscription _streamSubscription;
+  late StreamController<String> _streamDemo;
+  late StreamSink _sinkDemo;
   String _data = '...';
   @override
   void initState() {
@@ -24,30 +23,31 @@ class _StreamDemoState extends State<StreamDemo> {
     _sinkDemo = _streamDemo.sink;
 
     print('Start listening on a stream');
-    _streamSubscription = _streamDemo.stream.listen(onData,onError: onError,onDone: onDone);
-    _streamDemo.stream.listen(onDataTwo,onError: onError,onDone: onDone);
+    _streamSubscription = _streamDemo.stream.listen(onData, onError: onError, onDone: onDone);
+    _streamDemo.stream.listen(onDataTwo, onError: onError, onDone: onDone);
     print('Initialize stream');
   }
 
   @override
-  dispose(){
+  dispose() {
     super.dispose();
     _streamDemo.close();
   }
 
-  onData(String data){
+  onData(String data) {
     setState(() {
       _data = data;
     });
     print('data => $data');
   }
-  onDataTwo(String data){
+
+  onDataTwo(String data) {
     print('dataTwo => $data');
   }
 
   Future<String> fetchData() async {
 //    throw Exception('Some errors happened');
-    return Future.delayed(Duration(seconds: 5),()=>'hello');
+    return Future.delayed(Duration(seconds: 5), () => 'hello');
   }
 
   @override
@@ -61,13 +61,13 @@ class _StreamDemoState extends State<StreamDemo> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
 //            Text(_data),
-          StreamBuilder<String>(
-            stream: _streamDemo.stream,
-            initialData: '...',
-            builder: (context,snapshot){
-              return Text('${snapshot.data}');
-            },
-          ),
+            StreamBuilder<String>(
+              stream: _streamDemo.stream,
+              initialData: '...',
+              builder: (context, snapshot) {
+                return Text('${snapshot.data}');
+              },
+            ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [

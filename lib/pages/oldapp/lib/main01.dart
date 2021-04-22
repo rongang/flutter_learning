@@ -14,7 +14,7 @@ class MyApp extends StatelessWidget {
 
 class MyHomePage extends StatefulWidget {
   MyHomePage({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -30,11 +30,11 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       body: Theme.of(context).platform == TargetPlatform.iOS
           ? CupertinoScrollbar(
-        child: _buildListView(),
-      )
+              child: _buildListView(),
+            )
           : Scrollbar(
-        child: _buildListView(),
-      ),
+              child: _buildListView(),
+            ),
     );
   }
 

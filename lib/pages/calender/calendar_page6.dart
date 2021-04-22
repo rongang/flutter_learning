@@ -29,12 +29,12 @@ class _CalendarPage6State extends State<CalendarPage6> {
                   trailing: IconButton(
                     icon: Icon(Icons.calendar_today),
                     onPressed: () async {
-                      DateTime select = await showDatePicker(
+                      DateTime select = (await showDatePicker(
                         context: context,
                         initialDate: DateTime.now(),
                         firstDate: DateTime.parse('2000-01-01'),
                         lastDate: DateTime.parse('2100-01-01'),
-                      );
+                      ))!;
                       if (select != null) singleDate = select.toString();
                       setState(() {});
                     },
@@ -54,11 +54,11 @@ class _CalendarPage6State extends State<CalendarPage6> {
                   trailing: IconButton(
                     icon: Icon(Icons.calendar_today),
                     onPressed: () async {
-                      DateTimeRange select = await showDateRangePicker(
+                      DateTimeRange select = (await showDateRangePicker(
                         context: context,
                         firstDate: DateTime.parse('2000-01-01'),
                         lastDate: DateTime.parse('2100-01-01'),
-                      );
+                      ))!;
                       if (select != null) multiDate = select.toString();
                       setState(() {});
                     },
@@ -78,11 +78,7 @@ class _CalendarPage6State extends State<CalendarPage6> {
                   trailing: IconButton(
                     icon: Icon(Icons.calendar_today),
                     onPressed: () async {
-                      showTimePicker(
-                        context: context,
-                        initialTime: TimeOfDay.now(),
-                        helpText: '选择时间'
-                      );
+                      showTimePicker(context: context, initialTime: TimeOfDay.now(), helpText: '选择时间');
                     },
                   ),
                 )

@@ -12,10 +12,7 @@ class I18nDemo {
   static const I18nDemoDelegate delegate = I18nDemoDelegate();
 
   static const supportLanguage = ['en', 'zh'];
-  static const supportLanguageIterable = [
-    const Locale('en', 'US'),
-    const Locale('zh', 'CN')
-  ];
+  static const supportLanguageIterable = [const Locale('en', 'US'), const Locale('zh', 'CN')];
   static const data = {
     'en': {
       'title': 'I18n demo',
@@ -26,15 +23,15 @@ class I18nDemo {
     'zh': {
       'title': '国际化演示',
       'content': '你好，世界！',
-      'language1':'简体中文',
-      'language2':'英文',
+      'language1': '简体中文',
+      'language2': '英文',
     }
   };
 
   dynamic getItem(String key) {
-    Map d;
+    Map? d;
     d = data[locale.languageCode];
-    if (d == null) d = data['zh'];
+    if (d == null) d = data['zh']!;
     return d[key];
   }
 

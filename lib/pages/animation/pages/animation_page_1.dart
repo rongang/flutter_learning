@@ -8,28 +8,24 @@ class AnimationPage1 extends StatefulWidget {
   _AnimationPage1State createState() => _AnimationPage1State();
 }
 
-class _AnimationPage1State extends State<AnimationPage1>
-    with SingleTickerProviderStateMixin {
+class _AnimationPage1State extends State<AnimationPage1> with SingleTickerProviderStateMixin {
   Random random = Random();
-  double dataSet;
-  AnimationController _controller;
-  double startHeight;
+  late double dataSet;
+  late AnimationController _controller;
+  late double startHeight;
   double endHeight = 30;
 
   @override
   void initState() {
-    _controller =
-        AnimationController(duration: Duration(seconds: 5), vsync: this)
-          ..addListener(() {
+    _controller = AnimationController(duration: Duration(seconds: 5), vsync: this)
+      ..addListener(() {
 //        changeDate();
-            setState(() {
+        setState(() {
 //              dataSet = _controller.value * 100;
-              dataSet = lerpDouble(
-                startHeight,endHeight,_controller.value
-              );
-            });
-          })
-          ..repeat(reverse: true);
+          dataSet = lerpDouble(startHeight, endHeight, _controller.value)!;
+        });
+      })
+      ..repeat(reverse: true);
     dataSet = 30;
     super.initState();
   }
@@ -94,12 +90,9 @@ class BarChartPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     Paint p = Paint()
-      ..color = Colors.blue[400]
+      ..color = Colors.blue[400]!
       ..style = PaintingStyle.fill;
-    canvas.drawRect(
-        Rect.fromCenter(
-            center: size.center(Offset.zero), width: width, height: data),
-        p);
+    canvas.drawRect(Rect.fromCenter(center: size.center(Offset.zero), width: width, height: data), p);
   }
 
   @override

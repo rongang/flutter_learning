@@ -27,7 +27,7 @@ class MyApp extends StatelessWidget {
 }
 
 class UrlLauncherDemo extends StatefulWidget {
-  UrlLauncherDemo({Key key, this.title = 'URL Launcher'}) : super(key: key);
+  UrlLauncherDemo({Key? key, this.title = 'URL Launcher'}) : super(key: key);
   final String title;
 
   @override
@@ -35,7 +35,7 @@ class UrlLauncherDemo extends StatefulWidget {
 }
 
 class _UrlLauncherDemoState extends State<UrlLauncherDemo> {
-  Future<void> _launched;
+  late Future<void> _launched;
   String _phone = '';
 
   Future<void> _launchInBrowser(String url) async {
@@ -138,8 +138,7 @@ class _UrlLauncherDemoState extends State<UrlLauncherDemo> {
                 padding: const EdgeInsets.all(16.0),
                 child: TextField(
                     onChanged: (String text) => _phone = text,
-                    decoration: const InputDecoration(
-                        hintText: 'Input the phone number to launch')),
+                    decoration: const InputDecoration(hintText: 'Input the phone number to launch')),
               ),
               RaisedButton(
                 onPressed: () => setState(() {
@@ -181,8 +180,7 @@ class _UrlLauncherDemoState extends State<UrlLauncherDemo> {
                 onPressed: () => setState(() {
                   _launched = _launchUniversalLinkIos(toLaunch);
                 }),
-                child: const Text(
-                    'Launch a universal link in a native app, fallback to Safari.(Youtube)'),
+                child: const Text('Launch a universal link in a native app, fallback to Safari.(Youtube)'),
               ),
               const Padding(padding: EdgeInsets.all(16.0)),
               RaisedButton(

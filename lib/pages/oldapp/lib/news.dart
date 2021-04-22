@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 class NewsPage extends StatefulWidget {
-  NewsPage({Key key}) : super(key: key);
+  NewsPage({Key? key}) : super(key: key);
 
   @override
   _NewsPageState createState() => _NewsPageState();

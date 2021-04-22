@@ -12,10 +12,10 @@ const content =
     '很多时候，我们会有一些奇怪的骚想法，比如让网页中的一些特定文本像敲代码一样一个一个显示出来，有一种命令行的感觉，增加设计感，很多人觉得这个效果要用很长一段JS来实现.... 正好手头有个例子，我决定用Flutter实验一下很多时候，我们会有一些奇怪的骚想法，比如让网页中的一些特定文本像敲代码一样一个一个显示出来，有一种命令行的感觉，增加设计感，很多人觉得这个效果要用很长一段JS来实现.... 正好手头有个例子，我决定用Flutter实验一下';
 
 class _KeyBoardState extends State<KeyBoard> {
-  List<String> cache;
+  late List<String> cache;
   List<TextSpan> textWidgets = [];
-  Timer timer;
-  int index;
+  late Timer timer;
+  late int index;
   final scrollController = ScrollController();
 
   @override
@@ -33,7 +33,7 @@ class _KeyBoardState extends State<KeyBoard> {
 
   @override
   void dispose() {
-    timer?.cancel();
+    timer.cancel();
     super.dispose();
   }
 
@@ -74,7 +74,7 @@ class _KeyBoardState extends State<KeyBoard> {
             Duration(milliseconds: 100),
             (timer) {
               if (index >= cache.length) {
-                timer?.cancel();
+                timer.cancel();
                 return;
               }
               buildItem();
@@ -105,16 +105,14 @@ class Cursor extends StatefulWidget {
 }
 
 class _CursorState extends State<Cursor> with SingleTickerProviderStateMixin {
-  AnimationController controller;
-  Animation animation;
+  late AnimationController controller;
+  late Animation animation;
 
   @override
   void initState() {
     super.initState();
-    controller =
-        AnimationController(vsync: this, duration: Duration(milliseconds: 400));
-    animation =
-        ColorTween(begin: Colors.white, end: Colors.black).animate(controller);
+    controller = AnimationController(vsync: this, duration: Duration(milliseconds: 400));
+    animation = ColorTween(begin: Colors.white, end: Colors.black).animate(controller);
     controller.addListener(() {
       setState(() {});
     });

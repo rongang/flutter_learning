@@ -8,29 +8,27 @@ class AnimationPage2 extends StatefulWidget {
   _AnimationPage2State createState() => _AnimationPage2State();
 }
 
-class _AnimationPage2State extends State<AnimationPage2>
-    with SingleTickerProviderStateMixin {
+class _AnimationPage2State extends State<AnimationPage2> with SingleTickerProviderStateMixin {
   Random random = Random();
-  double dataSet;
-  AnimationController _controller;
-  double startHeight;
+  late double dataSet;
+  late AnimationController _controller;
+  late double startHeight;
   double endHeight = 30;
-  Animation tween;
+  late Animation tween;
 
   @override
   void initState() {
     dataSet = 30;
-    _controller =
-        AnimationController(vsync: this, duration: Duration(seconds: 5))
-          ..addListener(() {
+    _controller = AnimationController(vsync: this, duration: Duration(seconds: 5))
+      ..addListener(() {
 //        changeDate();
-            setState(() {
-              dataSet = tween.value;
+        setState(() {
+          dataSet = tween.value;
 //              dataSet = lerpDouble(
 //                startHeight,endHeight,_controller.value
 //              );
-            });
-          });
+        });
+      });
     tween = Tween(begin: 1.0, end: dataSet).animate(_controller);
     _controller.repeat(reverse: true);
 
@@ -81,18 +79,15 @@ class _AnimationPage2State extends State<AnimationPage2>
 class BarChartPainter extends CustomPainter {
   static const width = 10.0;
 
-  BarChartPainter(this.animation):super(repaint:animation);
+  BarChartPainter(this.animation) : super(repaint: animation);
   Animation animation;
 
   @override
   void paint(Canvas canvas, Size size) {
     Paint p = Paint()
-      ..color = Colors.blue[400]
+      ..color = Colors.blue[400]!
       ..style = PaintingStyle.fill;
-    canvas.drawRect(
-        Rect.fromCenter(
-            center: size.center(Offset.zero), width: width, height: animation.value),
-        p);
+    canvas.drawRect(Rect.fromCenter(center: size.center(Offset.zero), width: width, height: animation.value), p);
   }
 
   @override

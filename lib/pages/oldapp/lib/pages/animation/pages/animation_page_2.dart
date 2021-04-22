@@ -5,9 +5,8 @@ class AnimationPage2 extends StatefulWidget {
   _AnimationPage2State createState() => _AnimationPage2State();
 }
 
-class _AnimationPage2State extends State<AnimationPage2>
-    with SingleTickerProviderStateMixin {
-  AnimationController animationController;
+class _AnimationPage2State extends State<AnimationPage2> with SingleTickerProviderStateMixin {
+  late AnimationController animationController;
 
   @override
   void initState() {
@@ -23,15 +22,9 @@ class _AnimationPage2State extends State<AnimationPage2>
 
   @override
   Widget build(BuildContext context) {
-    Animation animation1 = Tween(begin: 0.0, end: 1.0)
-        .chain(CurveTween(curve: Interval(0.0, 0.2)))
-        .animate(animationController);
-    Animation animation2 = Tween(end: 1.0)
-        .chain(CurveTween(curve: Interval(0.2, 0.5)))
-        .animate(animationController);
-    Animation animation3 = Tween(begin: 1.0, end: 0.1)
-        .chain(CurveTween(curve: Interval(0.5, 0.9)))
-        .animate(animationController);
+    Animation animation1 = Tween(begin: 0.0, end: 1.0).chain(CurveTween(curve: Interval(0.0, 0.2))).animate(animationController);
+    Animation animation2 = Tween(end: 1.0).chain(CurveTween(curve: Interval(0.2, 0.5))).animate(animationController);
+    Animation animation3 = Tween(begin: 1.0, end: 0.1).chain(CurveTween(curve: Interval(0.5, 0.9))).animate(animationController);
     return Scaffold(
       appBar: AppBar(
         title: Text('呼吸'),
@@ -39,7 +32,7 @@ class _AnimationPage2State extends State<AnimationPage2>
       body: Center(
           child: AnimatedBuilder(
         animation: animationController,
-        builder: (BuildContext context, Widget child) {
+        builder: (BuildContext context, Widget? child) {
           return Container(
             height: 300,
             width: 300,
@@ -47,21 +40,16 @@ class _AnimationPage2State extends State<AnimationPage2>
               border: Border.all(width: 0.2),
               boxShadow: [
                 BoxShadow(
-                  color: Colors.blue[500],
+                  color: Colors.blue[500]!,
                   blurRadius: 60,
                   spreadRadius: 12,
                 )
               ],
               shape: BoxShape.circle,
-              gradient: RadialGradient(center: Alignment.center, colors: [
-                Colors.blue[300],
-                Colors.white
-              ], stops: [
-                animationController.value <= 0.2
-                    ? animation1.value
-                    : animation3.value,
-                1.0
-              ]),
+              gradient: RadialGradient(
+                  center: Alignment.center,
+                  colors: [Colors.blue[300]!, Colors.white],
+                  stops: [animationController.value <= 0.2 ? animation1.value : animation3.value, 1.0]),
             ),
           );
         },
@@ -70,9 +58,7 @@ class _AnimationPage2State extends State<AnimationPage2>
         child: Icon(Icons.radio_button_unchecked),
         onPressed: () {
           animationController.duration = Duration(seconds: 19);
-          animationController.status == AnimationStatus.forward
-              ? animationController.stop()
-              : animationController.repeat();
+          animationController.status == AnimationStatus.forward ? animationController.stop() : animationController.repeat();
         },
       ),
     );

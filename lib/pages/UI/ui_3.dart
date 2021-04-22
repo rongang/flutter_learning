@@ -7,16 +7,15 @@ class Ui3 extends StatefulWidget {
 }
 
 class _Ui3State extends State<Ui3> with SingleTickerProviderStateMixin {
-  AnimationController _controller;
+  late AnimationController _controller;
   double paddingTop = 0.0;
-  double width;
-  double beginPoint;
+  late double width;
+  late double beginPoint;
   double temp = 0;
   bool isOpen = false;
   @override
   void initState() {
-    _controller =
-        AnimationController(vsync: this, duration: Duration(seconds: 2));
+    _controller = AnimationController(vsync: this, duration: Duration(seconds: 2));
     _controller.addListener(() {
       setState(() {});
     });
@@ -24,11 +23,10 @@ class _Ui3State extends State<Ui3> with SingleTickerProviderStateMixin {
   }
 
   upDatePadding() {
-    if (paddingTop <= 100){
+    if (paddingTop <= 100) {
       isOpen = false;
       paddingTop = 0;
-    }
-    else if (paddingTop > 100){
+    } else if (paddingTop > 100) {
       isOpen = true;
       paddingTop = width;
       temp = paddingTop;
@@ -39,20 +37,21 @@ class _Ui3State extends State<Ui3> with SingleTickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    width = MediaQuery.of(context).size.width/2;
+    width = MediaQuery.of(context).size.width / 2;
     return Listener(
-      onPointerMove: (point){
+      onPointerMove: (point) {
         double dx = point.position.dx - beginPoint;
-        if(dx>10&&!isOpen) paddingTop = dx;
-        else if(dx<0&&isOpen) {
+        if (dx > 10 && !isOpen)
+          paddingTop = dx;
+        else if (dx < 0 && isOpen) {
           paddingTop = temp + dx;
         }
         setState(() {});
       },
-      onPointerDown: (point){
+      onPointerDown: (point) {
         beginPoint = point.position.dx;
       },
-      onPointerUp: (point){
+      onPointerUp: (point) {
         upDatePadding();
       },
       child: Scaffold(
@@ -62,7 +61,7 @@ class _Ui3State extends State<Ui3> with SingleTickerProviderStateMixin {
             AnimatedPositioned(
               duration: Duration(milliseconds: 300),
               right: width - paddingTop,
-              left: - (width - paddingTop),
+              left: -(width - paddingTop),
               top: 0,
               bottom: 0,
               child: Scaffold(
@@ -165,9 +164,7 @@ class _Ui3State extends State<Ui3> with SingleTickerProviderStateMixin {
                   clipBehavior: Clip.antiAlias,
                   elevation: 0,
                   shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(30),
-                          bottomLeft: Radius.circular(30))),
+                      borderRadius: BorderRadius.only(topLeft: Radius.circular(30), bottomLeft: Radius.circular(30))),
                   child: CustomScrollView(
                     physics: BouncingScrollPhysics(),
                     slivers: <Widget>[

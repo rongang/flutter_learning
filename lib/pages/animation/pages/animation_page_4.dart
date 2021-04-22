@@ -8,22 +8,20 @@ class AnimationPage4 extends StatefulWidget {
   _AnimationPage4State createState() => _AnimationPage4State();
 }
 
-class _AnimationPage4State extends State<AnimationPage4>
-    with SingleTickerProviderStateMixin {
+class _AnimationPage4State extends State<AnimationPage4> with SingleTickerProviderStateMixin {
   Random random = Random();
-  AnimationController _controller;
-  BarCharTween tween;
+  late AnimationController _controller;
+  late BarCharTween tween;
 
   @override
   void initState() {
-    _controller =
-        AnimationController(vsync: this, duration: Duration(seconds: 1))
-          ..addListener(() {
+    _controller = AnimationController(vsync: this, duration: Duration(seconds: 1))
+      ..addListener(() {
 //            print('${_controller.value}');
 //            print('${tween.evaluate(_controller).bars[0].height}');
-            setState(() {});
-          });
-    tween = BarCharTween(BarChart.empty(),BarChart.random());
+        setState(() {});
+      });
+    tween = BarCharTween(BarChart.empty(), BarChart.random());
     _controller.forward();
 
     super.initState();
@@ -51,7 +49,7 @@ class _AnimationPage4State extends State<AnimationPage4>
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.end,
-crossAxisAlignment: CrossAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
             CustomPaint(
               size: Size(200, 400),
@@ -77,17 +75,18 @@ class BarChartPainter extends CustomPainter {
 
   BarChartPainter(this.animation) : super(repaint: animation);
   Animation<BarChart> animation;
-  int i;
+  int i = 0;
+
   @override
   void paint(Canvas canvas, Size size) {
-    for( i = 0;i<animation.value.bars.length;i++){
+    for (i = 0; i < animation.value.bars.length; i++) {
       Paint p = Paint()
         ..color = animation.value.bars[i].color
         ..style = PaintingStyle.fill;
       canvas.drawRect(
           Rect.fromLTWH(
             30.0 * i,
-            (size.height - animation.value.bars[i].height),//0
+            (size.height - animation.value.bars[i].height), //0
             width,
             animation.value.bars[i].height,
           ),
@@ -107,8 +106,7 @@ class Bar {
   Bar(this.height, this.color);
 
   factory Bar.random() {
-    return Bar(
-        Random().nextDouble() * 400.0.clamp(20.0, 400.0), RandomColor.random());
+    return Bar(Random().nextDouble() * 400.0.clamp(20.0, 400.0), RandomColor.random());
   }
 
   factory Bar.empty() {
@@ -116,8 +114,7 @@ class Bar {
   }
 
   static Bar lerp(Bar begin, Bar end, double h) {
-    return Bar(lerpDouble(begin.height, end.height, h),
-        Color.lerp(begin.color, end.color, h));
+    return Bar(lerpDouble(begin.height, end.height, h)!, Color.lerp(begin.color, end.color, h)!);
   }
 }
 
@@ -126,7 +123,7 @@ class BarTween extends Tween<Bar> {
 
   @override
   Bar lerp(double t) {
-    return Bar.lerp(begin, end, t);
+    return Bar.lerp(begin!, end!, t);
   }
 }
 
@@ -135,7 +132,7 @@ class BarCharTween extends Tween<BarChart> {
 
   @override
   BarChart lerp(double t) {
-    return BarChart.lerp(begin, end, t);
+    return BarChart.lerp(begin!, end!, t);
   }
 }
 
@@ -160,7 +157,6 @@ class BarChart {
   }
 
   static BarChart lerp(BarChart begin, BarChart end, double t) {
-    return BarChart(List.generate(
-        barCount, (index) => Bar.lerp(begin.bars[index], end.bars[index], t)));
+    return BarChart(List.generate(barCount, (index) => Bar.lerp(begin.bars[index], end.bars[index], t)));
   }
 }

@@ -5,19 +5,16 @@ class PlaceHolder extends StatefulWidget {
   _PlaceHolderState createState() => _PlaceHolderState();
 }
 
-class _PlaceHolderState extends State<PlaceHolder>
-    with SingleTickerProviderStateMixin {
-  AnimationController controller;
+class _PlaceHolderState extends State<PlaceHolder> with SingleTickerProviderStateMixin {
+  late AnimationController controller;
   final _color = Colors.black12;
-  Animation animation;
+  late Animation animation;
 
   @override
   void initState() {
     super.initState();
-    controller = AnimationController(
-        vsync: this, duration: Duration(milliseconds: 1000));
-    animation = ColorTween(begin: Colors.black12, end: Colors.white)
-        .animate(controller);
+    controller = AnimationController(vsync: this, duration: Duration(milliseconds: 1000));
+    animation = ColorTween(begin: Colors.black12, end: Colors.white).animate(controller);
     controller.addListener(() {
       setState(() {});
     });
@@ -42,12 +39,8 @@ class _PlaceHolderState extends State<PlaceHolder>
           return Container(
             margin: EdgeInsets.only(bottom: 10.0),
             decoration: BoxDecoration(
-              color: animation.value,
-              gradient: LinearGradient(
-                colors: [Colors.white,animation.value],
-                stops: [0.0,controller.value]
-              )
-            ),
+                color: animation.value,
+                gradient: LinearGradient(colors: [Colors.white, animation.value], stops: [0.0, controller.value])),
             child: Row(
               children: [
                 Container(

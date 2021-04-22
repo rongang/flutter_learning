@@ -5,9 +5,8 @@ class CustomSliverViewDemo extends StatefulWidget {
   _CustomSliverViewDemoState createState() => _CustomSliverViewDemoState();
 }
 
-class _CustomSliverViewDemoState extends State<CustomSliverViewDemo>
-    with TickerProviderStateMixin {
-  TabController _controller;
+class _CustomSliverViewDemoState extends State<CustomSliverViewDemo> with TickerProviderStateMixin {
+  late TabController _controller;
 
   @override
   void initState() {
@@ -25,56 +24,60 @@ class _CustomSliverViewDemoState extends State<CustomSliverViewDemo>
             body: NestedScrollView(
               headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
                 return <Widget>[
-                    SliverAppBar(
-                      forceElevated: innerBoxIsScrolled,
-                      stretch: true,
-                      pinned: true,
-                      floating: true,
-                      snap: true,
-                      onStretchTrigger: () {
-                        // Function callback for stretch
-                        print('StretchTrigger');
-                        return;
-                      },
-                      stretchTriggerOffset: 20,
-                      expandedHeight: 200.0,
-                      flexibleSpace: FlexibleSpaceBar(
-                        centerTitle: true,
-                        title: const Text('Flight Report'),
-                        background: Stack(
-                          fit: StackFit.expand,
-                          children: [
-                            Image.network(
-                              'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl-2.jpg',
-                              fit: BoxFit.cover,
-                            ),
-                            const DecoratedBox(
-                              decoration: BoxDecoration(
-                                gradient: LinearGradient(
-                                  begin: Alignment(0.0, 0.5),
-                                  end: Alignment(0.0, 0.0),
-                                  colors: <Color>[
-                                    Color(0x60000000),
-                                    Color(0x00000000),
-                                  ],
-                                ),
+                  SliverAppBar(
+                    forceElevated: innerBoxIsScrolled,
+                    stretch: true,
+                    pinned: true,
+                    floating: true,
+                    snap: true,
+                    onStretchTrigger: () {
+                      // Function callback for stretch
+                      print('StretchTrigger');
+                      return Future.value();
+                    },
+                    stretchTriggerOffset: 20,
+                    expandedHeight: 200.0,
+                    flexibleSpace: FlexibleSpaceBar(
+                      centerTitle: true,
+                      title: const Text('Flight Report'),
+                      background: Stack(
+                        fit: StackFit.expand,
+                        children: [
+                          Image.network(
+                            'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl-2.jpg',
+                            fit: BoxFit.cover,
+                          ),
+                          const DecoratedBox(
+                            decoration: BoxDecoration(
+                              gradient: LinearGradient(
+                                begin: Alignment(0.0, 0.5),
+                                end: Alignment(0.0, 0.0),
+                                colors: <Color>[
+                                  Color(0x60000000),
+                                  Color(0x00000000),
+                                ],
                               ),
                             ),
-                          ],
-                        ),
+                          ),
+                        ],
                       ),
                     ),
+                  ),
                   SliverPersistentHeader(
-                    delegate: CustomerTabBarDelegate(TabBar(
-                      labelColor: Colors.pink,
-                  controller: _controller,
+                    delegate: CustomerTabBarDelegate(
+                      TabBar(
+                        labelColor: Colors.pink,
+                        controller: _controller,
                         tabs: <Widget>[
-                          Icon(Icons.photo,size: 20,),
+                          Icon(
+                            Icons.photo,
+                            size: 20,
+                          ),
                           Icon(Icons.ac_unit),
                           Icon(Icons.fiber_smart_record)
                         ],
-                      ),),
-
+                      ),
+                    ),
                   ),
                   SliverPersistentHeader(
                     delegate: CustomerWidgetDelegate(),
@@ -103,20 +106,26 @@ class _CustomSliverViewDemoState extends State<CustomSliverViewDemo>
 //                    );
 //                  }, childCount: 10),
 //                ),
-
-                  ];
-
+                ];
               },
               body: TabBarView(
                 controller: _controller,
                 children: <Widget>[
-                  Icon(Icons.ac_unit,size: 100,),
-                  Icon(Icons.fiber_smart_record,size: 100,),
-                  Icon(Icons.fiber_smart_record,size: 100,)
+                  Icon(
+                    Icons.ac_unit,
+                    size: 100,
+                  ),
+                  Icon(
+                    Icons.fiber_smart_record,
+                    size: 100,
+                  ),
+                  Icon(
+                    Icons.fiber_smart_record,
+                    size: 100,
+                  )
                 ],
               ),
-
-    ),
+            ),
           ),
         ),
 //        Positioned(
@@ -143,10 +152,12 @@ class _CustomSliverViewDemoState extends State<CustomSliverViewDemo>
     );
   }
 }
-class CustomerTabBarDelegate extends SliverPersistentHeaderDelegate{
 
+class CustomerTabBarDelegate extends SliverPersistentHeaderDelegate {
   final TabBar _tabBar;
+
   CustomerTabBarDelegate(this._tabBar);
+
   @override
   Widget build(BuildContext context, double shrinkOffset, bool overlapsContent) {
     return Container(
@@ -165,19 +176,13 @@ class CustomerTabBarDelegate extends SliverPersistentHeaderDelegate{
   bool shouldRebuild(SliverPersistentHeaderDelegate oldDelegate) {
     return false;
   }
-
-
 }
-class CustomerWidgetDelegate extends SliverPersistentHeaderDelegate{
 
+class CustomerWidgetDelegate extends SliverPersistentHeaderDelegate {
   @override
   Widget build(BuildContext context, double shrinkOffset, bool overlapsContent) {
     final size = MediaQuery.of(context).size;
-    return Container(
-      height: 300,
-      width: size.width,
-      color:Colors.pinkAccent
-    );
+    return Container(height: 300, width: size.width, color: Colors.pinkAccent);
   }
 
   @override
@@ -193,5 +198,4 @@ class CustomerWidgetDelegate extends SliverPersistentHeaderDelegate{
     // TODO: implement shouldRebuild
     throw UnimplementedError();
   }
-
 }

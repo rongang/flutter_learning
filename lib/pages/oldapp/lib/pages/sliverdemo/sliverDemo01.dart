@@ -5,10 +5,9 @@ class SliverDemo01 extends StatefulWidget {
   _SliverDemo01State createState() => _SliverDemo01State();
 }
 
-class _SliverDemo01State extends State<SliverDemo01> with SingleTickerProviderStateMixin{
-
-  AnimationController animationController;
-  Animation animation;
+class _SliverDemo01State extends State<SliverDemo01> with SingleTickerProviderStateMixin {
+  late AnimationController animationController;
+  late Animation animation;
   double expandHeight = 0;
   double beginPosition = 0;
   double downPosition = 0;
@@ -16,11 +15,11 @@ class _SliverDemo01State extends State<SliverDemo01> with SingleTickerProviderSt
   @override
   void initState() {
     super.initState();
-    animationController = AnimationController(vsync: this,duration:Duration(milliseconds: 300));
+    animationController = AnimationController(vsync: this, duration: Duration(milliseconds: 300));
   }
 
-  startExpand(double positionDy){
-    if(beginPosition == 0){
+  startExpand(double positionDy) {
+    if (beginPosition == 0) {
       expandHeight = 0;
 //      downPosition = positionDy;
       beginPosition = positionDy;
@@ -31,7 +30,6 @@ class _SliverDemo01State extends State<SliverDemo01> with SingleTickerProviderSt
       expandHeight = expandHeight;
     });
   }
-
 
   bool _handleScrollNotification(ScrollNotification notification) {
     if (notification is ScrollEndNotification) {
@@ -47,11 +45,10 @@ class _SliverDemo01State extends State<SliverDemo01> with SingleTickerProviderSt
         if (notification.metrics.extentBefore == 0.0) {
           print('滑动到最顶部');
           isTop = true;
-        }else{
+        } else {
           isTop = false;
         }
       });
-
     }
     return false;
   }
@@ -65,30 +62,31 @@ class _SliverDemo01State extends State<SliverDemo01> with SingleTickerProviderSt
           SliverAppBar(
             pinned: true,
             backgroundColor: Colors.black,
-            expandedHeight: 380+expandHeight,
+            expandedHeight: 380 + expandHeight,
             flexibleSpace: FlexibleSpaceBar(
 //              title: Container(
 //                color: Colors.lightBlue,
 //              ),
               background: Listener(
-                  onPointerUp: (value){
-                    if(downPosition>value.position.dy||!isTop) return;
-                    animation = Tween(begin: expandHeight,end: 0.0).animate(animationController)..addListener(() {
-                      setState(() {
-                        expandHeight = animation.value;
+                  onPointerUp: (value) {
+                    if (downPosition > value.position.dy || !isTop) return;
+                    animation = Tween(begin: expandHeight, end: 0.0).animate(animationController)
+                      ..addListener(() {
+                        setState(() {
+                          expandHeight = animation.value;
+                        });
                       });
-                    });
                     animationController.forward(from: 0.0);
                     setState(() {
                       beginPosition = 0;
                     });
                   },
-                  onPointerMove: (value){
+                  onPointerMove: (value) {
 //                    value.transform.ge
-                    if(downPosition>value.position.dy) return;
+                    if (downPosition > value.position.dy) return;
                     startExpand(value.position.dy);
                   },
-                  onPointerDown: (value){
+                  onPointerDown: (value) {
                     setState(() {
                       downPosition = value.position.dy;
                     });
@@ -101,25 +99,34 @@ class _SliverDemo01State extends State<SliverDemo01> with SingleTickerProviderSt
               child: Container(
                 alignment: Alignment.center,
                 height: 100,
-                child: Text('title',style: Theme.of(context).textTheme.headline2,),
+                child: Text(
+                  'title',
+                  style: Theme.of(context).textTheme.headline2,
+                ),
               ),
             ),
           ),
           SliverFixedExtentList(
             itemExtent: 80,
             delegate: SliverChildBuilderDelegate(
-                (context,index) => Card(elevation:0,child: ChoiceChip(label: Text('$index'), selected: false,)),childCount: 50
-            ),
+                (context, index) => Card(
+                    elevation: 0,
+                    child: ChoiceChip(
+                      label: Text('$index'),
+                      selected: false,
+                    )),
+                childCount: 50),
           )
         ],
       ),
     );
   }
 }
+
 class Header extends StatefulWidget {
   final double expandHeight;
 
-  const Header({Key key, this.expandHeight}) : super(key: key);
+  const Header({Key? key, required this.expandHeight}) : super(key: key);
   @override
   _HeaderState createState() => _HeaderState();
 }
@@ -134,9 +141,12 @@ class _HeaderState extends State<Header> {
           Column(
             children: <Widget>[
               Container(
-                height: 200+widget.expandHeight,
+                height: 200 + widget.expandHeight,
                 width: size.width,
-                child: Image.network('http://img.netbian.com/file/2020/0712/ccd6fce7874f4f9351ddf67c71ed4536.jpg',fit: BoxFit.cover,),
+                child: Image.network(
+                  'http://img.netbian.com/file/2020/0712/ccd6fce7874f4f9351ddf67c71ed4536.jpg',
+                  fit: BoxFit.cover,
+                ),
               ),
               Expanded(
                 child: Container(
@@ -144,22 +154,28 @@ class _HeaderState extends State<Header> {
                   color: Colors.black,
                 ),
               ),
-              Divider(height: 1,indent: 10,endIndent: 10,color: Colors.white70,),
+              Divider(
+                height: 1,
+                indent: 10,
+                endIndent: 10,
+                color: Colors.white70,
+              ),
               Container(
                 height: 100,
                 color: Colors.black,
               ),
-
             ],
           ),
           Positioned(
-            top: 150+widget.expandHeight,
+            top: 150 + widget.expandHeight,
             left: 40,
             child: Container(
               height: 100,
               width: 100,
               child: CircleAvatar(
-                backgroundImage: NetworkImage('http://img.netbian.com/file/2020/0601/f6a37767344ab0069f107c73cc125fd3.jpg',),
+                backgroundImage: NetworkImage(
+                  'http://img.netbian.com/file/2020/0601/f6a37767344ab0069f107c73cc125fd3.jpg',
+                ),
               ),
             ),
           )
@@ -168,4 +184,3 @@ class _HeaderState extends State<Header> {
     );
   }
 }
-

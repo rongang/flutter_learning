@@ -58,7 +58,7 @@ class MyPageView extends StatefulWidget {
 }
 
 class _MyPageViewState extends State<MyPageView> with WidgetsBindingObserver {
-  PageController _controller;
+  late PageController _controller;
   double pageOffset = 0;
   final images = [
     'http://img.netbian.com/file/2020/0615/ccec25d9e8fc3ceb4f80c5579447af59.jpg',
@@ -68,15 +68,17 @@ class _MyPageViewState extends State<MyPageView> with WidgetsBindingObserver {
 
   @override
   void initState() {
-    Future((){loadImage();});
+    Future(() {
+      loadImage();
+    });
     _controller = PageController(viewportFraction: 0.8)
       ..addListener(() {
         setState(() {
-          pageOffset = _controller.page;
+          pageOffset = _controller.page!;
         });
       });
     super.initState();
-    WidgetsBinding.instance.addObserver(this);
+    WidgetsBinding.instance!.addObserver(this);
   }
 
   @override
@@ -117,13 +119,9 @@ class _MyPageViewState extends State<MyPageView> with WidgetsBindingObserver {
                     PageRouteBuilder(
                         barrierColor: Colors.white60,
                         opaque: false,
-                        pageBuilder: (BuildContext context,
-                            Animation<double> animation,
-                            Animation<double> secondaryAnimation) {
+                        pageBuilder: (BuildContext context, Animation<double> animation, Animation<double> secondaryAnimation) {
                           return SlideTransition(
-                              position:
-                                  Tween(begin: Offset(0, 0), end: Offset(0, 0))
-                                      .animate(animation),
+                              position: Tween(begin: Offset(0, 0), end: Offset(0, 0)).animate(animation),
                               child: DetailsPage(url: images[index]));
                         }));
               },
@@ -153,7 +151,7 @@ class _MyPageViewState extends State<MyPageView> with WidgetsBindingObserver {
 class DetailsPage extends StatelessWidget {
   final url;
 
-  const DetailsPage({Key key, this.url}) : super(key: key);
+  const DetailsPage({Key? key, this.url}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

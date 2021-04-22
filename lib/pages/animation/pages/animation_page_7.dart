@@ -8,23 +8,21 @@ class AnimationPage7 extends StatefulWidget {
   _AnimationPage7State createState() => _AnimationPage7State();
 }
 
-class _AnimationPage7State extends State<AnimationPage7>
-    with SingleTickerProviderStateMixin {
+class _AnimationPage7State extends State<AnimationPage7> with SingleTickerProviderStateMixin {
   Random random = Random();
-  AnimationController _controller;
-  BarCharTween tween;
-  static const Size size = Size(300,500);
+  late AnimationController _controller;
+  late BarCharTween tween;
+  static const Size size = Size(300, 500);
 
   @override
   void initState() {
-    _controller =
-        AnimationController(vsync: this, duration: Duration(seconds: 1))
-          ..addListener(() {
+    _controller = AnimationController(vsync: this, duration: Duration(seconds: 1))
+      ..addListener(() {
 //            print('${_controller.value}');
 //            print('${tween.evaluate(_controller).bars[0].height}');
-            setState(() {});
-          });
-    tween = BarCharTween(BarChart.empty(), BarChart.random(size,random));
+        setState(() {});
+      });
+    tween = BarCharTween(BarChart.empty(), BarChart.random(size, random));
     _controller.forward();
 
     super.initState();
@@ -38,7 +36,7 @@ class _AnimationPage7State extends State<AnimationPage7>
 
   changeDate() {
     setState(() {
-      tween = BarCharTween(tween.evaluate(_controller), BarChart.random(size,random));
+      tween = BarCharTween(tween.evaluate(_controller), BarChart.random(size, random));
       _controller.forward(from: 0.0);
     });
   }
@@ -78,7 +76,7 @@ class BarChartPainter extends CustomPainter {
 
   BarChartPainter(this.animation) : super(repaint: animation);
   Animation<BarChart> animation;
-  int i;
+  int i = 0;
 
   @override
   void paint(Canvas canvas, Size size) {
@@ -123,14 +121,10 @@ class Bar {
 
   Bar get collapsed => new Bar.empty();
 
-  static Bar lerp(Bar begin, Bar end, double h) {
-    if (begin == null && end == null)
-      return null;
-    return Bar(
-        lerpDouble(begin?.height, end?.height, h),
-        Color.lerp((begin??end).color, (end??begin).color, h),
-        lerpDouble((begin??end).x, (end??begin).x, h),
-        lerpDouble(begin?.width, end?.width, h));
+  static Bar? lerp(Bar? begin, Bar? end, double h) {
+    if (begin == null && end == null) return null;
+    return Bar(lerpDouble(begin?.height, end?.height, h)!, Color.lerp((begin ?? end)!.color, (end ?? begin)!.color, h)!,
+        lerpDouble((begin ?? end)!.x, (end ?? begin)!.x, h)!, lerpDouble(begin?.width, end?.width, h)!);
   }
 }
 
@@ -139,7 +133,7 @@ class BarTween extends Tween<Bar> {
 
   @override
   Bar lerp(double t) {
-    return Bar.lerp(begin, end, t);
+    return Bar.lerp(begin, end, t)!;
   }
 }
 
@@ -148,7 +142,7 @@ class BarCharTween extends Tween<BarChart> {
 
   @override
   BarChart lerp(double t) {
-    return BarChart.lerp(begin, end, t);
+    return BarChart.lerp(begin!, end!, t);
   }
 }
 
@@ -159,7 +153,7 @@ class RandomColor {
 class BarChart {
   List<Bar> bars;
 
-  BarChart({this.bars});
+  BarChart({required this.bars});
 
   factory BarChart.empty() {
     return BarChart(bars: []);
@@ -173,10 +167,8 @@ class BarChart {
     final barWidth = barDistance * barWidthFraction;
     final startX = barDistance - barWidth / 2;
     final color = RandomColor.random();
-    final bars = List.generate(
-        barCount,
-        (index) => Bar(random.nextDouble() * size.height, color,
-            startX + index * barDistance, barWidth));
+    final bars =
+        List.generate(barCount, (index) => Bar(random.nextDouble() * size.height, color, startX + index * barDistance, barWidth));
     return BarChart(bars: bars);
   }
 
@@ -186,11 +178,11 @@ class BarChart {
         bars: List.generate(
             barCount,
             (index) => Bar.lerp(
-                  begin._barOrNull(index) ,//?? end.bars[index].collapsed,
-                  end._barOrNull(index) ,//?? begin.bars[index].collapsed,
+                  begin._barOrNull(index), //?? end.bars[index].collapsed,
+                  end._barOrNull(index), //?? begin.bars[index].collapsed,
                   t,
-                )));
+                )!));
   }
 
-  Bar _barOrNull(int index) => (index < bars.length ? bars[index] : null);
+  Bar? _barOrNull(int index) => (index < bars.length ? bars[index] : null);
 }

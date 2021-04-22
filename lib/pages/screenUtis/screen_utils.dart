@@ -7,8 +7,8 @@ class ScreenUtilDemo extends StatefulWidget {
 }
 
 class _ScreenUtilDemoState extends State<ScreenUtilDemo> {
-  double width, height;
-  double scale;
+  late double width, height;
+  late double scale;
 
   @override
   void initState() {

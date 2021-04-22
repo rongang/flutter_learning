@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_learning/main.dart';
 
 class Utils {
-  static Widget showDiglogg({String content,Function press}) {
+  static showDialog({required String content, Function()? press}) {
     showCupertinoDialog(
       barrierDismissible: true,
-      context: MyApp.navigatorKey.currentState.overlay.context,
+      context: MyApp.navigatorKey.currentState!.overlay!.context,
       builder: (context) {
         return Center(
           child: Container(
@@ -23,7 +23,7 @@ class Utils {
                       child: CupertinoActionSheet(
                         actions: [
                           CupertinoActionSheetAction(
-                            onPressed: press??(){},
+                            onPressed: press?.call(),
                             child: Text(content),
                           )
                         ],
@@ -31,7 +31,7 @@ class Utils {
                     ),
                     IconButton(
                       icon: Icon(Icons.close),
-                      onPressed: (){
+                      onPressed: () {
                         Navigator.pop(context);
                       },
                     )

@@ -28,7 +28,7 @@ class SliverGlowingDemo extends StatelessWidget {
 
 /// This is the stateless widget that the main application instantiates.
 class MyStatelessWidget extends StatefulWidget {
-  MyStatelessWidget({Key key}) : super(key: key);
+  MyStatelessWidget({Key? key}) : super(key: key);
 
   @override
   _MyStatelessWidgetState createState() => _MyStatelessWidgetState();
@@ -40,7 +40,7 @@ class _MyStatelessWidgetState extends State<MyStatelessWidget> {
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+    WidgetsBinding.instance!.addPostFrameCallback((timeStamp) {
       // RenderSliverFillRemainingWithScrollable renderBox =
       //     _key.currentContext.findRenderObject();
       // print('${renderBox.getAbsoluteSize()}');
@@ -70,14 +70,17 @@ class _MyStatelessWidgetState extends State<MyStatelessWidget> {
                       width: 56,
                       color: Colors.pinkAccent,
                     ),
-                    Text('😊',style: TextStyle(fontSize: kToolbarHeight),),
+                    Text(
+                      '😊',
+                      style: TextStyle(fontSize: kToolbarHeight),
+                    ),
                     Text('demo')
                   ],
                 ),
               ),
             ),
             bottom: PreferredSize(
-              preferredSize: Size(10,100),
+              preferredSize: Size(10, 100),
               child: Container(),
             ),
             // title: Text('Custom NestedScrollViews'),
@@ -190,8 +193,7 @@ class _MyStatelessWidgetState extends State<MyStatelessWidget> {
 
 class FloatItem extends SliverPersistentHeaderDelegate {
   @override
-  Widget build(
-      BuildContext context, double shrinkOffset, bool overlapsContent) {
+  Widget build(BuildContext context, double shrinkOffset, bool overlapsContent) {
     return Container(
       color: Colors.green,
       width: MediaQuery.of(context).size.width,

@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -51,10 +49,7 @@ class _UI6State extends State<UI6> {
                         color: pages[index],
                         child: Text(
                           '$index',
-                          style: Theme.of(context)
-                              .textTheme
-                              .headline1
-                              .copyWith(color: Colors.white),
+                          style: Theme.of(context).textTheme.headline1!.copyWith(color: Colors.white),
                         ),
                       );
                     },
@@ -78,8 +73,7 @@ class _UI6State extends State<UI6> {
               title: 'continue',
               height: 60,
               press: () {
-                Navigator.push(context,
-                    CupertinoPageRoute(builder: (context) => SignInPage()));
+                Navigator.push(context, CupertinoPageRoute(builder: (context) => SignInPage()));
               },
             ),
             Spacer(),
@@ -92,14 +86,14 @@ class _UI6State extends State<UI6> {
 
 class DefaultButton extends StatelessWidget {
   final double height;
-  final Function press;
+  final Function() press;
   final String title;
 
   const DefaultButton({
-    Key key,
-    this.height,
-    this.press,
-    this.title,
+    Key? key,
+    required this.height,
+    required this.press,
+    required this.title,
   }) : super(key: key);
 
   @override
@@ -112,8 +106,7 @@ class DefaultButton extends StatelessWidget {
             height: height,
             child: RaisedButton(
               color: Colors.orange,
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(20)),
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
               child: Text(title),
               onPressed: press,
             ),
@@ -128,7 +121,7 @@ class BottomIndicator extends StatelessWidget {
   final isActive;
 
   const BottomIndicator({
-    Key key,
+    Key? key,
     this.isActive,
   }) : super(key: key);
 
@@ -185,10 +178,7 @@ class _SignInPageState extends State<SignInPage> {
                 Center(
                   child: Text(
                     'Sign\r\rIn',
-                    style: Theme.of(context)
-                        .textTheme
-                        .headline2
-                        .copyWith(color: Colors.grey),
+                    style: Theme.of(context).textTheme.headline2!.copyWith(color: Colors.grey),
                   ),
                 ),
                 Container(
@@ -202,12 +192,12 @@ class _SignInPageState extends State<SignInPage> {
                             child: TextFormField(
                               controller: emailController,
                               decoration: InputDecoration(
-                                floatingLabelBehavior:
-                                    FloatingLabelBehavior.always,
+                                floatingLabelBehavior: FloatingLabelBehavior.always,
                                 labelText: 'email',
                                 hintText: 'email address',
                               ),
                               validator: (value) {
+                                if (value == null) return null;
                                 if (value.isEmpty) {
                                   setState(() {
                                     errors.add('email is not allow empty');
@@ -228,8 +218,7 @@ class _SignInPageState extends State<SignInPage> {
                                 textAlignVertical: TextAlignVertical.center,
                                 obscureText: pwdIsVisible,
                                 decoration: InputDecoration(
-                                  floatingLabelBehavior:
-                                      FloatingLabelBehavior.always,
+                                  floatingLabelBehavior: FloatingLabelBehavior.always,
                                   labelText: 'password',
                                   hintText: 'yours password',
                                 ),
@@ -238,7 +227,7 @@ class _SignInPageState extends State<SignInPage> {
                                 right: 20,
                                 child: AnimatedOpacity(
                                   duration: Duration(milliseconds: 200),
-                                  opacity: isFocus?1.0:0.0,
+                                  opacity: isFocus ? 1.0 : 0.0,
                                   child: IconButton(
                                     icon: Icon(
                                       Icons.remove_red_eye,
@@ -275,8 +264,8 @@ class _SignInPageState extends State<SignInPage> {
                             title: 'continue',
                             height: 60,
                             press: () {
-                              formKey.currentState.save();
-                              formKey.currentState.validate();
+                              formKey.currentState!.save();
+                              formKey.currentState!.validate();
                             },
                           )
                         ],

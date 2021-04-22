@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import '../../generated/l10n.dart';
 import 'localization_demo.dart';
 
@@ -8,7 +9,8 @@ class I18nDemoPage extends StatefulWidget {
 }
 
 class _I18nDemoPageState extends State<I18nDemoPage> {
-  String title,content;
+  late String title, content;
+
   @override
   Widget build(BuildContext context) {
     print('intl_localization: ${S.of(context)}');
@@ -20,18 +22,23 @@ class _I18nDemoPageState extends State<I18nDemoPage> {
           SliverAppBar(
               expandedHeight: 300,
               flexibleSpace: FlexibleSpaceBar(
-                title: Text(title,style: Theme.of(context).textTheme.headline3,),
+                title: Text(
+                  title,
+                  style: Theme.of(context).textTheme.headline3,
+                ),
                 background: Column(
                   children: <Widget>[
-                    Icon(Icons.flight_takeoff,size: 100,)
+                    Icon(
+                      Icons.flight_takeoff,
+                      size: 100,
+                    )
                   ],
                 ),
-              )
-          ),
+              )),
           SliverToBoxAdapter(
             child: Container(
               height: 200,
-              child: Text(content,style:Theme.of(context).textTheme.headline2),
+              child: Text(content, style: Theme.of(context).textTheme.headline2),
             ),
           )
         ],

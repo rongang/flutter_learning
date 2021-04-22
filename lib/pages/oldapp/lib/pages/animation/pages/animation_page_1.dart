@@ -25,7 +25,7 @@ class _AnimationPage1State extends State<AnimationPage1> {
           child: Row(
             children: <Widget>[
               Counter(
-                num: double.tryParse(value[0]),
+                num: double.tryParse(value[0]!)!,
               ),
               Counter(
                 num: double.tryParse(value[1]),
@@ -59,9 +59,9 @@ class _AnimationPage1State extends State<AnimationPage1> {
 }
 
 class Counter extends StatelessWidget {
-  final double num;
+  final double? num;
 
-  const Counter({Key key, this.num}) : super(key: key);
+  const Counter({Key? key, this.num}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -70,7 +70,7 @@ class Counter extends StatelessWidget {
       height: 60,
       color: Colors.blue[300],
       child: TweenAnimationBuilder(
-        builder: (BuildContext context, value, Widget child) {
+        builder: (BuildContext context, double value, Widget? child) {
           int whole = value ~/ 1;
           double decimal = value - whole;
           return Stack(
@@ -78,13 +78,11 @@ class Counter extends StatelessWidget {
             children: <Widget>[
               Positioned(
                 top: -100 * decimal,
-                child: Text('$whole',
-                    style: Theme.of(context).textTheme.headline3),
+                child: Text('$whole', style: Theme.of(context).textTheme.headline3),
               ),
               Positioned(
                 top: 100 - 100 * decimal,
-                child: Text('$whole',
-                    style: Theme.of(context).textTheme.headline3),
+                child: Text('$whole', style: Theme.of(context).textTheme.headline3),
               ),
             ],
           );

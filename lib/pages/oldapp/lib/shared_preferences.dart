@@ -24,7 +24,7 @@ class MyApp extends StatelessWidget {
 }
 
 class SharedPreferencesDemo extends StatefulWidget {
-  SharedPreferencesDemo({Key key}) : super(key: key);
+  SharedPreferencesDemo({Key? key}) : super(key: key);
 
   @override
   SharedPreferencesDemoState createState() => SharedPreferencesDemoState();
@@ -32,9 +32,8 @@ class SharedPreferencesDemo extends StatefulWidget {
 
 class SharedPreferencesDemoState extends State<SharedPreferencesDemo> {
   Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
-  Future<int> _counter;
-  Future<List> _inputList;
-
+  late Future<int> _counter;
+  late Future<List> _inputList;
 
   TextEditingController _controller = TextEditingController();
 
@@ -48,9 +47,10 @@ class SharedPreferencesDemoState extends State<SharedPreferencesDemo> {
       });
     });
   }
+
   Future<void> _saveInputHistory(String input) async {
     final SharedPreferences prefs = await _prefs;
-    final List<String> history = prefs.getStringList("history")??[];
+    final List<String> history = prefs.getStringList("history") ?? [];
     history.add(input);
 
     setState(() {
@@ -59,9 +59,10 @@ class SharedPreferencesDemoState extends State<SharedPreferencesDemo> {
       });
     });
   }
+
   Future<void> _deleteInputHistory(String input) async {
     final SharedPreferences prefs = await _prefs;
-    final List<String> history = prefs.getStringList("history")??[];
+    final List<String> history = prefs.getStringList("history") ?? [];
     history.remove(input);
 
     setState(() {
@@ -91,7 +92,7 @@ class SharedPreferencesDemoState extends State<SharedPreferencesDemo> {
       body: Column(
         children: <Widget>[
           Container(
-            height:200,
+            height: 200,
             child: Center(
                 child: FutureBuilder<int>(
                     future: _counter,
@@ -105,7 +106,7 @@ class SharedPreferencesDemoState extends State<SharedPreferencesDemo> {
                           } else {
                             return Text(
                               'Button tapped ${snapshot.data} time${snapshot.data == 1 ? '' : 's'}.\n\n'
-                                  'This should persist across restarts.',
+                              'This should persist across restarts.',
                             );
                           }
                       }
@@ -118,7 +119,7 @@ class SharedPreferencesDemoState extends State<SharedPreferencesDemo> {
             ),
           ),
           Container(
-            height:100,
+            height: 100,
             child: Center(
                 child: FutureBuilder<List>(
                     future: _inputList,
@@ -140,7 +141,7 @@ class SharedPreferencesDemoState extends State<SharedPreferencesDemo> {
         ],
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: (){
+        onPressed: () {
           _incrementCounter();
           print(_controller.text);
           _deleteInputHistory(_controller.text);

@@ -1,17 +1,13 @@
 import 'dart:io';
 import 'dart:typed_data';
-
-import 'package:flutter/material.dart';
 import 'dart:ui' as ui;
 
+import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:path_provider/path_provider.dart';
 
-import '../Utils/customrotute.dart';
-import '../Utils/customrouteImage.dart';
-
 class ShareImageDemo extends StatefulWidget {
-  ShareImageDemo({Key key}) : super(key: key);
+  ShareImageDemo({Key? key}) : super(key: key);
 
   @override
   _ShareImageDemoState createState() => _ShareImageDemoState();
@@ -58,7 +54,7 @@ class _ShareImageDemoState extends State<ShareImageDemo> {
 
   /// 把图片ByteData写入File，并触发微信分享
   Future<Null> _shareUiImage(BuildContext context) async {
-    ByteData sourceByteData = await _capturePngToByteData();
+    ByteData sourceByteData = (await _capturePngToByteData())!;
     Uint8List sourceBytes = sourceByteData.buffer.asUint8List();
 //    Navigator.push(context, CustomRouteImage(imageView(sourceBytes,context)));
     imageView(sourceBytes, context);
@@ -74,15 +70,13 @@ class _ShareImageDemoState extends State<ShareImageDemo> {
   }
 
   /// 截屏图片生成图片流ByteData
-  Future<ByteData> _capturePngToByteData() async {
+  Future<ByteData?> _capturePngToByteData() async {
     try {
-      RenderRepaintBoundary boundary =
-          repaintWidgetKey.currentContext.findRenderObject();
+      RenderRepaintBoundary boundary = repaintWidgetKey.currentContext!.findRenderObject() as RenderRepaintBoundary;
       double dpr = ui.window.devicePixelRatio; ////
       boundary.computeMaxIntrinsicHeight(20);
       ui.Image image = await boundary.toImage(pixelRatio: dpr);
-      ByteData _byteData =
-          await image.toByteData(format: ui.ImageByteFormat.png);
+      ByteData _byteData = (await image.toByteData(format: ui.ImageByteFormat.png))!;
       return _byteData;
     } catch (e) {
       print(e);
@@ -111,9 +105,7 @@ class _ShareImageDemoState extends State<ShareImageDemo> {
                       ),
                     ),
                   ),
-                  decoration: BoxDecoration(
-                      color: Colors.transparent,
-                      border: Border.all(width: 1, color: Colors.black)),
+                  decoration: BoxDecoration(color: Colors.transparent, border: Border.all(width: 1, color: Colors.black)),
                 ),
                 Container(
 //            height: 80,
@@ -145,5 +137,4 @@ class _ShareImageDemoState extends State<ShareImageDemo> {
             ));
       },
       context: context);
-
 }

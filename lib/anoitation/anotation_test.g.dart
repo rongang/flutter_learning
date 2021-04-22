@@ -7,5 +7,5 @@
 class TestAnoAPT {
   String name = 'one';
   int id = 1;
-  Runes runes = null;
+  Runes? runes;
 }

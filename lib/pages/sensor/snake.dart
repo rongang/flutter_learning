@@ -26,15 +26,15 @@ class Snake extends StatefulWidget {
 }
 
 class SnakeState extends State<Snake> {
-  SnakeState(int rows, int columns, this.cellSize) {
+  SnakeState([int rows = 20, int columns = 20, this.cellSize = 10]) {
     state = GameState(rows, columns);
   }
 
-  double cellSize;
-  GameState state;
-  AccelerometerEvent acceleration;
-  StreamSubscription<AccelerometerEvent> _streamSubscription;
-  Timer _timer;
+  late double cellSize;
+  late GameState state;
+  late AccelerometerEvent? acceleration;
+  late StreamSubscription<AccelerometerEvent> _streamSubscription;
+  late Timer _timer;
 
   @override
   Widget build(BuildContext context) {
@@ -51,8 +51,7 @@ class SnakeState extends State<Snake> {
   @override
   void initState() {
     super.initState();
-    _streamSubscription =
-        accelerometerEvents.listen((AccelerometerEvent event) {
+    _streamSubscription = accelerometerEvents.listen((AccelerometerEvent event) {
       setState(() {
         acceleration = event;
       });
@@ -66,13 +65,13 @@ class SnakeState extends State<Snake> {
   }
 
   void _step() {
-    final math.Point<int> newDirection = acceleration == null
+    final math.Point<int> newDirection = (acceleration == null
         ? null
-        : acceleration.x.abs() < 1.0 && acceleration.y.abs() < 1.0
+        : acceleration!.x.abs() < 1.0 && acceleration!.y.abs() < 1.0
             ? null
-            : (acceleration.x.abs() < acceleration.y.abs())
-                ? math.Point<int>(0, acceleration.y.sign.toInt())
-                : math.Point<int>(-acceleration.x.sign.toInt(), 0);
+            : (acceleration!.x.abs() < acceleration!.y.abs())
+                ? math.Point<int>(0, acceleration!.y.sign.toInt())
+                : math.Point<int>(-acceleration!.x.sign.toInt(), 0))!;
     state.step(newDirection);
   }
 }
@@ -112,14 +111,14 @@ class GameState {
     snakeLength = math.min(rows, columns) - 5;
   }
 
-  int rows;
-  int columns;
-  int snakeLength;
+  late int rows;
+  late int columns;
+  late int snakeLength;
 
   List<math.Point<int>> body = <math.Point<int>>[const math.Point<int>(0, 0)];
   math.Point<int> direction = const math.Point<int>(1, 0);
 
-  void step(math.Point<int> newDirection) {
+  void step(math.Point<int>? newDirection) {
     math.Point<int> next = body.last + direction;
     next = math.Point<int>(next.x % columns, next.y % rows);
 

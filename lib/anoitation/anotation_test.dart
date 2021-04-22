@@ -1,26 +1,26 @@
-
-
-
 import 'dart:core';
+
 import 'package:analyzer/dart/element/element.dart';
-import 'package:source_gen/source_gen.dart';
 import 'package:build/build.dart';
-class AnoTest{
+import 'package:source_gen/source_gen.dart';
+
+class AnoTest {
   final String name;
   final int id;
-  final String rune;
+  final String? rune;
   static final Runes runes = Runes('\u{1f37f}');
-  const AnoTest(this.name,this.id, {this.rune});
+  const AnoTest(this.name, this.id, {this.rune});
 }
-@AnoTest('one',1)
-class TestAno{
+
+@AnoTest('one', 1)
+class TestAno {
   int age = 20;
 }
 
-class TestGenerator extends GeneratorForAnnotation<AnoTest>{
+class TestGenerator extends GeneratorForAnnotation<AnoTest> {
   @override
   generateForAnnotatedElement(Element element, ConstantReader annotation, BuildStep buildStep) {
-    var content  ='''
+    var content = '''
     element:$element,
     element.metadata:${element.metadata[0]},
     element.declaration:${element.declaration},
@@ -40,7 +40,7 @@ class TestGenerator extends GeneratorForAnnotation<AnoTest>{
     ''';
     // element.
     String name = annotation.read('name').stringValue;
-    int id =  annotation.read('id').intValue;
+    int id = annotation.read('id').intValue;
     Runes runes = annotation.peek('field')?.objectValue as Runes;
     print('--------');
     print(content);
@@ -52,7 +52,6 @@ class TestGenerator extends GeneratorForAnnotation<AnoTest>{
       }
     ''';
   }
-
 }
-Builder testBuilder(BuilderOptions options) =>
-    LibraryBuilder(TestGenerator());
+
+Builder testBuilder(BuilderOptions options) => LibraryBuilder(TestGenerator());

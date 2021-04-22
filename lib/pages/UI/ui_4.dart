@@ -1,7 +1,7 @@
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import 'dart:math' as math;
 
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
 
@@ -12,28 +12,22 @@ class UI4 extends StatefulWidget {
 
 class _UI4State extends State<UI4> {
   final _list = ['Home', 'Invoice', 'Notification', 'MyProfile'];
-  List<GlobalKey> _listKeys = [
-    GlobalKey(),
-    GlobalKey(),
-    GlobalKey(),
-    GlobalKey()
-  ];
-  int selectedIndex;
-  Offset itemOffset;
-  double paddingTop;
+  List<GlobalKey> _listKeys = [GlobalKey(), GlobalKey(), GlobalKey(), GlobalKey()];
+  late int selectedIndex;
+  late Offset itemOffset;
+  late double paddingTop;
 
   @override
   void initState() {
     selectedIndex = 0;
     super.initState();
-    SchedulerBinding.instance.endOfFrame.then((value) {
+    SchedulerBinding.instance!.endOfFrame.then((value) {
       getRenderBoxOffset();
     });
   }
 
   getRenderBoxOffset() {
-    RenderBox renderBox =
-        _listKeys[selectedIndex].currentContext.findRenderObject();
+    RenderBox renderBox = _listKeys[selectedIndex].currentContext!.findRenderObject() as RenderBox;
     Offset widgetOffset = renderBox.localToGlobal(Offset.zero);
     Size size = renderBox.size;
     paddingTop = widgetOffset.dy + size.height / 2;
@@ -58,9 +52,7 @@ class _UI4State extends State<UI4> {
                   Container(
                     width: 70,
                     height: size.height,
-                    decoration: BoxDecoration(
-                        color: Colors.pink,
-                        borderRadius: BorderRadius.circular(30)),
+                    decoration: BoxDecoration(color: Colors.pink, borderRadius: BorderRadius.circular(30)),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: <Widget>[
@@ -90,13 +82,11 @@ class _UI4State extends State<UI4> {
                 color: Colors.white,
                 child: Column(
                   children: <Widget>[
-
                     Padding(
                       padding: const EdgeInsets.symmetric(vertical: 50),
                       child: Text(
                         'term 1',
-                        style:
-                            TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+                        style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
                       ),
                     ),
                     Flexible(
@@ -105,22 +95,21 @@ class _UI4State extends State<UI4> {
                         height: 200,
                         padding: const EdgeInsets.all(10),
                         child: ListView.builder(
-                          physics: BouncingScrollPhysics(),
+                            physics: BouncingScrollPhysics(),
                             scrollDirection: Axis.horizontal,
                             itemCount: 10,
                             itemBuilder: (context, index) => Container(
-                              height: 200,
-                              width: 100,
-                              child: Card(),
-                            )),
+                                  height: 200,
+                                  width: 100,
+                                  child: Card(),
+                                )),
                       ),
                     ),
                     Padding(
                       padding: const EdgeInsets.symmetric(vertical: 50),
                       child: Text(
                         'term 2',
-                        style:
-                        TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+                        style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
                       ),
                     ),
                     Flexible(
@@ -129,14 +118,14 @@ class _UI4State extends State<UI4> {
                         height: 200,
                         padding: const EdgeInsets.all(10),
                         child: ListView.builder(
-                          physics: BouncingScrollPhysics(),
+                            physics: BouncingScrollPhysics(),
                             scrollDirection: Axis.horizontal,
                             itemCount: 10,
                             itemBuilder: (context, index) => Container(
-                              height: 200,
-                              width: 100,
-                              child: Card(),
-                            )),
+                                  height: 200,
+                                  width: 100,
+                                  child: Card(),
+                                )),
                       ),
                     ),
                   ],
@@ -175,7 +164,7 @@ class MyItem extends StatelessWidget {
   final bool isActive;
   final GlobalKey globalKey;
 
-  const MyItem({this.title, this.globalKey, this.isActive});
+  const MyItem({required this.title, required this.globalKey, required this.isActive});
 
   @override
   Widget build(BuildContext context) {
@@ -197,10 +186,8 @@ class MyIndicator extends CustomPainter {
     double sweepAngle = math.pi;
     Paint paint = Paint()..style = PaintingStyle.fill;
     paint.color = Colors.pink;
-    canvas.drawArc(Rect.fromCircle(center: Offset(10, 0), radius: 30),
-        startAngle, sweepAngle, false, paint);
-    canvas.drawCircle(
-        size.center(Offset(0, 0)), 5, Paint()..color = Colors.white);
+    canvas.drawArc(Rect.fromCircle(center: Offset(10, 0), radius: 30), startAngle, sweepAngle, false, paint);
+    canvas.drawCircle(size.center(Offset(0, 0)), 5, Paint()..color = Colors.white);
   }
 
   @override

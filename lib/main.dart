@@ -1,45 +1,41 @@
 import 'dart:io';
-import 'dart:ui' as ui;
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_learning/pages/UI/ui_page.dart';
+import 'package:flutter_learning/pages/animation/animation_page.dart';
 import 'package:flutter_learning/pages/canvas/canvas_demo.dart';
 import 'package:flutter_learning/pages/channel/channel.dart';
+import 'package:flutter_learning/pages/clipboard/clipboard_page.dart';
+import 'package:flutter_learning/pages/customclip/custom_clip_demo.dart';
 import 'package:flutter_learning/pages/deviceResource/device_resouce.dart';
+import 'package:flutter_learning/pages/form/form_demo.dart';
 import 'package:flutter_learning/pages/guide/guide_demo.dart';
+import 'package:flutter_learning/pages/i18n/i18n_demo.dart';
+import 'package:flutter_learning/pages/i18n/language_provider.dart';
 import 'package:flutter_learning/pages/isolate/isolate_demo.dart';
+import 'package:flutter_learning/pages/map/map_demo.dart';
 import 'package:flutter_learning/pages/navigator2.0/NavigatorTwoDemo.dart';
 import 'package:flutter_learning/pages/oldapp/lib/main.dart';
 import 'package:flutter_learning/pages/rxdart/rxdart.dart';
-import 'package:flutter_learning/pages/screenUtis/screen_utils.dart';
-import 'package:flutter_learning/pages/stream/stream.dart';
-import 'package:flutter_learning/pages/toast/toast_demo.dart';
-import 'package:flutter_learning/pages/url_launcher/url_launching_demo.dart';
-import 'package:flutter_learning/pages/wifi/wifi_demo.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:flutter_learning/pages/UI/ui_page.dart';
-import 'package:flutter_learning/pages/animation/animation_page.dart';
-import 'package:flutter_learning/pages/clipboard/clipboard_page.dart';
-import 'package:flutter_learning/pages/customclip/custom_clip_demo.dart';
-import 'package:flutter_learning/pages/form/form_demo.dart';
-import 'package:flutter_learning/pages/i18n/i18n_demo.dart';
-import 'package:flutter_learning/pages/i18n/language_provider.dart';
-import 'package:flutter_learning/pages/map/map_demo.dart';
 import 'package:flutter_learning/pages/scannerBarCode/scanner_bar_code_demo.dart';
+import 'package:flutter_learning/pages/screenUtis/screen_utils.dart';
 import 'package:flutter_learning/pages/sliver/sliver_demo1.dart';
 import 'package:flutter_learning/pages/splashPage/splashPageDemo1.dart';
+import 'package:flutter_learning/pages/stream/stream.dart';
+import 'package:flutter_learning/pages/url_launcher/url_launching_demo.dart';
+import 'package:flutter_learning/pages/wifi/wifi_demo.dart';
 import 'package:flutter_learning/utils/utils.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
 import 'package:provider/single_child_widget.dart';
 
 import 'component/action_item.dart';
-import 'pages/calender/calender_demo.dart';
 import 'pages/i18n/i18n_page.dart';
-import 'pages/medirec/medirec.dart';
 import 'pages/sensor/sensor_demo.dart';
 import 'pages/theme/theme_provider.dart';
-import 'package:fvm/fvm.dart';
 
 const routes = {};
 
@@ -51,8 +47,7 @@ void main() {
 androidHeadInit() {
   if (Platform.isAndroid) {
     // 设置 Android 头部导航栏透明
-    SystemUiOverlayStyle systemUiOverlayStyle =
-        SystemUiOverlayStyle(statusBarColor: Colors.transparent);
+    SystemUiOverlayStyle systemUiOverlayStyle = SystemUiOverlayStyle(statusBarColor: Colors.transparent);
     SystemChrome.setSystemUIOverlayStyle(systemUiOverlayStyle);
   }
 }
@@ -74,16 +69,14 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: <SingleChildWidget>[
-        ChangeNotifierProvider<LanguageProvider>(
-            create: (_) => LanguageProvider()),
+        ChangeNotifierProvider<LanguageProvider>(create: (_) => LanguageProvider()),
         ChangeNotifierProvider<ThemeProvider>(create: (_) => ThemeProvider()),
       ],
       builder: (context, child) {
         LanguageProvider languageProvider = context.watch<LanguageProvider>();
 //              Provider.of<LanguageProvider>(context);
         ThemeProvider themeProvider = Provider.of<ThemeProvider>(context);
-        Brightness _brightness =
-            context.select((ThemeProvider provider) => provider.nowBrightness);
+        Brightness _brightness = context.select((ThemeProvider provider) => provider.nowBrightness);
         return MaterialApp(
           // routes: routes,
           // navigatorObservers: [PageObserver()],
@@ -92,8 +85,7 @@ class _MyAppState extends State<MyApp> {
           locale: languageProvider.nowLocale,
 
           supportedLocales: I18nDemo.supportLanguageIterable,
-          localizationsDelegates: [I18nDemo.delegate]
-            ..addAll(GlobalMaterialLocalizations.delegates),
+          localizationsDelegates: [I18nDemo.delegate]..addAll(GlobalMaterialLocalizations.delegates),
 //          localeListResolutionCallback:
 //              (List<Locale> locales, Iterable<Locale> supportedLocales) {
 //            print('locale:${locales.toString()}');
@@ -117,12 +109,10 @@ class _MyAppState extends State<MyApp> {
           title: 'Flutter Demo',
           debugShowCheckedModeBanner: false,
           navigatorKey: MyApp.navigatorKey,
-          darkTheme: ThemeData(
-              colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.pink)),
+          darkTheme: ThemeData(colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.pink)),
           theme: ThemeData(
               inputDecorationTheme: InputDecorationTheme(
-                border:
-                    OutlineInputBorder(borderRadius: BorderRadius.circular(20)),
+                border: OutlineInputBorder(borderRadius: BorderRadius.circular(20)),
                 floatingLabelBehavior: FloatingLabelBehavior.always,
                 contentPadding: const EdgeInsets.symmetric(horizontal: 20),
               ),
@@ -150,10 +140,7 @@ class _MyAppState extends State<MyApp> {
               // closer together (more dense) than on mobile platforms.
               visualDensity: VisualDensity.adaptivePlatformDensity,
               floatingActionButtonTheme: FloatingActionButtonThemeData(
-                  foregroundColor:
-                      themeProvider.nowBrightness == Brightness.light
-                          ? Colors.blue[300]
-                          : Colors.black)),
+                  foregroundColor: themeProvider.nowBrightness == Brightness.light ? Colors.blue[300] : Colors.black)),
           home: SplashPageDemo1(),
         );
       },
@@ -162,7 +149,7 @@ class _MyAppState extends State<MyApp> {
 }
 
 class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
+  MyHomePage({Key? key, required this.title}) : super(key: key);
 
   // This widget is the home page of your application. It is stateful, meaning
   // that it has a State object (defined below) that contains fields that affect
@@ -182,8 +169,7 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
-    ThemeProvider themeProvider =
-        Provider.of<ThemeProvider>(context, listen: false);
+    ThemeProvider themeProvider = Provider.of<ThemeProvider>(context, listen: false);
     // This method is rerun every time setState is called, for instance as done
     // by the _incrementCounter method above.
     //
@@ -231,16 +217,15 @@ class _MyHomePageState extends State<MyHomePage> {
                       height: 70,
                       width: 70,
                       child: CircleAvatar(
-                        backgroundImage: NetworkImage(
-                            'http://img.netbian.com/file/2020/0524/b1bb0802801c2d1ae6448609ce8d5ea4.jpg'),
+                        backgroundImage:
+                            NetworkImage('http://img.netbian.com/file/2020/0524/b1bb0802801c2d1ae6448609ce8d5ea4.jpg'),
                       ),
                     ),
                     Padding(
                       padding: const EdgeInsets.all(10.0),
                       child: Text(
                         'hello',
-                        style: TextStyle(
-                            fontSize: 19, fontWeight: FontWeight.bold),
+                        style: TextStyle(fontSize: 19, fontWeight: FontWeight.bold),
                       ),
                     )
                   ],
@@ -250,9 +235,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 padding: EdgeInsets.all(10),
                 child: Text('主题模式'),
                 onPressed: () {
-                  Utils.showDiglogg(
-                      content:
-                          MediaQuery.of(context).platformBrightness.toString());
+                  Utils.showDialog(content: MediaQuery.of(context).platformBrightness.toString());
                 },
               ),
               Spacer(),
@@ -291,9 +274,9 @@ class _MyHomePageState extends State<MyHomePage> {
       ActionItem(title: 'UI', page: UiPage()),
       ActionItem(title: 'Sliver', page: SliverDemo1()),
       ActionItem(title: 'I18nPage', page: I18nPage()),
-      ActionItem(title: '日历', page: CalenderDemo()),
-      ActionItem(title: '吃药啦', page: Medirec()),
-      ActionItem(title: '扫码', page: ScannerBarCodeDemo()),
+      // ActionItem(title: '日历', page: CalenderDemo()),
+      // ActionItem(title: '吃药啦', page: Medirec()),
+      // ActionItem(title: '扫码', page: ScannerBarCodeDemo()),
       ActionItem(title: '地图', page: MapDemo()),
       ActionItem(title: 'SensorDemo', page: SensorDemo()),
       ActionItem(title: '监控粘贴板', page: ClipBoardPage()),
@@ -302,12 +285,12 @@ class _MyHomePageState extends State<MyHomePage> {
       ActionItem(title: '线程', page: IsolateDemo()),
       ActionItem(title: 'Stream', page: StreamDemo()),
       ActionItem(title: 'RxDart', page: RxDartDemo()),
-      ActionItem(title: 'wifi信息', page: WifiInfoDemo()),
+      // ActionItem(title: 'wifi信息', page: WifiInfoDemo()),
       ActionItem(title: 'UrlLauncher', page: UrlLauncherDemo()),
       ActionItem(title: 'Canvas', page: CanvasDemo()),
-      ActionItem(title: 'Toast', page: ToastDemo()),
+      // ActionItem(title: 'Toast', page: ToastDemo()),
       ActionItem(title: '引导', page: GuideDemo()),
-      ActionItem(title: '设备资源', page: DeviceResource()),
+      // ActionItem(title: '设备资源', page: DeviceResource()),
       ActionItem(title: '原生通信', page: ChannelDemo()),
       ActionItem(title: '屏幕适配', page: ScreenUtilDemo()),
     ];

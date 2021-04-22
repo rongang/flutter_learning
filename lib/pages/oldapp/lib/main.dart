@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
-
 import 'Utils/customrotute.dart';
 import 'animation/animation_1.dart';
 import 'generated/l10n.dart';
@@ -20,12 +19,9 @@ class MyOldApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      locale: Locale('en','US'),
-      supportedLocales: [
-        const Locale('en','US'),
-        const Locale('zh','CN')
-      ],
-      localeResolutionCallback: (locale,list){
+      locale: Locale('en', 'US'),
+      supportedLocales: [const Locale('en', 'US'), const Locale('zh', 'CN')],
+      localeResolutionCallback: (locale, list) {
         print('locale2:${locale.toString()}');
         return locale;
       },
@@ -40,7 +36,9 @@ class MyOldApp extends StatelessWidget {
       theme: Theme.of(context).copyWith(
         primaryColor: Colors.blue[300],
       ),
-      home: animation_1(child: MyHomePage(title:'demo'),),
+      home: animation_1(
+        child: MyHomePage(title: 'demo'),
+      ),
     );
   }
 }
@@ -51,22 +49,18 @@ class SplashPage extends StatefulWidget {
 }
 
 class _SplashPageState extends State<SplashPage> with TickerProviderStateMixin {
-
-  Animation _animation;
-  AnimationController _animationController;
-
+  late Animation<double> _animation;
+  late AnimationController _animationController;
 
   @override
   void initState() {
     super.initState();
-    _animationController =
-        AnimationController(duration: Duration(milliseconds: 1), vsync: this);
+    _animationController = AnimationController(duration: Duration(milliseconds: 1), vsync: this);
     _animation = Tween(begin: .4, end: 1.0).animate(_animationController);
     _animation.addStatusListener((status) {
-      if(status == AnimationStatus.completed)
-          Navigator.of(context).pushAndRemoveUntil(
-              CustomRoute(widget: MyHomePage(title: 'FLUTTER Demo')), (
-              route) => false);
+      if (status == AnimationStatus.completed)
+        Navigator.of(context)
+            .pushAndRemoveUntil(CustomRoute(widget: MyHomePage(title: 'FLUTTER Demo'), settings: null), (route) => false);
     });
     _animationController.forward();
   }
@@ -80,21 +74,22 @@ class _SplashPageState extends State<SplashPage> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black45,
-      body:AspectRatio(
-        aspectRatio: 9/16,
-        child: FadeTransition(
-          opacity: _animation,
-          child:Image.network('http://img.netbian.com/file/2020/0504/548dbd05bb6f47f2224fa2744bf9d17a.jpg',fit: BoxFit.cover,),
-        ),
-      )
-    );
+        backgroundColor: Colors.black45,
+        body: AspectRatio(
+          aspectRatio: 9 / 16,
+          child: FadeTransition(
+            opacity: _animation,
+            child: Image.network(
+              'http://img.netbian.com/file/2020/0504/548dbd05bb6f47f2224fa2744bf9d17a.jpg',
+              fit: BoxFit.cover,
+            ),
+          ),
+        ));
   }
 }
 
-
 class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
+  MyHomePage({Key? key, required this.title}) : super(key: key);
 
   final String title;
 
@@ -103,7 +98,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _index;
+  late int _index;
   List<Widget> tabs = [HomePage(), NewsPage(), PersonalPage(), SettingsPage()];
   List<IconData> tabsIcon = [
     Icons.home,
@@ -135,7 +130,7 @@ class _MyHomePageState extends State<MyHomePage> {
 //            index: _index,
 //            children: tabs,
 //          ),
-      PageView(
+          PageView(
         onPageChanged: (index) {
           setState(() {
             _index = index;
@@ -153,21 +148,16 @@ class _MyHomePageState extends State<MyHomePage> {
       bottomNavigationBar: BottomAppBar(
 //          shape: CircularNotchedRectangle(),
           child: SizedBox(
-            height: 60,
-            child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: tabsIcon
-                    .asMap()
-                    .keys
-                    .map((index) =>
-                    GestureDetector(
+        height: 60,
+        child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: tabsIcon
+                .asMap()
+                .keys
+                .map((index) => GestureDetector(
                       child: Icon(
                         tabsIcon[index],
-                        color: _index == index
-                            ? Theme
-                            .of(context)
-                            .primaryColor
-                            : Colors.blueGrey,
+                        color: _index == index ? Theme.of(context).primaryColor : Colors.blueGrey,
                       ),
                       onTap: () {
                         setState(() {
@@ -176,8 +166,8 @@ class _MyHomePageState extends State<MyHomePage> {
                         _pageController.jumpToPage(index);
                       },
                     ))
-                    .toList()),
-          )),
+                .toList()),
+      )),
     );
   }
 }
@@ -209,7 +199,7 @@ class _SliverPageState extends State<SliverPage> {
     return false;
   }
 
-  int num;
+  int num = 0;
 
 /*
   new NotificationListener<ScrollNotification>(
@@ -260,15 +250,14 @@ class _SliverPageState extends State<SliverPage> {
 //                            }, childCount: 1),
 //                      ),
                         SliverGrid(
-                          gridDelegate:
-                          SliverGridDelegateWithMaxCrossAxisExtent(
+                          gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
                             maxCrossAxisExtent: 200.0,
                             mainAxisSpacing: 10.0,
                             crossAxisSpacing: 10.0,
                             childAspectRatio: 4.0,
                           ),
                           delegate: SliverChildBuilderDelegate(
-                                (BuildContext context, int index) {
+                            (BuildContext context, int index) {
                               return Container(
                                 alignment: Alignment.center,
                                 color: Colors.teal[100 * (index % 9)],
@@ -283,14 +272,8 @@ class _SliverPageState extends State<SliverPage> {
                     Offstage(
                       offstage: !isLoading,
                       child: Container(
-                        height: MediaQuery
-                            .of(context)
-                            .size
-                            .height,
-                        width: MediaQuery
-                            .of(context)
-                            .size
-                            .width,
+                        height: MediaQuery.of(context).size.height,
+                        width: MediaQuery.of(context).size.width,
                         padding: EdgeInsets.only(bottom: 30),
                         alignment: Alignment.bottomCenter,
                         child: CircularProgressIndicator(),
@@ -353,12 +336,9 @@ class _CardBoxState extends State<CardBox> {
   }
 }
 
-String image1 =
-    'http://pic.netbian.com/uploads/allimg/200428/230003-158808600315ad.jpg';
-String image2 =
-    'http://pic.netbian.com/uploads/allimg/190211/235228-154990034846a9.jpg';
-String image3 =
-    'http://pic.netbian.com/uploads/allimg/200107/230332-1578409412a2f8.jpg';
+String image1 = 'http://pic.netbian.com/uploads/allimg/200428/230003-158808600315ad.jpg';
+String image2 = 'http://pic.netbian.com/uploads/allimg/190211/235228-154990034846a9.jpg';
+String image3 = 'http://pic.netbian.com/uploads/allimg/200107/230332-1578409412a2f8.jpg';
 
 final List scrollNews = [
   {'cover': image1, 'id': 1},
@@ -397,9 +377,8 @@ class _ImageNewsScroll extends StatefulWidget {
   _ImageNewsScrollState createState() => _ImageNewsScrollState();
 }
 
-class _ImageNewsScrollState extends State<_ImageNewsScroll>
-    with SingleTickerProviderStateMixin {
-  TabController tabController;
+class _ImageNewsScrollState extends State<_ImageNewsScroll> with SingleTickerProviderStateMixin {
+  late TabController tabController;
 
   @override
   void initState() {
@@ -416,20 +395,18 @@ class _ImageNewsScrollState extends State<_ImageNewsScroll>
           TabBarView(
             controller: tabController,
             children: scrollNews
-                .map((scrollNews) =>
-                GestureDetector(
-                  onTap: () {
-                    print(scrollNews['id']);
+                .map((scrollNews) => GestureDetector(
+                      onTap: () {
+                        print(scrollNews['id']);
 //                Navigator.of(context).push(MaterialPageRoute(
 //                    builder: (context) =>
 //                        NewsDetailPage(scrollNews['id'])));
-                  },
-                  child: AspectRatio(
-                    aspectRatio: 21 / 9,
-                    child: Image.network(scrollNews['cover'],
-                        fit: BoxFit.cover),
-                  ),
-                ))
+                      },
+                      child: AspectRatio(
+                        aspectRatio: 21 / 9,
+                        child: Image.network(scrollNews['cover'], fit: BoxFit.cover),
+                      ),
+                    ))
                 .toList(),
           ),
           Align(
@@ -452,11 +429,10 @@ class _ImageNewsScrollState extends State<_ImageNewsScroll>
                       tabs: scrollNews
                           .asMap()
                           .keys
-                          .map((index) =>
-                          Icon(
-                            Icons.fiber_manual_record,
-                            size: 12,
-                          ))
+                          .map((index) => Icon(
+                                Icons.fiber_manual_record,
+                                size: 12,
+                              ))
                           .toList()),
                 ],
               ),

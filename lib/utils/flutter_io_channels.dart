@@ -6,24 +6,28 @@ const Channel_Cancel_Timer = "cancelTimer";
 const Channel_Start_Timer = "startTimer";
 const receiveOriginMessageEventChannel = EventChannel('receiveOriginMessageEventChannel');
 
-
-class ChannelUtils{
-  static locationSettings(){
-    ChannelUtil.invokeMethod(Channel_Location,[]);
+class ChannelUtils {
+  static locationSettings() {
+    ChannelUtil.invokeMethod(Channel_Location, []);
   }
-  static startTimer(){
+
+  static startTimer() {
     ChannelUtil.invokeMethod(Channel_Start_Timer);
   }
-  static cancelTimer(){
+
+  static cancelTimer() {
     ChannelUtil.invokeMethod(Channel_Cancel_Timer);
   }
-  static initReceiveOrigin({Function onEvent=_onEvent, Function onError=_onError}){
-    receiveOriginMessageEventChannel.receiveBroadcastStream().listen(onEvent,onError: onError);
+
+  static initReceiveOrigin({Function(dynamic)? onEvent = _onEvent, Function onError = _onError}) {
+    receiveOriginMessageEventChannel.receiveBroadcastStream().listen(onEvent, onError: onError);
   }
-  static _onEvent(event){
+
+  static _onEvent(event) {
     print('event$event');
   }
-  static _onError(error){
+
+  static _onError(error) {
     print('error$error');
   }
 }

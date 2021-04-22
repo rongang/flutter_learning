@@ -2,26 +2,27 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_learning/main.dart';
 
 class MyOverlay {
-  static OverlayState overlayState = MyApp.navigatorKey.currentState.overlay;
-  static OverlayEntry overlayEntry;
+  static OverlayState overlayState = MyApp.navigatorKey.currentState!.overlay!;
+  static OverlayEntry? overlayEntry;
   static bool isShow = false;
-  static bool isShowMul;
+  static bool isShowMul = false;
 
   MyOverlay() {
-    overlayState = MyApp.navigatorKey.currentState.overlay;
+    overlayState = MyApp.navigatorKey.currentState!.overlay!;
   }
 
   static init({
-    WidgetBuilder widgetBuilder,
+    WidgetBuilder? widgetBuilder,
     bool isShowMul = false,
-    OverlayEntry overlayEntry,
+    OverlayEntry? overlayEntry,
   }) {
     MyOverlay.isShowMul = isShowMul;
     // overlayEntry?.remove();
     if (isShowMul)
       MyOverlay.overlayEntry = overlayEntry;
-    else
+    else if (widgetBuilder != null) {
       MyOverlay.overlayEntry = OverlayEntry(builder: widgetBuilder);
+    }
   }
 
   static show() {
@@ -29,12 +30,12 @@ class MyOverlay {
       refresh();
     } else {
       isShow = true;
-      overlayState.insert(overlayEntry);
+      overlayState.insert(overlayEntry!);
     }
   }
 
   static refresh() {
-    overlayEntry.markNeedsBuild();
+    overlayEntry!.markNeedsBuild();
   }
 
   static cancel() {

@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:math' as math;
+
 import 'package:common_utils/common_utils.dart';
 import 'package:flutter/material.dart';
 
@@ -9,7 +10,7 @@ class Canvas2 extends StatefulWidget {
 }
 
 class _Canvas2State extends State<Canvas2> {
-  Timer timer;
+  late Timer timer;
   @override
   void initState() {
     super.initState();
@@ -17,11 +18,13 @@ class _Canvas2State extends State<Canvas2> {
       setState(() {});
     });
   }
+
   @override
   void dispose() {
     super.dispose();
-    timer?.cancel();
+    timer.cancel();
   }
+
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
@@ -37,13 +40,16 @@ class _Canvas2State extends State<Canvas2> {
                 height: size.width,
                 width: size.width,
                 child: Transform.rotate(
-                  angle: math.pi*-0.5,
+                  angle: math.pi * -0.5,
                   child: CustomPaint(
                     painter: ClockPainter(),
                   ),
                 ),
               ),
-              Text(DateUtil.formatDate(DateTime.now(),format: DateFormats.h_m_s),style: Theme.of(context).textTheme.headline4,)
+              Text(
+                DateUtil.formatDate(DateTime.now(), format: DateFormats.h_m_s),
+                style: Theme.of(context).textTheme.headline4,
+              )
             ],
           )
         ],
@@ -52,9 +58,7 @@ class _Canvas2State extends State<Canvas2> {
   }
 }
 
-
 class ClockPainter extends CustomPainter {
-
   DateTime dateTime = DateTime.now();
 
   @override
@@ -63,7 +67,6 @@ class ClockPainter extends CustomPainter {
     double outRadius = size.width / 2 - 30;
     double innerRadius = outRadius - 30;
     canvas.drawCircle(offset, outRadius - 50, Paint()..color = Colors.black26);
-
 
     for (int i = 0; i < 360; i += 6) {
       double x1 = offset.dx + math.cos(i * math.pi / 180) * outRadius;
@@ -78,7 +81,7 @@ class ClockPainter extends CustomPainter {
             ..strokeWidth = 5
             ..strokeCap = StrokeCap.round);
     }
-    for (int i = 0; i < dateTime.second*6; i += 6) {
+    for (int i = 0; i < dateTime.second * 6; i += 6) {
       double x1 = offset.dx + math.cos(i * math.pi / 180) * outRadius;
       double y1 = offset.dx + math.sin(i * math.pi / 180) * outRadius;
       double x2 = offset.dx + math.cos(i * math.pi / 180) * innerRadius;

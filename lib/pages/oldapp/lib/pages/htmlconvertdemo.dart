@@ -1,7 +1,10 @@
 import 'dart:convert';
+
 import 'package:flutter/material.dart';
-import 'package:webview_flutter/webview_flutter.dart';
 import 'package:flutter_html/flutter_html.dart';
+import 'package:flutter_html/html_parser.dart';
+import 'package:html/dom.dart' as dom;
+import 'package:webview_flutter/webview_flutter.dart';
 
 import '../Utils/customrouteImage.dart';
 
@@ -16,7 +19,6 @@ class HtmlConvertDemo extends StatefulWidget {
 }
 
 class _HtmlConvertDemoState extends State<HtmlConvertDemo> {
-
   /*  void _setJSHandler(InAppWebViewController controller) {
     JavaScriptHandlerCallback callback = (List<dynamic> arguments) async {
       // 解析argument, 获取到高度, 直接设置即可(iphone手机需要+20高度)
@@ -31,7 +33,6 @@ class _HtmlConvertDemoState extends State<HtmlConvertDemo> {
   }
 }*/
 
-
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -45,8 +46,7 @@ class _HtmlConvertDemoState extends State<HtmlConvertDemo> {
             child: WebView(
               javascriptMode: JavascriptMode.unrestricted,
               onWebViewCreated: (WebViewController controller) {
-                Future.delayed(Duration(milliseconds: 300),
-                    () => _showHtml(controller, context));
+                Future.delayed(Duration(milliseconds: 300), () => _showHtml(controller, context));
               },
             ),
           ),
@@ -54,9 +54,14 @@ class _HtmlConvertDemoState extends State<HtmlConvertDemo> {
           Html(
             shrinkWrap: true,
             data: _html,
-            onImageTap: (src) {
-              print(src);
-              Navigator.push(context, CustomRouteImage(imageShow(src)));
+            onImageTap: (
+              String? url,
+              RenderContext rContext,
+              Map<String, String> attributes,
+              dom.Element? element,
+            ) {
+              print(url);
+              Navigator.push(context, CustomRouteImage(imageShow(url!)));
             },
           )
         ],
@@ -79,8 +84,7 @@ class _HtmlConvertDemoState extends State<HtmlConvertDemo> {
       );
 
   void _showHtml(WebViewController controller, BuildContext context) async {
-    final String contentBase64 =
-        base64Encode(const Utf8Encoder().convert(_html));
+    final String contentBase64 = base64Encode(const Utf8Encoder().convert(_html));
     await controller.loadUrl('data:text/html;base64,$contentBase64');
   }
 }

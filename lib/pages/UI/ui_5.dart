@@ -1,6 +1,6 @@
-import 'package:flutter/material.dart';
 import 'dart:math' as math;
 
+import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 
 class Ui5 extends StatefulWidget {
@@ -48,25 +48,23 @@ class _LeftWidgetState extends State<LeftWidget> {
   Offset lastCheckOffset = Offset(44.5, 717.1);
 
   Offset animationOffset = Offset(0, 0);
-  Animation _animation;
 
   @override
   void initState() {
     checkIndex = _list.length - 1;
     super.initState();
 
-    SchedulerBinding.instance.endOfFrame.then((value) {
+    SchedulerBinding.instance!.endOfFrame.then((value) {
       calcuteCheckOffset();
     });
   }
 
   void calcuteCheckOffset() {
     lastCheckOffset = checkedPositionOffset;
-    RenderBox renderBox = _keys[checkIndex].currentContext.findRenderObject();
+    RenderBox renderBox = _keys[checkIndex].currentContext!.findRenderObject() as RenderBox;
     Offset widgetOffset = renderBox.localToGlobal(Offset(0, 0));
     Size widgetSise = renderBox.size;
-    checkedPositionOffset = Offset(widgetOffset.dx + widgetSise.width,
-        widgetOffset.dy + widgetSise.height);
+    checkedPositionOffset = Offset(widgetOffset.dx + widgetSise.width, widgetOffset.dy + widgetSise.height);
     print('$checkedPositionOffset');
   }
 
@@ -85,9 +83,9 @@ class _LeftWidgetState extends State<LeftWidget> {
               children: _buildList(),
             ),
           ),
-          TweenAnimationBuilder(
+          TweenAnimationBuilder<double>(
             curve: Curves.easeInOutBack,
-            builder: (BuildContext context, value, Widget child) {
+            builder: (BuildContext context, value, Widget? child) {
               return Positioned(
                 top: value,
                 left: checkedPositionOffset.dx,
@@ -96,8 +94,7 @@ class _LeftWidgetState extends State<LeftWidget> {
                 ),
               );
             },
-            tween: Tween(
-                begin: lastCheckOffset.dy, end: checkedPositionOffset.dy),
+            tween: Tween(begin: lastCheckOffset.dy, end: checkedPositionOffset.dy),
             duration: Duration(milliseconds: 200),
           )
         ],
@@ -134,8 +131,7 @@ class _LeftWidgetState extends State<LeftWidget> {
             onTap: () {
               indexChecked(i);
             },
-            child: VerticalText(_list[i], _keys[i],
-                checkIndex == i)),
+            child: VerticalText(_list[i], _keys[i], checkIndex == i)),
       ));
     }
     _widget_list.add(Padding(
@@ -180,18 +176,10 @@ class CheckPointPainter extends CustomPainter {
 
     paint.color = Color(0xffED305A);
 
-    canvas.drawArc(
-        Rect.fromCircle(center: Offset(offset.dx, offset.dy), radius: radius),
-        startAngle,
-        sweepAngle,
-        false,
-        paint);
+    canvas.drawArc(Rect.fromCircle(center: Offset(offset.dx, offset.dy), radius: radius), startAngle, sweepAngle, false, paint);
 
     paint.color = Color(0xff98162d);
-    canvas.drawCircle(
-        Offset(offset.dx - pointRadius / 2, offset.dy - pointRadius / 2),
-        pointRadius,
-        paint);
+    canvas.drawCircle(Offset(offset.dx - pointRadius / 2, offset.dy - pointRadius / 2), pointRadius, paint);
   }
 
   @override
@@ -228,9 +216,8 @@ class RightWidget extends StatefulWidget {
   _RightWidgetState createState() => _RightWidgetState();
 }
 
-class _RightWidgetState extends State<RightWidget>
-    with TickerProviderStateMixin {
-  TabController _tabController;
+class _RightWidgetState extends State<RightWidget> with TickerProviderStateMixin {
+  late TabController _tabController;
 
   @override
   void initState() {

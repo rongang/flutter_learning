@@ -22,7 +22,7 @@ The navigation delegate is set to block navigation to the youtube website.
 class WebViewExample extends StatefulWidget {
   final String url;
 
-  const WebViewExample({Key key, this.url = 'https://flutter.dev'}) : super(key: key);
+  const WebViewExample({Key? key, this.url = 'https://flutter.dev'}) : super(key: key);
   @override
   _WebViewExampleState createState() => _WebViewExampleState();
 }
@@ -95,7 +95,7 @@ class _WebViewExampleState extends State<WebViewExample> {
           if (controller.hasData) {
             return FloatingActionButton(
               onPressed: () async {
-                final String url = await controller.data.currentUrl();
+                final String url = (await controller.data!.currentUrl())!;
                 Scaffold.of(context).showSnackBar(
                   SnackBar(content: Text('Favorited $url')),
                 );
@@ -134,25 +134,25 @@ class SampleMenu extends StatelessWidget {
           onSelected: (MenuOptions value) {
             switch (value) {
               case MenuOptions.showUserAgent:
-                _onShowUserAgent(controller.data, context);
+                _onShowUserAgent(controller.data!, context);
                 break;
               case MenuOptions.listCookies:
-                _onListCookies(controller.data, context);
+                _onListCookies(controller.data!, context);
                 break;
               case MenuOptions.clearCookies:
                 _onClearCookies(context);
                 break;
               case MenuOptions.addToCache:
-                _onAddToCache(controller.data, context);
+                _onAddToCache(controller.data!, context);
                 break;
               case MenuOptions.listCache:
-                _onListCache(controller.data, context);
+                _onListCache(controller.data!, context);
                 break;
               case MenuOptions.clearCache:
-                _onClearCache(controller.data, context);
+                _onClearCache(controller.data!, context);
                 break;
               case MenuOptions.navigationDelegate:
-                _onNavigationDelegateExample(controller.data, context);
+                _onNavigationDelegateExample(controller.data!, context);
                 break;
             }
           },
@@ -284,7 +284,7 @@ class NavigationControls extends StatelessWidget {
           (BuildContext context, AsyncSnapshot<WebViewController> snapshot) {
         final bool webViewReady =
             snapshot.connectionState == ConnectionState.done;
-        final WebViewController controller = snapshot.data;
+        final WebViewController controller = snapshot.requireData;
         return Row(
           children: <Widget>[
             IconButton(

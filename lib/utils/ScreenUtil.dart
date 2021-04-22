@@ -5,7 +5,7 @@ class ScreenUtil {
   static int height = 1280;
   static double dpr = 1.0;
 
-  static init({int width, int height, double dpr}) {
+  static init({required int width, required int height, required double dpr}) {
     ScreenUtil.width = width;
     ScreenUtil.height = height;
     ScreenUtil.dpr = dpr;
